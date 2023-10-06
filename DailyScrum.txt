@@ -12,12 +12,9 @@ Each member writes down answers to 3 questions in the following format:
 DAILY SCRUMS
 
 2023/10/06 Lewis
-
-
-
-
-
-
+1. have not yet made front end of URLs
+2. Try to get root, register, login URLs running on the frontend
+3. Testing front end without connecting it to apis if they are not yet made
 
 
 2023/10/06 Miral
