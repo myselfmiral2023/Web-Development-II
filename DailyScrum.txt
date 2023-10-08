@@ -24,3 +24,7 @@ DAILY SCRUMS
 1. Created MySQL on Azure for cloud database.
 2. Plan work on creating tables and basic APIs for tables.
 3. I need to see how joining of tables will work in APIs, and schedule of Vehicles.
+
+2023/10/08 Miral
+1. Created user table, route, controller and model files.
+2. Created login, logout, and register APIs.
