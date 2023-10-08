@@ -21,3 +21,10 @@ DAILY SCRUMS
 1. Created MySQL on Azure for cloud database.
 2. Plan work on creating tables and basic APIs for tables.
 3. I need to see how joining of tables will work in APIs, and schedule of Vehicles.
+
+
+
+2023/10/06 Lewis
+1. have not yet made all register and login url components
+2. finish getting the components for these pages built and working(front end only)
+3. react prop drilling is still a bit confusing to me
