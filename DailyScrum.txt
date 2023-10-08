@@ -24,7 +24,7 @@ DAILY SCRUMS
 
 
 
-2023/10/06 Lewis
+2023/10/07 Lewis
 1. have not yet made all register and login url components
 2. finish getting the components for these pages built and working(front end only)
 3. react prop drilling is still a bit confusing to me
