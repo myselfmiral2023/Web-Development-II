@@ -32,3 +32,15 @@ DAILY SCRUMS
 2023/10/08 Miral
 1. Created user table, route, controller and model files.
 2. Created login, logout, and register APIs.
+
+
+2023/10/09 Lewis
+1. have not yet connected frontend to backend endpoints
+2. connecting registration, login, and home page frontend to backend
+3. Authentication on the frontend
+
+
+2023/10/09 Miral
+1. havent finished apis connected to the data base
+2. created vehicles table, vehicle booking table, reviews table, vehiclebooking details
+3. connect database to apis
