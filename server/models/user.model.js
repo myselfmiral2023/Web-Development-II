@@ -1,5 +1,5 @@
 // models/user.js
-import { db } from "../config/db.js";
+import { sql } from "../config/db.js";
 import bcrypt from "bcryptjs";
 
 // constructor
@@ -13,7 +13,7 @@ const User = function (user) {
 
   User.findByEmail = (email, result) => {
     const q = "SELECT * FROM users WHERE email = ?";
-    db.query(q, [email], (err, data) => {
+    sql.query(q, [email], (err, data) => {
       if (err) return result(err);
       result(null, data[0] || null);
     });
@@ -28,7 +28,7 @@ const User = function (user) {
     //const values = [user.email, hash];
     user.password = hash;
 
-    db.query(q, user, (err) => {
+    sql.query(q, user, (err) => {
       if (err) return result(err);
       result(null);
     });
