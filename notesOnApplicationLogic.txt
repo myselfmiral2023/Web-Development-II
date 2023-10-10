@@ -1,0 +1,25 @@
+someone wants to rent a car from october 12th - october 14th
+
+come driven.com
+
+register -> login - have an account
+
+they enter their desired dates
+
+RETURNED FROM SEARCH - any cars that have uninterrupted availability from customer booking request START DATE
+until customer booking request END DATE
+
+array of car objects - DO WE need the vehicle type(model) table in this logic?
+
+if we want to enable a car first search - a customer NEEDS a minivan, so we provide them the earliest next minivan avialbility - starting at the soonest return time of a minievan vehicle
+
+
+admin wants to add a new vehicle to the roster
+
+admin has an individual honda accord
+
+-> a new type (model) of car is added to the type table
+ types in our type table, for which we have no concrete vehicles? I dont think its an issue
+ this is important because the field in the vehicles table for model (type) is NOT NULL, so adding a new vehicle which a new type of car for the store, will require an update to the type table FIRST
+
+-> a new individual vehicle is added to the vehicle table
