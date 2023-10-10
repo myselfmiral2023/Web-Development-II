@@ -44,3 +44,15 @@ DAILY SCRUMS
 1. havent finished apis connected to the data base
 2. created vehicles table, vehicle booking table, reviews table, vehiclebooking details
 3. connect database to apis
+
+
+2023/10/10 Lewis
+1. need to finish the routing program for URLs
+2. finishing routing, hooking up the paths to apis (still)
+3. json server data, accurate simulation of DB
+
+
+2023/10/09 Miral
+1. still working on the vehicles api, not finished yet
+2. (cont from yesterday )created vehicles table, vehicle booking table, reviews table, vehiclebooking details
+3. connect database to apis
