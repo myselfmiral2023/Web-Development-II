@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config({ path: '../.env'})
+console.log("USERCONTROLLER env variable test:" + process.env.JWT_KEY)
 // controllers/userController.js
 import User from "../models/user.model.js";
 import jwt from "jsonwebtoken";
