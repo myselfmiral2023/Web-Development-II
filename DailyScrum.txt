@@ -52,7 +52,19 @@ DAILY SCRUMS
 3. json server data, accurate simulation of DB
 
 
-2023/10/09 Miral
+2023/10/10 Miral
 1. still working on the vehicles api, not finished yet
 2. (cont from yesterday )created vehicles table, vehicle booking table, reviews table, vehiclebooking details
 3. connect database to apis
+
+
+2023/10/11 Lewis
+1. need to finish handling authorization and authentication (generating user specific results)
+2. make sure auth + authentication is done, have frontend and backend hooked up, test miral's doneNeeds testing
+3. JWT handling on the frontend (localStorage)
+
+
+2023/10/11 Miral
+1. havent yet tested apis, postman testing etc.
+2. testing apis researching blob and file upload
+3. nothing today
