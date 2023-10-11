@@ -1,4 +1,4 @@
-import mysql from "mysql"
+import mysql from "mysql2"
 
 export const sql = mysql.createConnection({
   host:"fsd08carbooking.mysql.database.azure.com",
