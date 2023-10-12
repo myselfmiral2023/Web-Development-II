@@ -70,13 +70,13 @@ DAILY SCRUMS
 3. nothing today
 
 
-2023/10/11 Lewis
+2023/10/12 Lewis
 1. sequelize implementation + auth implementation
 2. make sure we can use all apis as before but with sequelize
 3. joins and associatioins in sequelize
 
 
-2023/10/11 Miral
+2023/10/12 Miral
 1. create the vm, install necessary packaging
 2. finish vm setup, blob storage, how to upload photos
 3. how to implement a file upload in the node backend
