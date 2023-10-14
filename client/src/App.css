@@ -7,3 +7,22 @@
 .App {
   text-align: center;
 }
+
+main {
+  display: flex;
+  justify-content: center;
+
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.loginContainer input {
+  font-size: 1rem;
+  width: 200px;
+  height: 48px;
+  border-radius: 15px;
+}

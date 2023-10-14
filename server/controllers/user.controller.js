@@ -5,8 +5,15 @@ console.log("USERCONTROLLER env variable test:" + process.env.JWT_KEY)
 import User from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import validator from 'validator';
 
 export const register = (req, res) => {
+  const fullName = req.body.fullName;
+  const email = req.body.email;
+  const password = req.body.password;
+
+
+
   // Validate Email
   // var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   // if (!emailRegex.test(String(req.body.email).toLowerCase())) {
@@ -74,3 +81,7 @@ export const logout = (req, res) => {
     secure: true,
   }).status(200).json("User has been logged out.");
 };
+
+export const getAll = (req, res) => {
+  
+}

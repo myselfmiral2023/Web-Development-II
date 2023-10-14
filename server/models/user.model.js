@@ -34,5 +34,16 @@ const User = function (user) {
     });
   }
 
+//   User.getAll = (users, result) => {
+//     try {
+//       const query = "SELECT * FROM users";
+//       sql.query(q, (err, data) => {
+//         if(err) return result(err)
+//       })
+//     } catch (error) {
+      
+//     }
+//   }
+
 
 export default User;
