@@ -68,3 +68,26 @@ DAILY SCRUMS
 1. havent yet tested apis, postman testing etc.
 2. testing apis researching blob and file upload
 3. nothing today
+
+
+2023/10/12 Lewis
+1. sequelize implementation + auth implementation
+2. make sure we can use all apis as before but with sequelize
+3. joins and associatioins in sequelize
+
+
+2023/10/12 Miral
+1. create the vm, install necessary packaging
+2. finish vm setup, blob storage, how to upload photos
+3. how to implement a file upload in the node backend
+
+2023/10/12 Lewis
+1. still working on sequelize implementation
+2. finishe sequelize and update rest of back end accordingly
+3. different async syntax used by the group members
+
+
+2023/10/12 Miral
+1. getting hosting, file upload, persistent storage hooked up
+2. working on those for today
+3. getting these hostings hooked in with the rest of the app
