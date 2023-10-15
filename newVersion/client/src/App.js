@@ -7,13 +7,13 @@ import Register from './pages/Register'
 
 function App() {
   return (
-    <div className="App">
+    <main className="App">
         <Header/>
       <Routes>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
       </Routes>
-    </div>
+    </main>
   );
 }
 

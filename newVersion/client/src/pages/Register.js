@@ -1,4 +1,5 @@
-import React from 'react'
+import {useRef, useState, useEffect} from 'react'
+import {faCheck, faTimes, faInfoCircle} from ''
 
 const Register = () => {
   return (

@@ -1,9 +1,10 @@
 import React from 'react'
 import {useEffect, useState} from 'react'
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 const Login = () => {
-
+    const navigate = useNavigate();
     const [logEmail, setLogEmail] = useState('');
     const [logPass, setLogPass] = useState('');
     const [loginMsg, setLoginMsg] = useState('');
@@ -16,6 +17,11 @@ const Login = () => {
             setLoginStatus(true);
             const fullName = response.data.fullname;
             setLoginMsg(`Welcome back ${fullName}`);
+            if (response.status === 200){
+              setTimeout(() => {
+                navigate("/search");
+              }, 2000)
+            }
         } catch (error) {
             if (error.response) {
                 console.error(error.response.data);
@@ -25,6 +31,7 @@ const Login = () => {
                 console.error(`Error: ${error.message}`);
               }
             }
+            
         }
     
 
@@ -36,7 +43,7 @@ const Login = () => {
           <input id="logEmail" type="email" onChange={(e) => setLogEmail(e.target.value)} />
           <label htmlFor="logPassword">Password:</label>
           <input id="logPassword" type="text" onChange={(e) => setLogPass(e.target.value)} />
-          <button onClick={login}>Login</button>
+          <button onClick={login} className='regLogButton'>Login</button>
 
           {loginStatus && (
             <div>{loginMsg}</div>

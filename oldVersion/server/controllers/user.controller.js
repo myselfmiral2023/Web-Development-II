@@ -8,6 +8,8 @@ import bcrypt from "bcryptjs";
 import validator from 'validator';
 
 export const register = (req, res) => {
+  // console.log("registration request reached server")
+
   const fullName = req.body.fullName;
   const email = req.body.email;
   const password = req.body.password;
@@ -38,19 +40,21 @@ export const register = (req, res) => {
 
   // Check existing user
   User.findByEmail(req.body.email, (err, user) => {
+    // console.log("request reached find by email")
     if (err) return res.status(500).json(err);
     if (user) return res.status(409).json("User already exists!");
 
-    // Create a auction
+    // Create a User
     var user = new User({
       email: req.body.email,
-      fullname:req.body.fullname,
+      fullName:req.body.fullName,
       password: req.body.password,
       role: 'user'
   });
 
     // Create a new user
     User.createUser(user, (err) => {
+      // console.log("request reached createUser")
       if (err) return res.status(500).json(err);
       return res.status(200).json({message: "User has been created."});
     });
