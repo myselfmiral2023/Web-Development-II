@@ -8,6 +8,10 @@ they enter their desired dates
 
 RETURNED FROM SEARCH - any cars that have uninterrupted availability from customer booking request START DATE
 until customer booking request END DATE
+-> this will work by querying the database for all 'Vehicle Bookings' excluding all those bookings where the ENDDATE is between 
+the searched start date and and the searched end date (so where endate > searchStart AND enddate < searchEnd) THEN join the vehicles
+referenced by vehicle id in these rows returned from vehicle bookings, THEN return the types referenced by typeid on these rows returned
+from vehicles table : RESULT DISPLAYED TO CLIENT: these are the types of cars available for your entered dates
 
 array of car objects - DO WE need the vehicle type(model) table in this logic?
 

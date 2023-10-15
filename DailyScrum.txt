@@ -81,13 +81,25 @@ DAILY SCRUMS
 2. finish vm setup, blob storage, how to upload photos
 3. how to implement a file upload in the node backend
 
-2023/10/12 Lewis
+2023/10/13 Lewis
 1. still working on sequelize implementation
 2. finishe sequelize and update rest of back end accordingly
 3. different async syntax used by the group members
 
 
-2023/10/12 Miral
+2023/10/13 Miral
 1. getting hosting, file upload, persistent storage hooked up
 2. working on those for today
 3. getting these hostings hooked in with the rest of the app
+
+2023/10/15 Lewis
+1. 
+2. 
+3. 
+
+
+2023/10/15 Miral
+1. 
+2. 
+3. 
+
