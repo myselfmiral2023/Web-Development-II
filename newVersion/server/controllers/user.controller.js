@@ -18,6 +18,16 @@ module.exports = {
             }
         },
 
+        findUser: async (req, res) => {
+            try {
+                const email = req.body.email;
+                const response = await Users.findAll({where: {email: email}});
+                res.json(response);
+              } catch (error) {
+                console.log(error);
+              }
+        },
+
 
 
 }
