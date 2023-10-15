@@ -20,13 +20,34 @@ export const uploadFile = async (req, res) => {
 
 // Get file 
 export const getFile = async (req, res) => {
-  const fileName = req.params.fileName;
-  const blockBlobClient = containerClient.getBlockBlobClient(fileName);
-
-  const downloadBlockBlobResponse = await blockBlobClient.download();
-  res.set('Content-Type', 'image/jpeg');
-  res.status(200).send(downloadBlockBlobResponse.readableStreamBody);
+  
+  try {
+    const fileName = req.params.fileName;
+    const blockBlobClient = containerClient.getBlockBlobClient(fileName);
+    // const downloadBlockBlobResponse = await blockBlobClient.download();
+    // res.set('Content-Type', 'image/jpeg');
+    //res.status(200).send(downloadBlockBlobResponse.readableStreamBody);
+    res.status(200).send(blockBlobClient.url);
+  } catch (error) {
+    if (error.statusCode) {
+      res.status(error.statusCode).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: 'Failed to Get' });
+    }
+  }
 };
+// async function streamToBuffer(readableStream) {
+//   return new Promise((resolve, reject) => {
+//       const chunks = [];
+//       readableStream.on('data', (data) => {
+//           chunks.push(data instanceof Buffer ? data : Buffer.from(data));
+//       });
+//       readableStream.on('end', () => {
+//           resolve(Buffer.concat(chunks));
+//       });
+//       readableStream.on('error', reject);
+//   });
+// }
 
 // Delete file
 export const deleteFile = async (req, res) => {
