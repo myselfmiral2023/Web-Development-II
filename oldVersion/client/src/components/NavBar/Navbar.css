@@ -1,8 +1,9 @@
 .navbar{
-    height: 62px;
+    height: 124px;
     background-color: black;
     display: flex;
     justify-content: center;
+    margin-bottom: 5vh;
 }
 
 .navContainer {
@@ -33,5 +34,22 @@
 }
 
 .navButton:hover{
-    font-weight: 700;
+    text-decoration: underline;
+}
+
+.profileButton {
+    background-color: darkorange;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+    border-radius: 1rem;
+    height: 2rem;
+}
+
+.profileButton:enabled:hover {
+    opacity: 90%;
+}
+.profileButton:disabled {
+    background-color: grey;
+    cursor: default;
 }

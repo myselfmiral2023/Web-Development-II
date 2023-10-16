@@ -1,12 +1,18 @@
 import React from 'react'
-import {useEffect, useState, useContext} from 'react'
-import axios from 'axios';
+import {useEffect, useState, useContext, useRef} from 'react'
+import axios from '../api/axios'
 import {useNavigate} from 'react-router-dom';
 import "./Login.css"
 import { AuthContext } from '../contexts/AuthContext';
+import Snackbar from '../components/Snackbar/Snackbar';
+
+const LOGIN_URL = '/user/login';
+
 
 const Login = () => {
     const navigate = useNavigate();
+
+    // const snackbarRef = useRef(null);
 
     const [credentials, setCredentials] = useState({
         email: undefined,
@@ -17,8 +23,8 @@ const Login = () => {
 
     const [logEmail, setLogEmail] = useState('');
     const [logPass, setLogPass] = useState('');
-    const [loginMsg, setLoginMsg] = useState('');
     const [loginStatus, setLoginStatus] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
     const [errorStatus, setErrorStatus] = useState(false);
 
     const handleBlur = (e) => {
@@ -32,29 +38,38 @@ const Login = () => {
       dispatch({type:"LOGIN_START"});
     
         try {
-            const response = await axios.post('http://localhost:8080/api/user/login', credentials)
+            const response = await axios.post(LOGIN_URL, credentials, 
+            {
+              headers: {'Content-Type' : 'application/json'},
+              withCredentials: true
+            })
+            setErrorStatus(false);
             dispatch({type: "LOGIN_SUCCESS", payload: response.data})
             console.log(response);
             setLoginStatus(true);
             const fullName = response.data.fullname;
-            setLoginMsg(`Welcome back ${fullName}`);
-            if (response.status === 200){
-              setTimeout(() => {
-                navigate("/");
-              }, 4000)
-            }
+            // if (response.status === 200){
+            //   setTimeout(() => {
+            //     navigate("/");
+            //   }, 4000)
+            // }
         } catch (error) {
+          console.log(error)
           setErrorStatus(true);
-          dispatch({type: "LOGIN_FAILURE", payload: error.response.data})
+          
             if (error.response) {
-              setLoginMsg(error.response.data);
+              dispatch({type: "LOGIN_FAILURE", payload: error.response.data})
+              setErrorMsg(error.response.data);
                 console.error(error.response.data);
                 console.error(error.response.status);
                 console.error(error.response.headers);
               } else {
+                dispatch({type: "LOGIN_FAILURE", payload: "Network Error"})
+                setErrorMsg(error.message);
                 console.error(`Error: ${error.message}`);
               }
             }
+            
             
         }
     
@@ -70,10 +85,13 @@ const Login = () => {
           <button disabled={loading} onClick={login} className='regLogButton'>Login</button>
 
           {loginStatus && (
-            <h3>{loginMsg}</h3>
+            <>
+            
+            <Snackbar type="success" message="Success! You are now logged in."/>
+            </>
           )}
           {errorStatus && (
-            <h3>{loginMsg}</h3>
+            <Snackbar type="failure" message={errorMsg}/>
           )}
     </div>
     </main>

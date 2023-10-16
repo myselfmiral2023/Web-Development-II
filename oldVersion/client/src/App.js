@@ -7,6 +7,7 @@ import SearchDate from './components/Calendar/SearchDate';
 import './components/Calendar/Calendar.css'
 import Home from './pages/Home'
 import Types from './pages/Types'
+import Profile from './pages/Profile';
 
 
 
@@ -18,6 +19,7 @@ function App() {
         <NavBar/>
       <Routes>
         <Route path="/" element={<Home/>}/>
+        <Route path="/profile" element={<Profile/>}/>
         <Route path="/types" element={<Types/>}/>
         <Route path="/search" element={<SearchDate/>}/>
         <Route path="/login" element={<Login/>}/>
