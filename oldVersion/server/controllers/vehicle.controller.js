@@ -58,6 +58,28 @@ const findAll = (req, res) => {
     });
 };
 
+const findAllAvailable = (req, res) => {
+    const token = req.cookies.access_token;
+    if (!token) return res.status(401).json("Not authenticated!");
+
+    jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+        if (err) return res.status(403).json("Token is not valid!");
+
+        // Extract the vehicletype parameter from the request
+        const startDate = req.params.startDate; // Access startDate from the route path
+        const endDate = req.params.endDate; 
+        Vehicle.getAllAvailable(startDate, endDate, (err, data) => {
+            if (err) {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while retrieving available Vehicles."
+                });
+            } else {
+                res.json(data);
+            }
+        });
+    });
+};
+
 const findOne = (req, res) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).json("Not authenticated!");
@@ -145,4 +167,4 @@ const remove = (req, res) => {
     });
 };
 
-export { create, findAll, findOne, update, remove };
+export { create, findAll, findOne, update, remove, findAllAvailable };
