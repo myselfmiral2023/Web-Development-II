@@ -93,13 +93,24 @@ DAILY SCRUMS
 3. getting these hostings hooked in with the rest of the app
 
 2023/10/15 Lewis
-1. 
-2. 
-3. 
+1. connecting the routes for the login, registration, home page
+2. finish normal routing, begin protected routes
+3. useContext giving some strange errors
 
 
 2023/10/15 Miral
-1. 
-2. 
-3. 
+1. havent finished blob storage and api call to blob storage
+2. will be working on that
+3. had some issues with the GET request to the persistent storage
+
+2023/10/16 Lewis
+1. havent finished authentication routing, protected routes for admin
+2. working on admin routing and api calls to backend
+3. useContext still a tough hook to work with, debugging it
+
+
+2023/10/16 Miral
+1. working on blob controllers, routing, http requests for blob storage
+2. will be working on that, assistance on pages
+3. testing on GET apis 
 
