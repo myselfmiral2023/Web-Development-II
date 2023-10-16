@@ -3,9 +3,9 @@ import { sql } from "../config/db.js";
 // Constructor
 const Vehicle = function (vehicle) {
   this.name = vehicle.name,
-  this.company = vehicle.company,
-  this.perdayrent = vehicle.perdayrent,
-  this.vehicletypeid = vehicle.vehicletypeid
+    this.company = vehicle.company,
+    this.perdayrent = vehicle.perdayrent,
+    this.vehicletypeid = vehicle.vehicletypeid
 };
 
 // Create a vehicle
@@ -45,24 +45,56 @@ Vehicle.findById = (id, result) => {
 
 // Return all vehicles
 Vehicle.getAll = (vehicletype, result) => {
-    let query = "SELECT * FROM vehicle";
+  let query = "SELECT * FROM vehicle";
 
-    // Check if vehicletype is provided in the request body
-    if (vehicletype) {
-        query += ` WHERE vehicletypeid = '${vehicletype}'`; // Assuming 'vehicletype' is the column name in your database
+  // Check if vehicletype is provided in the request body
+  if (vehicletype) {
+    query += ` WHERE vehicletypeid = '${vehicletype}'`; // Assuming 'vehicletype' is the column name in your database
+  }
+
+  sql.query(query, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
     }
 
-    sql.query(query, (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(err, null);
-            return;
-        }
-
-        console.log("vehicles: ", res);
-        result(null, res);
-    });
+    console.log("vehicles: ", res);
+    result(null, res);
+  });
 };
+
+
+// Return all vehicles
+Vehicle.getAllAvailable = (startDate, endDate, result) => {
+  // Check if startDate and endDate are provided and are in the correct format
+  if (!startDate || !endDate || !isValidDate(startDate) || !isValidDate(endDate)) {
+    return res.status(400).json({ error: 'Invalid date parameters' });
+  }
+
+  // Check if endDate is after startDate
+  if (new Date(endDate) <= new Date(startDate)) {
+    return res.status(400).json({ error: 'End date must be after start date' });
+  }
+  let query = `SELECT V.* FROM Vehicle V 
+  LEFT JOIN VehicleBooking VB ON V.id = VB.vehicleid 
+  WHERE VB.startdate IS NULL OR (VB.startdate < ${startDate} OR VB.enddate > ${endDate});`;
+
+  sql.query(query, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    console.log("vehicles: ", res);
+    result(null, res);
+  });
+};
+
+function isValidDate(dateString) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(dateString);
+}
 
 // Update a vehicle
 Vehicle.updateById = (id, vehicle, result) => {
