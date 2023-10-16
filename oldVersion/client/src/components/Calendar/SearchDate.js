@@ -3,7 +3,7 @@ import Calendar from 'react-calendar'
 
 const SearchDate = () => {
   return (
-    <div>SearchDate</div>
+    <div><Calendar minDate={new Date()} view='month' onClickDay={(date) => console.log(date)} /></div>
   )
 }
 
