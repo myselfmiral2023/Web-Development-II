@@ -5,7 +5,7 @@ const create = (req, res) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).json("Not authenticated!");
 
-    jwt.verify(token, "jwtkey", (err) => {
+    jwt.verify(token, process.env.JWT_KEY, (err) => {
         if (err) return res.status(403).json("Token is not valid!");
 
         // Validate request
@@ -41,7 +41,7 @@ const findAll = (req, res) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).json("Not authenticated!");
 
-    jwt.verify(token, "jwtkey", (err) => {
+    jwt.verify(token, process.env.JWT_KEY, (err) => {
         if (err) return res.status(403).json("Token is not valid!");
 
         const typename = req.params.typename || "";
@@ -62,7 +62,7 @@ const findOne = (req, res) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).json("Not authenticated!");
 
-    jwt.verify(token, "jwtkey", (err) => {
+    jwt.verify(token, process.env.JWT_KEY, (err) => {
         if (err) return res.status(403).json("Token is not valid!");
 
         VehicleType.findById(req.params.id, (err, data) => {
@@ -87,7 +87,7 @@ const update = (req, res) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).json("Not authenticated!");
 
-    jwt.verify(token, "jwtkey", (err) => {
+    jwt.verify(token, process.env.JWT_KEY, (err) => {
         if (err) return res.status(403).json("Token is not valid!");
 
         // Validate Request
@@ -124,7 +124,7 @@ const remove = (req, res) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).json("Not authenticated!");
 
-    jwt.verify(token, "jwtkey", (err) => {
+    jwt.verify(token, process.env.JWT_KEY, (err) => {
         if (err) return res.status(403).json("Token is not valid!");
 
         VehicleType.remove(req.params.id, (err, data) => {
