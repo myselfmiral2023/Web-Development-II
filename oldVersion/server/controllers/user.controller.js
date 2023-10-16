@@ -10,7 +10,7 @@ import validator from 'validator';
 export const register = (req, res) => {
   // console.log("registration request reached server")
 
-  const fullName = req.body.fullName;
+  const fullname = req.body.fullname;
   const email = req.body.email;
   const password = req.body.password;
 
@@ -47,7 +47,7 @@ export const register = (req, res) => {
     // Create a User
     var user = new User({
       email: req.body.email,
-      fullName:req.body.fullName,
+      fullname:req.body.fullname,
       password: req.body.password,
       role: 'user'
   });
