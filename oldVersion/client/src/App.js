@@ -1,6 +1,6 @@
 import './App.css';
 import {Routes, Link, Route} from 'react-router-dom';
-import Header from './components/Header/Header';
+import NavBar from './components/NavBar/Navbar';
 import Login from './pages/Login'
 import Register from './pages/Register'
 import SearchDate from './components/Calendar/SearchDate';
@@ -10,10 +10,12 @@ import Types from './pages/Types'
 
 
 
+
 function App() {
   return (
     <div className="App">
-        
+      
+        <NavBar/>
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/types" element={<Types/>}/>
@@ -21,6 +23,7 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
       </Routes>
+      
     </div>
   );
 }

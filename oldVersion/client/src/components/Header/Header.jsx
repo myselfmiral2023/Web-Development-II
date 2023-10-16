@@ -1,11 +1,28 @@
-import React from 'react'
+import {useState} from 'react'
 import { Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCar, faTruck, faDollarSign, faCarSide, faCalendarDays, faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import "./Header.css"
+import {DateRange} from 'react-date-range';
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import {format} from 'date-fns'
 
 
 const Header = () => {
+
+  
+
+    const [date, setDate] = useState([
+      {
+        startDate: new Date(),
+        endDate: new Date(),
+        key: 'selection'
+      }
+    ])
+
+    const [openDate, setOpenDate] = useState(false);
+
   return (
       <div className="headerContainer">
         <div className="headerList">
@@ -33,9 +50,16 @@ const Header = () => {
           </div>
           <div className="headerSearchItem">
             <span><FontAwesomeIcon icon={faArrowRight}/></span>
+            <span onClick={() => openDate ? setOpenDate(false) : setOpenDate(true)}>{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(date[0].endDate, "MM/dd/yyyy")}`}</span>
+            {openDate && <DateRange
+              editableDateInputs={true}
+              onChange={(item) => setDate([item.selection])}
+              ranges={date}
+              className='date'
+            />}
           </div>
           <div className="headerSearchItem">
-            <span><FontAwesomeIcon icon={faCalendarDays}/></span>
+            <span className="searchCalendarIcon" onClick={() => openDate ? setOpenDate(false) : setOpenDate(true)}><FontAwesomeIcon icon={faCalendarDays}/></span>
           </div>
           <div className="headerSearchItem">
             <button className="headerSearchButton">Search</button>

@@ -56,3 +56,28 @@
   height: 48px;
   font-size: 1rem;
 }
+
+.headerSearchButton:hover {
+    background-color: black;
+  cursor: pointer;
+  color: aliceblue;
+  width: 100px;
+  height: 48px;
+  font-size: 1rem;
+  opacity: 50%;
+}
+
+.searchCalendarIcon {
+    font-size: 2rem;
+}
+
+.searchCalendarIcon:hover {
+    font-size: 2rem;
+    opacity: 50%;
+    cursor: pointer;
+}
+
+.date {
+    position: absolute;
+    top: 50px;
+}
