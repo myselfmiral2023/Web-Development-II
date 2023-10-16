@@ -4,58 +4,16 @@
   box-sizing: border-box;
 }
 
-.App {
+/* .App {
   font-size: 1.2rem;
   display: flex;
   justify-content: center;
   
-}
+} */
 
-main {
+/* main {
   display: flex;
   justify-content: center;
 
-}
+} */
 
-.loginContainer, .registrationContainer form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-
-.loginContainer input, .registrationContainer input {
-  font-size: 1rem;
-  width: 200px;
-  height: 48px;
-  border-radius: 15px;
-}
-
-.hide {
-  display: none;
-}
-
-.regLogButton {
-  background-color: black;
-  color: aliceblue;
-  width: 100px;
-  height: 48px;
-  font-size: 1rem;
-}
-.regLogButton:hover:enabled {
-  background-color: black;
-  cursor: pointer;
-  color: aliceblue;
-  width: 100px;
-  height: 48px;
-  font-size: 1rem;
-  opacity: 50%;
-}
-.regLogButton:disabled {
-  background-color: grey;
-  color: black;
-  width: 100px;
-  height: 48px;
-  font-size: 1rem;
-}

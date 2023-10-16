@@ -6,8 +6,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { userSchema } from "../validations/UserValidation";
-import {Link} from 'react-router-dom';
+import {Link , useNavigate} from 'react-router-dom';
 import axios from '../api/axios'
+import "./Register.css"
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{5,24}$/;
@@ -15,7 +16,8 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{5,24}$/;
 const REGISTER_URL = '/user/register'
 
 const Register = () => {
-  //YUP VALIDATION of email
+  
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +25,7 @@ const Register = () => {
       let formData = {
         email: e.target[1].value
       };
-      const isValid = await userSchema.isValid(formData);
+      const isValid = await userSchema.isValid(formData); //YUP VALIDATION of email
       console.log(isValid);
       if(isValid){
         console.log("valid credentials")
@@ -31,6 +33,12 @@ const Register = () => {
           const response = await axios.post('http://localhost:8080/api/user/register', {fullName: fullName, email: email, password: password})
           console.log(response.data)
           console.log(response.accessToken)
+          if (response.status === 201){
+            setSuccess(true);
+            setTimeout(() => {
+              navigate("/login");
+            }, 2000)
+          }
         } catch (error) {
           console.log(error);
           if (!error?.response) {
@@ -148,6 +156,7 @@ const Register = () => {
         Register
         </button>
       </form>
+      {success && <h2>Success! You may now log in to your account.</h2>}
       <p>Already Registered?</p>
       <Link to="/login">Sign in</Link>
     </section>
