@@ -69,12 +69,11 @@ Vehicle.getAll = (vehicletype, result) => {
 Vehicle.getAllAvailable = (startDate, endDate, result) => {
   // Check if startDate and endDate are provided and are in the correct format
   if (!startDate || !endDate || !isValidDate(startDate) || !isValidDate(endDate)) {
-    return res.status(400).json({ error: 'Invalid date parameters' });
+    return result({ error: 'Invalid date parameters' });
   }
-
   // Check if endDate is after startDate
-  if (new Date(endDate) <= new Date(startDate)) {
-    return res.status(400).json({ error: 'End date must be after start date' });
+  if (new Date(endDate) < new Date(startDate)) {
+    return result({ error: 'End date must be after start date' });
   }
   let query = `SELECT *
   FROM Vehicle
