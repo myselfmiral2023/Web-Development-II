@@ -76,11 +76,16 @@ Vehicle.getAllAvailable = (startDate, endDate, result) => {
   if (new Date(endDate) <= new Date(startDate)) {
     return res.status(400).json({ error: 'End date must be after start date' });
   }
-  let query = `SELECT V.* FROM Vehicle V 
-  LEFT JOIN VehicleBooking VB ON V.id = VB.vehicleid 
-  WHERE VB.startdate IS NULL OR (VB.startdate < ${startDate} OR VB.enddate > ${endDate});`;
+  let query = `SELECT *
+  FROM Vehicle
+  WHERE id NOT IN (
+      SELECT DISTINCT V.id
+      FROM Vehicle V
+      LEFT JOIN VehicleBooking VB ON V.id = VB.vehicleid
+      WHERE (VB.startdate BETWEEN ? AND ?)
+     OR (VB.enddate BETWEEN ? AND ?))`;
 
-  sql.query(query, (err, res) => {
+  sql.query(query, [startDate, endDate, startDate, endDate], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
