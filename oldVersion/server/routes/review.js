@@ -1,5 +1,5 @@
 import express from "express";
-import { create, findAll, findOne, update, remove } from "../controllers/review.controller.js";
+import { create, findAll, findOne, update, remove, findAllWithName } from "../controllers/review.controller.js";
 
 const router = express.Router();
 
@@ -10,6 +10,6 @@ router.get("/:id([0-9]+)", findOne);
 router.post("/", create);
 router.put("/:id([0-9]+)", update);
 router.delete("/:id([0-9]+)", remove);
-
+router.get("/alluser", findAllWithName);
 
 export default router;

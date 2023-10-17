@@ -45,13 +45,31 @@ Review.findById = (id, result) => {
 
 // Return all reviews
 Review.getAll = (userid, bookingid, result) => {
-    let query = "SELECT * FROM reviews";
+  let query = "SELECT * FROM reviews";
 
-    if (userid) {
-        query += ` WHERE userid = '${userid}'`;
-    } else if (bookingid) {
-        query += ` WHERE bookingid = '${bookingid}'`;
+  if (userid) {
+    query += ` WHERE userid = '${userid}'`;
+  } else if (bookingid) {
+    query += ` WHERE bookingid = '${bookingid}'`;
+  }
+
+  sql.query(query, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
     }
+
+    console.log("reviews: ", res);
+    result(null, res);
+  });
+};
+
+//reviews find with username
+Review.findAllWithName = (result) => {
+  let query = `SELECT reviews.comments, reviews.stars, users.fullname
+  FROM reviews
+  INNER JOIN users ON reviews.userid=users.id`;
 
   sql.query(query, (err, res) => {
     if (err) {

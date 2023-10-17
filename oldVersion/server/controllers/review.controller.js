@@ -152,4 +152,29 @@ const remove = (req, res) => {
     });
 };
 
-export { create, findAll, findOne, update, remove };
+
+const findAllWithName = (req, res) => {
+    // const token = req.cookies.access_token;
+    // if (!token) return res.status(401).json("Not authenticated!");
+
+    // jwt.verify(token, process.env.JWT_KEY, (err) => {
+    //     if (err) return res.status(403).json("Token is not valid!"+ err);
+
+        //Fetching by foreign key
+    // Extract the vehicletype parameter from the request
+    
+        Review.findAllWithName((err, data) => {
+            if (err) {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while retrieving Reviews."
+                });
+            } else {
+                res.json(data);
+            }
+        });
+    }
+//     );
+// };
+
+
+export { create, findAll, findOne, update, remove, findAllWithName };
