@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "../../api/axios";
+import AdminNavBar from "../../components/NavBar/AdminNavBar";
 import "./Admin.css";
 const USER_URL = "/user";
 
@@ -18,6 +19,10 @@ const AdminUsers = () => {
   }, []);
 
   return (
+
+    <>
+    <AdminNavBar/>
+    
     <article className="userList">
       Driven Auto Rental User Accounts
       <h2>Users List</h2>
@@ -44,6 +49,7 @@ const AdminUsers = () => {
         <p>No users to display</p>
       )}
     </article>
+    </>
   );
 };
 
