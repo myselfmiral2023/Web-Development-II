@@ -1,3 +1,10 @@
+for bookings / reviews/ users on the ADMIN SIDE
+we need joined queries
+
+for example: SELECT * FROM reviews.comments, reviews.stars, users.fullname
+FROM reviews
+INNER JOIN users ON reviews.userid=users.id
+
 someone wants to rent a car from october 12th - october 14th
 
 come driven.com
