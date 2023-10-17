@@ -47,7 +47,7 @@ export const register = (req, res) => {
     // Create a User
     var user = new User({
       email: req.body.email,
-      fullName:req.body.fullName,
+      fullname:req.body.fullname,
       password: req.body.password,
       role: 'user'
   });
