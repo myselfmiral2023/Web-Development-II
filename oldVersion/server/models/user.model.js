@@ -45,5 +45,22 @@ const User = function (user) {
 //     }
 //   }
 
+User.getAll = (result) => {
+  let query = "SELECT * FROM users";
+
+ 
+  sql.query(query, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    // console.log("users: ", res);
+    result(null, res);
+  });
+};
+
+
 
 export default User;

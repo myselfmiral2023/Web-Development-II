@@ -1,17 +1,20 @@
 import React from 'react'
 import {useEffect, useState, useContext, useRef} from 'react'
 import axios from '../api/axios'
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation, Link} from 'react-router-dom';
 import "./Login.css"
 import { AuthContext } from '../contexts/AuthContext';
 import useAuth from '../hooks/useAuth'
 import Snackbar from '../components/Snackbar/Snackbar';
+
 
 const LOGIN_URL = '/user/login';
 
 
 const Login = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
     // const snackbarRef = useRef(null);
 
@@ -20,7 +23,7 @@ const Login = () => {
         password: undefined
     })
 
-    const {setAuth} = useAuth();
+    const {auth, setAuth} = useAuth();
 
     const {loading, error, dispatch} = useContext(AuthContext)
 
@@ -37,7 +40,12 @@ const Login = () => {
     }
 
     const login = async () => {
-      console.log(credentials);
+      
+      // console.log("AUTH before login")
+      // for (const [key, value] of Object.entries(auth)){
+      //   console.log(`${key}: ${value}`)
+      // }
+
       dispatch({type:"LOGIN_START"});
 
       if(!logPass || !logEmail){
@@ -62,10 +70,10 @@ const Login = () => {
             console.log(role);
             const access_token = response.data.token;
             console.log(access_token);
-            setAuth(logEmail, logPass, role, access_token);
+            setAuth({user: logEmail, logPass, role, access_token});
             if (response.status === 200){
               setTimeout(() => {
-                navigate("/");
+                navigate(from, {replace: true});
               }, 4000)
             }
         } catch (error) {
@@ -86,7 +94,7 @@ const Login = () => {
             }
             setLogEmail('');
             setLogPass('');
-            
+    
         }
 
         

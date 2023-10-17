@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import "./Navbar.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
+import useAuth from "../../hooks/useAuth";
 import axios from '../../api/axios'
 import Snackbar from "../Snackbar/Snackbar";
 const LOGOUT_URL = '/user/logout';
@@ -14,10 +15,13 @@ function Navbar() {
 
   const location = useLocation();
 
+  const {auth, setAuth} = useAuth();
+
   const { user, dispatch } = useContext(AuthContext);
 
   const handleLogout = async () => {
-      
+    
+    
     try {
       const response = await axios.post(LOGOUT_URL,{}, 
       {
@@ -27,6 +31,8 @@ function Navbar() {
       dispatch({type: "LOGOUT"})
       console.log(response);
       setLoggedOut(true);
+      setAuth({});
+      
       if (response.status === 200){
         setTimeout(() => {
           setLoggedOut(false);
@@ -43,6 +49,7 @@ function Navbar() {
           console.error(`Error: ${error.message}`);
         }
       }
+      
   }
 
   return (

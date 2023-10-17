@@ -99,6 +99,23 @@ export const logout = (req, res) => {
   }).status(200).json("User has been logged out.");
 };
 
-export const getAll = (req, res) => {
-  
-}
+export const findAll = (req, res) => {
+  // const token = req.cookies.access_token;
+  // if (!token) return res.status(401).json("Not authenticated!");
+
+  // jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+  //     if (err) return res.status(403).json("Token is not valid!");
+
+      
+      User.getAll((err, data) => {
+          if (err) {
+              res.status(500).send({
+                  message: err.message || "Some error occurred while retrieving Users."
+              });
+          } else {
+              res.json(data);
+          }
+      });
+  }
+//   );
+// };
