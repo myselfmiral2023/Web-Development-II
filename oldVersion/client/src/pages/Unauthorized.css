@@ -1,0 +1,25 @@
+.containerUnauth {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+}
+
+.titleUnauth {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.symbolUnauth {
+    font-size: 3rem;
+}
+
+.backButtonUnauth {
+    margin-left: 15px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: ivory;
+    font-size: 0.9rem;
+    border-radius: 15px;
+}

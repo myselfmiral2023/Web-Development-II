@@ -38,11 +38,11 @@ const create = (req, res) => {
 };
 
 const findAll = (req, res) => {
-    const token = req.cookies.access_token;
-    if (!token) return res.status(401).json("Not authenticated!");
+    // const token = req.cookies.access_token;
+    // if (!token) return res.status(401).json("Not authenticated!");
 
-    jwt.verify(token, process.env.JWT_KEY, (err) => {
-        if (err) return res.status(403).json("Token is not valid!"+ err);
+    // jwt.verify(token, process.env.JWT_KEY, (err) => {
+    //     if (err) return res.status(403).json("Token is not valid!"+ err);
 
         //Fetching by foreign key
     // Extract the vehicletype parameter from the request
@@ -57,8 +57,9 @@ const findAll = (req, res) => {
                 res.json(data);
             }
         });
-    });
-};
+    }
+//     );
+// };
 
 const findOne = (req, res) => {
     const token = req.cookies.access_token;

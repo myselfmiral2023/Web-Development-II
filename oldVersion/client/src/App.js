@@ -33,9 +33,13 @@ function App() {
           <Route path="/types" element={<Types />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
           {/* Private routes */}
-          <Route element={<RequireAuth/>}>
+          <Route element={<RequireAuth allowedRole={"user" || "admin"}/>}>
           <Route path="/profile" element={<Profile />} />
+          </Route>
+          <Route element={<RequireAuth allowedRole={"user"}/>}>
           <Route path="/confirm" element={<Confirm />} />
+          </Route>
+          <Route element={<RequireAuth allowedRole={"admin"}/>}>
           <Route path="/admin/bookings" element={<AdminBookings />} />
           <Route path="/admin/data" element={<AdminData />} />
           <Route path="/admin/reviews" element={<AdminReviews />} />
