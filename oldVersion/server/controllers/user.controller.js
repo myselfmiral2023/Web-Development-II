@@ -47,14 +47,15 @@ export const register = (req, res) => {
     // Create a User
     var user = new User({
       email: req.body.email,
-      fullname:req.body.fullname,
+      fullName:req.body.fullName,
       password: req.body.password,
       role: 'user'
   });
 
     // Create a new user
     User.createUser(user, (err) => {
-      // console.log("request reached createUser")
+      // console.log("request reacheds createUser")
+      
       if (err) return res.status(500).json(err);
       return res.status(201).json({message: "User has been created."});
     });
@@ -77,9 +78,12 @@ export const login = (req, res) => {
     //const token = "";
     const { password, ...other } = user;
 
+    other.token = token; //need to access token on the front-end
+
     res
       .cookie("access_token", token, {
         httpOnly: true,
+        
       })
       .status(200)
       .json(other);

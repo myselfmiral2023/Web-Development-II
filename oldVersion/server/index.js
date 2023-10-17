@@ -23,7 +23,7 @@ app.use(express.json());
 
 app.use(cors({  // important for front end, as you enter new api call methods, add them to the methods 
   origin: ["http://localhost:3000"],
-  methods: ["GET", "POST",], // ad here
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // ad here
   credentials: true
 }));
 

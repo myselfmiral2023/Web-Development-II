@@ -29,6 +29,7 @@ function Navbar() {
       setLoggedOut(true);
       if (response.status === 200){
         setTimeout(() => {
+          setLoggedOut(false);
           navigate("/login");
         }, 4000)
       }
@@ -47,7 +48,7 @@ function Navbar() {
   return (
     <div className="navbar">
       <div className="navContainer">
-        <span className="brandLogo">Driven Auto Rental</span>
+        <span className="brandLogo"><span style={{fontSize: "5rem", textDecoration: "none"}}>&#x2145;</span><span style={{textDecoration: "underline"}}>riven Auto Rental</span></span>
         {user ? (
           <>
             <div>

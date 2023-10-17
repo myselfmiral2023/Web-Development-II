@@ -4,6 +4,7 @@ import axios from '../api/axios'
 import {useNavigate} from 'react-router-dom';
 import "./Login.css"
 import { AuthContext } from '../contexts/AuthContext';
+import useAuth from '../hooks/useAuth'
 import Snackbar from '../components/Snackbar/Snackbar';
 
 const LOGIN_URL = '/user/login';
@@ -18,6 +19,8 @@ const Login = () => {
         email: undefined,
         password: undefined
     })
+
+    const {setAuth} = useAuth();
 
     const {loading, error, dispatch} = useContext(AuthContext)
 
@@ -36,6 +39,12 @@ const Login = () => {
     const login = async () => {
       console.log(credentials);
       dispatch({type:"LOGIN_START"});
+
+      if(!logPass || !logEmail){
+        setErrorStatus(true);
+        setErrorMsg("Please complete all fields");
+        return;
+      }
     
         try {
             const response = await axios.post(LOGIN_URL, credentials, 
@@ -48,11 +57,17 @@ const Login = () => {
             console.log(response);
             setLoginStatus(true);
             const fullName = response.data.fullname;
-            // if (response.status === 200){
-            //   setTimeout(() => {
-            //     navigate("/");
-            //   }, 4000)
-            // }
+            console.log(fullName);
+            const role = response.data.role;
+            console.log(role);
+            const access_token = response.data.token;
+            console.log(access_token);
+            setAuth(logEmail, logPass, role, access_token);
+            if (response.status === 200){
+              setTimeout(() => {
+                navigate("/");
+              }, 4000)
+            }
         } catch (error) {
           console.log(error)
           setErrorStatus(true);
@@ -69,9 +84,14 @@ const Login = () => {
                 console.error(`Error: ${error.message}`);
               }
             }
-            
+            setLogEmail('');
+            setLogPass('');
             
         }
+
+        
+
+        
     
 
   return (
@@ -79,9 +99,9 @@ const Login = () => {
     <div className="loginContainer" >
           <h1>Login</h1>
           <label htmlFor="email">Email:</label>
-          <input id="email" type="email" onChange={(e) => setLogEmail(e.target.value)} onBlur={handleBlur} />
+          <input id="email" type="email" required onChange={(e) => setLogEmail(e.target.value)} onBlur={handleBlur} value={logEmail} />
           <label htmlFor="password">Password:</label>
-          <input id="password" type="text" onChange={(e) => setLogPass(e.target.value)} onBlur={handleBlur} />
+          <input id="password" type="text" required onChange={(e) => setLogPass(e.target.value)} onBlur={handleBlur} value={logPass}/>
           <button disabled={loading} onClick={login} className='regLogButton'>Login</button>
 
           {loginStatus && (

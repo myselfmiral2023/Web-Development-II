@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { userSchema } from "../validations/UserValidation";
 import {Link , useNavigate} from 'react-router-dom';
 import axios from '../api/axios'
+import Snackbar from "../components/Snackbar/Snackbar";
 import "./Register.css"
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
@@ -35,6 +36,7 @@ const Register = () => {
           console.log(response.accessToken)
           if (response.status === 201){
             setSuccess(true);
+            setSuccessMsg(response.data.message)
             setTimeout(() => {
               navigate("/login");
             }, 2000)
@@ -44,7 +46,7 @@ const Register = () => {
           if (!error?.response) {
             setErrMsg('No server response');
           } else {
-            setErrMsg('Registration Failed')
+            setErrMsg(error.response.data);
           }
         }
 
@@ -71,8 +73,10 @@ const Register = () => {
   const [validPassword, setValidPassword] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);
 
+  const [error, setError] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+  const [successMsg, setSuccessMsg] = useState(false);
 
   useEffect(() => {
     nameRef.current.focus();
@@ -156,7 +160,8 @@ const Register = () => {
         Register
         </button>
       </form>
-      {success && <h2>Success! You may now log in to your account.</h2>}
+      {success && <Snackbar type="success" message={successMsg}/>}
+      {error && <Snackbar type="failure" message={errMsg}/>}
       <p>Already Registered?</p>
       <Link to="/login">Sign in</Link>
     </section>
