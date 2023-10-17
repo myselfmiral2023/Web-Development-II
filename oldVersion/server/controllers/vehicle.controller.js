@@ -71,7 +71,7 @@ const findAllAvailable = (req, res) => {
         Vehicle.getAllAvailable(startDate, endDate, (err, data) => {
             if (err) {
                 res.status(500).send({
-                    message: err.message || "Some error occurred while retrieving available Vehicles."
+                    message: err.error || "Some error occurred while retrieving available Vehicles."
                 });
             } else {
                 res.json(data);
