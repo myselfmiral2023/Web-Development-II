@@ -114,3 +114,15 @@ DAILY SCRUMS
 2. will be working on that, assistance on pages
 3. testing on GET apis 
 
+
+2023/10/17 Lewis
+1. have not hooked the admin pages to the apis
+2. continue working on admin page http requests
+3. setting up queries with joins and displaying results
+
+
+2023/10/17 Miral
+1. on hosted version on azure: getting the backend up
+2. finishing that, and setting up other queries
+3. troubleshooting and debugging network issues on hosted version
+
