@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import "./Home.css";
 import {Link} from 'react-router-dom'
 import Navbar from '../components/NavBar/Navbar';
@@ -14,14 +14,61 @@ import AdminData from './Admin/AdminData'
 import AdminReviews from './Admin/AdminReviews'
 import AdminUsers from './Admin/AdminUsers'
 import AdminVehicles from './Admin/AdminVehicles'
+import axios from '../api/axios';
+
+const CARTYPE_URL = '/vehicletype'
 
 const Home = () => {
+  const [types, setTypes] = useState([]);
+
+  const getCarTypes = () => {
+    axios
+      .get(CARTYPE_URL)
+      .then((response) => {
+        setTypes(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  useEffect(() => {
+    getCarTypes();
+  }, []);
+
   return (
     <>
     <div>
         <Header/>
       
 
+    </div>
+      <h1 className='typeTitle'>Our Car Types on Offer (availability may vary by date) </h1>
+    <div className='typeList'>
+    {types?.length ? (
+        <div className="typeCard">
+          <ul>
+            {types.map((type, key) => (
+              <li key={type.id} className="typeListItem">
+                <div>
+                  <ul>
+                    <li>{type?.typename}</li>
+                    <li>{type?.year}</li>
+                  </ul>
+                </div>
+                <div className="typeListItemImage">
+                  <img src={process.env.PUBLIC_URL + '/nissanMaxima.jpg'} alt="car placeholder image" />
+                </div>
+                <div className="typeListItemButtons"> 
+                  <button>Learn More</button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p>No types to display</p>
+      )}
     </div>
     <div className='links'>
          {/* Public Links */}

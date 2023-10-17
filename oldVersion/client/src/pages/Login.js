@@ -69,6 +69,7 @@ const Login = () => {
             const role = response.data.role;
             console.log(role);
             const access_token = response.data.token;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
             console.log(access_token);
             setAuth({user: logEmail, logPass, role, access_token});
             if (response.status === 200){

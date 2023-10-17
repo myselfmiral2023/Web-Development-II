@@ -38,8 +38,10 @@ const create = (req, res) => {
 };
 
 const findAll = (req, res) => {
-    const token = req.cookies.access_token;
-    if (!token) return res.status(401).json("Not authenticated!");
+    // const token = req.cookies.access_token;
+    const {authorization} = req.headers;
+    const token = authorization.replace("Bearer ", "");
+    if (!authorization || !token) return res.status(401).json("Not authenticated!");
 
     jwt.verify(token, process.env.JWT_KEY, (err) => {
         if (err) return res.status(403).json("Token is not valid!");
