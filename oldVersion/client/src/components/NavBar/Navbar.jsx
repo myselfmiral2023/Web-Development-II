@@ -61,9 +61,13 @@ function Navbar() {
             <div>
               {`Current User:  ${user.fullname}`}
               <br />
-              <Link to="/profile">
+              { auth.role === "admin" ?
+              <Link to="/admin/vehicles">
+              <button className="profileButton" >&gt;Driven Administrator Navigation&lt;</button>
+            </Link>
+              : <Link to="/profile">
                 <button className="profileButton" disabled={location.pathname == "/profile" ? true : false}>&gt;Visit Profile&lt;</button>
-              </Link>
+              </Link>}
             </div>
             <div>
               <button className="navButton" onClick={handleLogout}>Logout</button>

@@ -12,8 +12,17 @@ const User = function (user) {
 };
 
   User.findByEmail = (email, result) => {
+
     const q = "SELECT * FROM users WHERE email = ?";
     sql.query(q, [email], (err, data) => {
+      if (err) return result(err);
+      result(null, data[0] || null);
+    });
+  }
+  User.findById = (id, result) => {
+
+    const q = "SELECT * FROM users WHERE id = ?";
+    sql.query(q, [id], (err, data) => {
       if (err) return result(err);
       result(null, data[0] || null);
     });

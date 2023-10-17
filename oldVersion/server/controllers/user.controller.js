@@ -119,3 +119,29 @@ export const findAll = (req, res) => {
   }
 //   );
 // };
+
+export const findOne = (req, res) => {
+  const id = req.params.id
+
+  const {authorization} = req.headers;
+    const token = authorization.replace("Bearer ", "");
+    
+    
+    if (!authorization || !token) return res.status(401).json("Not authenticated!");
+
+    User.findById(id, (err, data) => {
+      if (err) {
+          if (err.kind === "not_found") {
+              res.status(404).send({
+                  message: `Not user found.`
+              });
+          } else {
+              res.status(500).send({
+                  message: "Error retrieving user with id " + id
+              });
+          }
+      } else {
+          res.status(200).json(data);
+      }
+  });
+}
