@@ -31,7 +31,7 @@ const Register = () => {
       if(isValid){
         console.log("valid credentials")
         try {
-          const response = await axios.post('http://localhost:8080/api/user/register', {fullName: fullName, email: email, password: password})
+          const response = await axios.post('http://localhost:8080/api/user/register', {fullname: fullname, email: email, password: password})
           console.log(response.data)
           console.log(response.accessToken)
           if (response.status === 201){
@@ -63,7 +63,7 @@ const Register = () => {
   const nameRef = useRef();
   const errRef = useRef();
 
-  const [fullName, setFullName] = useState("");
+  const [fullname, setFullname] = useState("");
   const [validName, setValidName] = useState(false);
   const [nameFocus, setNameFocus] = useState(false);
 
@@ -83,11 +83,11 @@ const Register = () => {
   }, []);
 
   useEffect(() => {
-    const result = USER_REGEX.test(fullName);
+    const result = USER_REGEX.test(fullname);
     console.log(result);
-    console.log(fullName);
+    console.log(fullname);
     setValidName(result);
-  }, [fullName]);
+  }, [fullname]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(password);
@@ -98,7 +98,7 @@ const Register = () => {
 
   useEffect(() => {
     setErrMsg("");
-  }, [fullName, password]);
+  }, [fullname, password]);
 
   return (
     <section className="registrationContainer">
@@ -116,7 +116,7 @@ const Register = () => {
           <span className={validName ? "valid" : "hide"}>
             <FontAwesomeIcon icon={faCheck} />
           </span>
-          <span className={validName || !fullName ? "hide" : "invalid"}>
+          <span className={validName || !fullname ? "hide" : "invalid"}>
             <FontAwesomeIcon icon={faTimes} />
           </span>
         </label>
@@ -125,7 +125,7 @@ const Register = () => {
           type="text"
           ref={nameRef}
           autoComplete="off"
-          onChange={(e) => setFullName(e.target.value)}
+          onChange={(e) => setFullname(e.target.value)}
           required
           onFocus={() => setNameFocus(true)}
           onBlur={() => setNameFocus(false)}
