@@ -73,6 +73,10 @@ const Register = () => {
   const [validPassword, setValidPassword] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);
 
+  const [matchPwd, setMatchPwd] = useState('');
+  const [validMatch, setValidMatch] = useState(false);
+  const [matchFocus, setMatchFocus] = useState(false);
+
   const [error, setError] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
@@ -93,8 +97,11 @@ const Register = () => {
     const result = PWD_REGEX.test(password);
     console.log(result);
     console.log(password);
+    console.log(matchPwd);
     setValidPassword(result);
-  }, [password]);
+    setValidMatch(password === matchPwd)
+  }, [password, matchPwd]);
+
 
   useEffect(() => {
     setErrMsg("");
@@ -156,7 +163,18 @@ const Register = () => {
           5 to 24 characters. <br/>
           Must include uppercase and lowercase letters, and a number 
         </p>
-        <button disabled={!validName || !validPassword ? true : false} className="regLogButton"> 
+        <label htmlFor="passwordMatch">
+          Password Confirm:
+        <FontAwesomeIcon icon={faCheck}  className={validMatch && matchPwd ? "valid" : "hide"}/>
+        <FontAwesomeIcon icon={faTimes}  className={validMatch || !matchPwd ? "hide" : "invalid"}/>
+        </label>
+        <input id="passwordMatch" type="password" required onChange={(e) => setMatchPwd(e.target.value)} onFocus={() => setMatchFocus(true)}
+          onBlur={() => setMatchFocus(false)} value={matchPwd} placeholder="Password Confirm"/>
+          <p id="passwordMatchNote" className={matchFocus && !validMatch ? "instructions" : "hide"}>
+          <FontAwesomeIcon icon={faInfoCircle}/>
+          Password and password confirms fields do not match. 
+        </p>
+        <button disabled={!validName || !validPassword || !validMatch ? true : false} className="regLogButton"> 
         Register
         </button>
       </form>

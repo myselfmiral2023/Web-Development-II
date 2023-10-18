@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import {Link} from 'react-router-dom'
 import axios from "../api/axios";
 import useAuth from "../hooks/useAuth";
 import "./Profile.css";
@@ -26,9 +27,13 @@ const Profile = () => {
       </div>
       <div className="profileContainer">
         <div className="profileReviewContainer">
+          <button>Leave a new Review</button>
+          <br />
           <h3>My Rental Reviews</h3>
         </div>
         <div className="profileBookingContainer">
+        <Link to="/"><button>Make a new Booking</button></Link>
+          <br />
           <h3>My Bookings</h3>
         </div>
       </div>

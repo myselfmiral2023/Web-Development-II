@@ -30,6 +30,9 @@ const Login = () => {
     const [logEmail, setLogEmail] = useState('');
     const [logPass, setLogPass] = useState('');
     const [loginStatus, setLoginStatus] = useState(false);
+    
+   
+    
     const [errorMsg, setErrorMsg] = useState('');
     const [errorStatus, setErrorStatus] = useState(false);
 
@@ -112,6 +115,8 @@ const Login = () => {
           <label htmlFor="password">Password:</label>
           <input id="password" type="text" required onChange={(e) => setLogPass(e.target.value)} onBlur={handleBlur} value={logPass}/>
           <button disabled={loading} onClick={login} className='regLogButton'>Login</button>
+          
+          
 
           {loginStatus && (
             <>
