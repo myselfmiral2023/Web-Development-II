@@ -126,3 +126,15 @@ DAILY SCRUMS
 2. finishing that, and setting up other queries
 3. troubleshooting and debugging network issues on hosted version
 
+
+2023/10/18 Lewis
+1. admin api pages, and also overhauling the css
+2. working on those for today
+3. integrating tailwind
+
+
+2023/10/18 Miral
+1. networking issue on hosting the site
+2. solving this issue, adding extra queries to the controllers, contianer and apis for user profile uploads
+3. difficulty troubleshooting networking bugs
+
