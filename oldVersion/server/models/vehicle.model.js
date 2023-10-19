@@ -45,11 +45,13 @@ Vehicle.findById = (id, result) => {
 
 // Return all vehicles
 Vehicle.getAll = (vehicletype, result) => {
-  let query = "SELECT * FROM vehicle";
+  let query = `SELECT vehicle.id, vehicle.name, vehicle.company, vehicle.perdayrent, vehicletype.typename, vehicletype.year, vehicle.createdAt
+  FROM vehicle
+  INNER JOIN vehicletype ON vehicle.vehicletypeid=vehicletype.id`;
 
   // Check if vehicletype is provided in the request body
   if (vehicletype) {
-    query += ` WHERE vehicletypeid = '${vehicletype}'`; // Assuming 'vehicletype' is the column name in your database
+    query += ` WHERE vehicletype.typename = '${vehicletype}'`; // Assuming 'vehicletype' is the column name in your database
   }
 
   sql.query(query, (err, res) => {
@@ -59,7 +61,7 @@ Vehicle.getAll = (vehicletype, result) => {
       return;
     }
 
-    console.log("vehicles: ", res);
+    // console.log("vehicles: ", res);
     result(null, res);
   });
 };

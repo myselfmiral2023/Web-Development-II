@@ -38,44 +38,13 @@ const AdminUsers = () => {
       .get(USER_URL)
       .then((response) => {
         setUsers(response.data);
-        console.log( "is response an array?" + Array.isArray(response.data))
+        // console.log( "is response an array?" + Array.isArray(response.data))
       })
       .catch((error) => {
         console.log(error);
       });
   }, [acctAdded, acctRemoved]);
 
-  
-
-  // const columns = React.useMemo(
-  //   () => [
-  //     {
-  //       Header: "ID",
-  //       accessor: "id",
-  //     },
-  //     {
-  //       Header: "First Name",
-  //       accessor: "first_name",
-  //     },
-  //     {
-  //       Header: "Last Name",
-  //       accessor: "last_name",
-  //     },
-  //     {
-  //       Header: "Email",
-  //       accessor: "email",
-  //     },
-  //     {
-  //       Header: "Gender",
-  //       accessor: "gender",
-  //     },
-  //     {
-  //       Header: "University",
-  //       accessor: "university",
-  //     },
-  //   ],
-  //   []
-  // );
 
   const data = React.useMemo(() => users, [users]);
 

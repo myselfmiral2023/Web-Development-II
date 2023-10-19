@@ -58,6 +58,7 @@ table {
     padding: 10px;
     border-radius: 10px;
     cursor: pointer;
+    margin-left: 20px;
   }
   .buttonCell > button:nth-of-type(1):hover{
     opacity: 60%;
@@ -142,30 +143,35 @@ table {
     margin-left: 20px;
     gap: 20px;
 }
-.vehicleList {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+
+
+.addVehicleContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.addVehicleContainer form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.4rem;
 }
 
-.vehicleCard {
-    margin: 20px;
-    width: 25%;
-    
-    
-}
-.vehicleListItem {
-    margin: 20px;
-    border: 3px solid black;
-    padding: 10%;
-    width: 100%;
-    display: flex;
+.addVehicleContainer input{
+    font-size: 1.3rem;
+    width: 200px;
+    height: 48px;
+    border-radius: 15px;
 }
 
-.vehicleListItemButtons {
-    display: flex;
-    flex-direction: column;
-    margin-left: 80px;
-    gap: 20px;
+.addNewCarSubmitButton {
+  background-color: black;
+    color: aliceblue;
+    width: 100px;
+    height: 48px;
+    font-size: 1rem;
+    cursor: pointer;
 }

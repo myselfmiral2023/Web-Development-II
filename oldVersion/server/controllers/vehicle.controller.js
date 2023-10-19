@@ -2,11 +2,14 @@ import jwt from "jsonwebtoken";
 import { Vehicle } from "../models/vehicle.model.js";
 
 const create = (req, res) => {
-    const token = req.cookies.access_token;
+    const {authorization} = req.headers;
+  if (!authorization) return res.status(401).json("Not authenticated!");
+    const token = authorization.replace("Bearer ", "");
+    
     if (!token) return res.status(401).json("Not authenticated!");
 
     jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
-        if (err) return res.status(403).json("Token is not valid!");
+      if (err) return res.status(403).json("Token is not valid!");
 
         // Validate request
         if (!req.body) {
@@ -39,13 +42,13 @@ const create = (req, res) => {
 
 const findAll = (req, res) => {
     const {authorization} = req.headers;
-    const token = authorization.replace("Bearer ", "");
+//   if (!authorization) return res.status(401).json("Not authenticated!");
+//     const token = authorization.replace("Bearer ", "");
     
-    
-    if (!authorization || !token) return res.status(401).json("Not authenticated!");
+//     if (!token) return res.status(401).json("Not authenticated!");
 
-    jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
-        if (err) return res.status(403).json("Token is not valid!");
+//     jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+//       if (err) return res.status(403).json("Token is not valid!");
 
         // Extract the vehicletype parameter from the request
         const vehicletype = req.params.vehicletype || "";
@@ -58,7 +61,7 @@ const findAll = (req, res) => {
                 res.json(data);
             }
         });
-    });
+    // });
 };
 
 const findAllAvailable = (req, res) => {
@@ -146,11 +149,15 @@ const update = (req, res) => {
 };
 
 const remove = (req, res) => {
-    const token = req.cookies.access_token;
+    
+    const {authorization} = req.headers;
+    if (!authorization) return res.status(401).json("Not authenticated!");
+    const token = authorization.replace("Bearer ", "");
+    
     if (!token) return res.status(401).json("Not authenticated!");
 
     jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
-        if (err) return res.status(403).json("Token is not valid!");
+      if (err) return res.status(403).json("Token is not valid!");
 
         Vehicle.remove(req.params.id, (err, data) => {
             if (err) {
@@ -164,7 +171,7 @@ const remove = (req, res) => {
                     });
                 }
             } else {
-                res.status(200).send({ message: true });
+                res.status(200).send({ message: "vehicle has been deleted" });
             }
         });
     });
