@@ -39,7 +39,7 @@ export const AuthContextProvider = ({ children }) => {
         dispatch,
       }}
     >
-      {console.log("Authcontext rendering...")}
+      {/* {console.log("Authcontext rendering...")} */}
       {children}
     </AuthContext.Provider>
   );

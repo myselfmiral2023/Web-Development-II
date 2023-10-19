@@ -1,27 +1,116 @@
-.userList {
+.tableContainer {
+    margin-top: 40px;
+    margin-bottom: 40px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    flex-direction: column;
     align-items: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    
 }
 
-.userCard {
-    margin: 20px;
-}
-.userListItem {
-    margin: 20px;
-    border: 3px solid black;
-    padding: 10%;
-    width: 150%;
-    display: flex;
-}
 
-.userListItemButtons {
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-    gap: 20px;
+table {  
+    font-family:sans-serif;
+    width: 50%;
+    
 }
+  th, td {
+    padding: 15px;
+    text-align:left;
+    border: solid 2px black;
+  }
+
+  tbody tr:hover td:not(:last-child)  {
+    opacity: 80%;
+    border: orangered dashed 2px;
+    
+  }
+  .buttonCell{
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+  }
+
+  .buttonCell > button:first-of-type{
+    background-color: lime;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    
+  }
+  .buttonCell > button:first-of-type:hover{
+    opacity: 60%;
+    outline: double black 2px;
+  }
+  .buttonCell > button:first-of-type:active{
+    background: #e5e5e5;
+  -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+     -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+          box-shadow: inset 0px 0px 5px #c1c1c1;
+   outline: none;
+  }
+  .buttonCell > button:nth-of-type(2){
+    background-color: lightcoral;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .buttonCell > button:nth-of-type(2):hover{
+    opacity: 60%;
+    outline: double black 2px;
+  }
+  .buttonCell > button:nth-of-type(2):active{
+    background: #e5e5e5;
+  -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+     -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+          box-shadow: inset 0px 0px 5px #c1c1c1;
+   outline: none;
+  }
+
+
+  td {
+    background-color:#eee;    
+  }
+
+  th {
+    background-color:#009;
+    color:#fff;
+  }
+  
+  .titleAndButton {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+  }
+  .titleAndButton button {
+    font-size: 1.7rem;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: gainsboro;
+    cursor: pointer;
+    box-shadow: #009;
+
+}
+  .titleAndButton button:hover {
+    opacity: 60%;
+    outline: 2px solid black;
+
+}
+  .titleAndButton button:active {
+    background: #e5e5e5;
+  -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+     -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+          box-shadow: inset 0px 0px 5px #c1c1c1;
+   outline: none;
+}
+  
+  
+
+
 
 .reviewList {
     display: flex;

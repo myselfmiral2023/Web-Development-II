@@ -71,14 +71,23 @@ const Login = () => {
             console.log(fullName);
             const role = response.data.role;
             console.log(role);
+            console.log("is role === 'admin' ?" + (role === "admin") )
             const access_token = response.data.token;
             axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-            console.log(access_token);
+            // console.log(access_token);
             setAuth({user: logEmail, logPass, role, access_token});
             if (response.status === 200){
+              console.log("is role === 'admin' ?" + (role === "admin") )
+              if (role === "admin"){
+                setTimeout(() => {
+                  navigate("/admin/users");
+                }, 4000)
+              } else {
+              
               setTimeout(() => {
                 navigate(from, {replace: true});
               }, 4000)
+            }
             }
         } catch (error) {
           console.log(error)
@@ -113,7 +122,7 @@ const Login = () => {
           <label htmlFor="email">Email:</label>
           <input id="email" type="email" required onChange={(e) => setLogEmail(e.target.value)} onBlur={handleBlur} value={logEmail} />
           <label htmlFor="password">Password:</label>
-          <input id="password" type="text" required onChange={(e) => setLogPass(e.target.value)} onBlur={handleBlur} value={logPass}/>
+          <input id="password" type="password" required onChange={(e) => setLogPass(e.target.value)} onBlur={handleBlur} value={logPass}/>
           <button disabled={loading} onClick={login} className='regLogButton'>Login</button>
           
           

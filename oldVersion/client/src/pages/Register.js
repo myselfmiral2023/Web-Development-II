@@ -41,11 +41,13 @@ const Register = () => {
               navigate("/login");
             }, 2000)
           }
+          
         } catch (error) {
           console.log(error);
           if (!error?.response) {
             setErrMsg('No server response');
           } else {
+            setError(true);
             setErrMsg(error.response.data);
           }
         }
@@ -85,6 +87,12 @@ const Register = () => {
   useEffect(() => {
     nameRef.current.focus();
   }, []);
+  useEffect(() => {
+    setFullname("");
+    setEmail("");
+    setPassword("");
+    setMatchPwd("");
+  }, []);
 
   useEffect(() => {
     const result = USER_REGEX.test(fullname);
@@ -109,13 +117,13 @@ const Register = () => {
 
   return (
     <section className="registrationContainer">
-      <p
+      {/* <p
         ref={errRef}
         className={errMsg ? "errmsg" : "offscreen"}
         aria-live="assertive"
       >
         {errMsg}
-      </p>
+      </p> */}
       <h1>Registration</h1>
       <form onSubmit={handleSubmit} className="inputForm">
         <label htmlFor="regName">
