@@ -6,9 +6,12 @@ import { userSchema } from "../../validations/UserValidation";
 import Snackbar from "../../components/Snackbar/Snackbar";
 import "./Admin.css";
 const USER_URL = "/user";
+const USER_PHOTO_URL = "/user/files"
 
 const AdminSingleUser = () => {
   const [user, setUser] = useState({});
+
+  const [userPhoto, setUserPhoto] = useState('');
 
   const [editSelected, setEditSelected] = useState(false);
 
@@ -19,6 +22,8 @@ const AdminSingleUser = () => {
   const [email, setEmail] = useState("");
 
   const [password, setPassword] = useState("");
+
+  
 
   const [error, setError] = useState(false);
   const [errMsg, setErrMsg] = useState("");
@@ -40,6 +45,8 @@ const AdminSingleUser = () => {
 
           if (isValid){
             const response = await axios.patch(`${USER_URL}/${id}`, {fullname, email, password} );
+
+
             console.log(response);
             if (response.status === 200){
                 setSuccess(true);
@@ -58,17 +65,26 @@ const AdminSingleUser = () => {
   }
 
   useEffect(() => {
-    axios
-      .get(`${USER_URL}/${id}`)
-      .then((response) => {
-        setUser(response.data);
-        setFullName(response.data.fullname)
-        setEmail(response.data.email)
+    // axios
+    //   .get(`${USER_URL}/${id}`)
+    //   .then((response) => {
+    //     setUser(response.data);
+    //     setFullName(response.data.fullname)
+    //     setEmail(response.data.email)
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+      axios.get(`${USER_PHOTO_URL}/userimg01.jpg`).then((response) => { 
+        console.log(`${USER_PHOTO_URL}/userimg01.jpg`)
         console.log(response);
+        console.log(response);
+        setUserPhoto(response.data);
+      }).catch((error)=> {
+        console.log(error)
       })
-      .catch((error) => {
-        console.log(error);
-      });
   }, []);
 
   return (
@@ -122,6 +138,7 @@ const AdminSingleUser = () => {
           <h1>Viewing User: {user.fullname}</h1>
 
           <ul>
+            <li><img src={userPhoto} alt={`Profile photo for user ${user.id}`} /></li>
             <li>Email: {user.email}</li>
             <li>Role: {user.role}</li>
             <li>

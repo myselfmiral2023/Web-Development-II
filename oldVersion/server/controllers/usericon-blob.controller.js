@@ -21,7 +21,7 @@ export const uploadUserProfileImage = async (req, res) => {
 
   // Get user profile image
 export const getUserProfileImage = async (req, res) => {
-  
+    console.log("get user profile blob reached");
     try {
       const fileName = req.params.fileName;
       const blockBlobClient = containerClient.getBlockBlobClient(fileName);
