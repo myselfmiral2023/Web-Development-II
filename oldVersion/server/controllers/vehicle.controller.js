@@ -87,11 +87,14 @@ const findAllAvailable = (req, res) => {
 };
 
 const findOne = (req, res) => {
-    const token = req.cookies.access_token;
+    const {authorization} = req.headers;
+    if (!authorization) return res.status(401).json("Not authenticated!");
+    const token = authorization.replace("Bearer ", "");
+    
     if (!token) return res.status(401).json("Not authenticated!");
 
     jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
-        if (err) return res.status(403).json("Token is not valid!");
+      if (err) return res.status(403).json("Token is not valid!");
 
         Vehicle.findById(req.params.id, (err, data) => {
             if (err) {
@@ -112,11 +115,18 @@ const findOne = (req, res) => {
 };
 
 const update = (req, res) => {
-    const token = req.cookies.access_token;
+
+    console.log("update controller reacher!")
+    console.log(req.body)
+
+    const {authorization} = req.headers;
+  if (!authorization) return res.status(401).json("Not authenticated!");
+    const token = authorization.replace("Bearer ", "");
+    
     if (!token) return res.status(401).json("Not authenticated!");
 
     jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
-        if (err) return res.status(403).json("Token is not valid!");
+      if (err) return res.status(403).json("Token is not valid!");
 
         // Validate Request
         if (!req.body) {
@@ -141,7 +151,7 @@ const update = (req, res) => {
                         });
                     }
                 } else {
-                    res.status(200).send({ message: true });
+                    res.status(200).send({ message: "Vehicle profile has been updated" });
                 }
             }
         );

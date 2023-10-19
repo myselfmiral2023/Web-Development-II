@@ -18,6 +18,7 @@ import AdminUsers from './pages/Admin/AdminUsers'
 import AdminVehicles from './pages/Admin/AdminVehicles'
 import RequireAuth from "./components/RequireAuth";
 import AdminSingleUser from "./pages/Admin/AdminSingleUser";
+import AdminSingleVehicle from "./pages/Admin/AdminSingleVehicle"
 import { Routes, Link, Route } from "react-router-dom";
 
 
@@ -47,6 +48,7 @@ function App() {
           <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/admin/users/:id" element={<AdminSingleUser />} />
           <Route path="/admin/vehicles" element={<AdminVehicles />} />
+          <Route path="/admin/vehicles/:id" element={<AdminSingleVehicle />} />
           </Route>
             {/* Catch all */}
             <Route path="*" element={<Missing/>} />

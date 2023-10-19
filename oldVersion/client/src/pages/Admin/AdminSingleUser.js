@@ -96,7 +96,7 @@ const AdminSingleUser = () => {
         <section>
             <div>
             <h1>Edit User</h1>
-            <button onClick={() => setEditSelected(false)}>Cancel Edit</button>
+            <button className="returnButton" onClick={() => setEditSelected(false)}>Cancel Edit</button>
             </div>
             <form onSubmit={handleEditSubmit}>
           <label htmlFor="fullname">Full Name:</label>
@@ -129,12 +129,12 @@ const AdminSingleUser = () => {
             placeholder="Password"
             value={password}
           />
-          <button >Update User</button>
+          <button className="editButton">Update User</button>
           </form>
         </section>
       ) : (
         <section>
-            <Link to="/admin/users"><button>Return to Users Page</button></Link>
+            <Link to="/admin/users"><button className="returnButton">Return to Users Page</button></Link>
           <h1>Viewing User: {user.fullname}</h1>
 
           <ul>
@@ -158,7 +158,7 @@ const AdminSingleUser = () => {
                 : "N/A"}
             </li>
           </ul>
-          <button onClick={() => setEditSelected(true)}>Edit User</button>
+          <button className="editButton" onClick={() => setEditSelected(true)}>Edit User</button>
         </section>
       )}
     </div>

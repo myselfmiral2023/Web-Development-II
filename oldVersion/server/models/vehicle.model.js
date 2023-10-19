@@ -33,7 +33,7 @@ Vehicle.findById = (id, result) => {
     }
 
     if (res.length) {
-      console.log("found vehicle: ", res[0]);
+      // console.log("found vehicle: ", res[0]);
       result(null, res[0]);
       return;
     }

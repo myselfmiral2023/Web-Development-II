@@ -202,7 +202,7 @@ const AdminVehicles = () => {
                     </td>
                   
                     <td className="buttonCell">
-                  {<Link to={`/admin/users/${row.id}`}><button disabled={currRow === row.id ? false : true} id="detailsButton">Details</button></Link>}
+                  {<Link to={`/admin/vehicles/${row.id}`}><button disabled={currRow === row.id ? false : true} id="detailsButton">Details</button></Link>}
                 <button disabled={currRow === row.id ? false : true} id="deleteButton" onClick={() => handleDelete(row.id)}>Delete</button>
                 </td>
                 </tr>
@@ -218,16 +218,15 @@ const AdminVehicles = () => {
       </div>
       <div className="addVehicleContainer" ref={createRef}>
         <h1>Add a New Unit</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} id="types">
             <label htmlFor="unitName">Unit Name:</label>
             <input type="text" id="unitName" required value={newVehicleName} placeholder='New Unit Name' onChange={(e) => setNewVehicleName(e.target.value)}/>
             <label htmlFor="unitCompany">Manufacturer:</label>
             <input type="text" id="unitCompany" required value={newVehicleCompany} placeholder='Manufacturer' onChange={(e) => setNewVehicleCompany(e.target.value)}/>
             <label htmlFor="costPerDay">Daily Price (rounded to nearest dollar):</label>
             <input type="number" id="costPerDay" required value={newVehiclePrice} placeholder='Price (rounded)' onChange={(e) => setNewVehiclePrice(e.target.value)}/>
-            <label htmlFor="browser">New Unit Type:</label>
-            <input list='types' id="typeInput" value={newVehicleType} required onChange={(e) => setNewVehicleType(e.target.value)}/>
-            <datalist id='types'>
+            <label htmlFor="types">New Unit Type:</label>
+            <select id='types' name='types' form='types'value={newVehicleType} required onChange={(e) => setNewVehicleType(e.target.value)}>
               <option value="1">SUV</option>
               <option value="2">Van</option>
               <option value="3">Economy</option>
@@ -236,7 +235,7 @@ const AdminVehicles = () => {
               <option value="6">Compact</option>
               <option value="7">Pickup Truck</option>
               <option value="8">Minivan</option>
-            </datalist>
+            </select>
             <button className='addNewCarSubmitButton'>Submit</button>
         </form>
       </div>
