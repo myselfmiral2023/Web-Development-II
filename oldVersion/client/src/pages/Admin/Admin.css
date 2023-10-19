@@ -35,35 +35,35 @@ table {
 
   }
 
-  .buttonCell > button:first-of-type{
+  .buttonCell > a > button:first-of-type{
     background-color: lime;
     padding: 10px;
     border-radius: 10px;
     cursor: pointer;
     
   }
-  .buttonCell > button:first-of-type:hover{
+  .buttonCell > a > button:first-of-type:hover{
     opacity: 60%;
     outline: double black 2px;
   }
-  .buttonCell > button:first-of-type:active{
+  .buttonCell > a > button:first-of-type:active{
     background: #e5e5e5;
   -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
      -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
           box-shadow: inset 0px 0px 5px #c1c1c1;
    outline: none;
   }
-  .buttonCell > button:nth-of-type(2){
+  .buttonCell > button:nth-of-type(1){
     background-color: lightcoral;
     padding: 10px;
     border-radius: 10px;
     cursor: pointer;
   }
-  .buttonCell > button:nth-of-type(2):hover{
+  .buttonCell > button:nth-of-type(1):hover{
     opacity: 60%;
     outline: double black 2px;
   }
-  .buttonCell > button:nth-of-type(2):active{
+  .buttonCell > button:nth-of-type(1):active{
     background: #e5e5e5;
   -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
      -moz-box-shadow: inset 0px 0px 5px #c1c1c1;

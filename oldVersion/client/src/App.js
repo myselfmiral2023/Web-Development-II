@@ -17,6 +17,7 @@ import AdminReviews from './pages/Admin/AdminReviews'
 import AdminUsers from './pages/Admin/AdminUsers'
 import AdminVehicles from './pages/Admin/AdminVehicles'
 import RequireAuth from "./components/RequireAuth";
+import AdminSingleUser from "./pages/Admin/AdminSingleUser";
 import { Routes, Link, Route } from "react-router-dom";
 
 
@@ -44,6 +45,7 @@ function App() {
           <Route path="/admin/data" element={<AdminData />} />
           <Route path="/admin/reviews" element={<AdminReviews />} />
           <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/users/:id" element={<AdminSingleUser />} />
           <Route path="/admin/vehicles" element={<AdminVehicles />} />
           </Route>
             {/* Catch all */}

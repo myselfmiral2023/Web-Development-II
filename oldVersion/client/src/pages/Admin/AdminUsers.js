@@ -131,7 +131,8 @@ const AdminUsers = () => {
     {deleteErrorMessage && <Snackbar type="failure" message={deleteErrorMessage}/>}
       <div className="tableContainer">
         <div className="titleAndButton">
-        <h1>Driven Auto Rental Accounts <FontAwesomeIcon icon={faPerson}/></h1>
+          
+        <h1>Driven Auto Rental Accounts<FontAwesomeIcon icon={faPerson}/></h1>
         <button onClick={handleScrollCreate}>Create New User</button>
         </div>
         <table {...getTableProps()}>
@@ -162,7 +163,7 @@ const AdminUsers = () => {
                     </td>
                   
                     <td className="buttonCell">
-                  <button disabled={currRow === row.id ? false : true} id="detailsButton">Details</button>
+                  {<Link to={`/admin/users/${row.id}`}><button disabled={currRow === row.id ? false : true} id="detailsButton">Details</button></Link>}
                 <button disabled={currRow === row.id ? false : true} id="deleteButton" onClick={() => handleDelete(row.id)}>Delete</button>
                 </td>
                 </tr>

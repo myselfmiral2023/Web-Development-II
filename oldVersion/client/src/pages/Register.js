@@ -93,7 +93,7 @@ const Register = ({admin, added, addedFunc}) => {
   const [error, setError] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
-  const [successMsg, setSuccessMsg] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
 
   useEffect(() => {
     nameRef.current.focus();

@@ -70,6 +70,36 @@ User.getAll = (result) => {
   });
 };
 
+User.updateById = (id, user, result) => {
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(user.password, salt);
+
+  user.password = hash;
+  
+  sql.query(
+    "UPDATE users SET fullname = ?, email = ?, password = ? WHERE id = ?",
+    [user.fullname, user.email, user.password, id],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        // not found vehicle with the id
+        result({ kind: "not_found" }, null);
+        return;
+      }
+
+      console.log("updated user: ", { id: id, ...user });
+      result(null, { id: id, ...user });
+    }
+  );
+};
+
+
+
 User.remove = (id, result) => {
 
   sql.query("DELETE FROM users WHERE id = ?", id, (err, res) => {
