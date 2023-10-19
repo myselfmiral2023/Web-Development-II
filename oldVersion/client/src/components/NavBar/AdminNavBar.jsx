@@ -7,7 +7,7 @@ import { faGhost } from '@fortawesome/free-solid-svg-icons'
 const AdminNavBar = () => {
   return (
     <>
-    <h1 className='adminNavBarTitle'>Driven Administrator Navigation <span className='halloween'><FontAwesomeIcon icon={faGhost}/></span></h1>
+    <h1 className='adminNavBarTitle'><span className='halloween'><FontAwesomeIcon icon={faGhost}/></span> Driven Administrator Navigation <span className='halloween'><FontAwesomeIcon icon={faGhost}/></span></h1>
     <div className='adminNavBarContainer'>
     
     <Link to="/admin/users"><div className='adminNavBarItem'>Users</div></Link> 

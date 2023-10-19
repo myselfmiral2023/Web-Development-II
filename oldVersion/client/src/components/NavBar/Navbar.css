@@ -60,11 +60,13 @@
 .adminNavBarContainer {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     width: 100%;
     background-color: black;
     color: white;
-    height: 48px;
+    height: 60px;
     font-size: 2.5rem;
+    padding: 50px;
 }
 .adminNavBarTitle {
     text-align: center;

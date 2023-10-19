@@ -1,17 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "../../api/axios";
 import AdminNavBar from "../../components/NavBar/AdminNavBar";
 import {Link} from 'react-router-dom'
+import {faPerson} from '@fortawesome/free-solid-svg-icons';
 import fakeData from "../../MOCK_DATA.json";
 import "./Admin.css";
 import {useTable} from 'react-table';
+import Snackbar from "../../components/Snackbar/Snackbar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Register from '../Register';
 const USER_URL = "/user";
 
+
 const AdminUsers = () => {
+
+  const createRef = useRef();
+
   const [users, setUsers] = useState([]);
 
-  console.log("before useEffect")
-  console.log(users);
+  const [currRow, setCurrRow] = useState(0);
+
+  const [acctAdded, setAcctAdded] = useState(true);
+
+  const [acctRemoved, setAcctRemoved] = useState(false);
+
+  const [deleteSuccessMessage, setDeleteSuccessMessage] = useState('');
+
+  const [deleteErrorMessage, setDeleteErrorMessage] = useState('');
+
+  
+ 
+
+
 
   useEffect(() => {
     axios
@@ -23,10 +43,9 @@ const AdminUsers = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [acctAdded, acctRemoved]);
 
-  console.log("after useEffect");
-  console.log(users);
+  
 
   // const columns = React.useMemo(
   //   () => [
@@ -77,22 +96,43 @@ const AdminUsers = () => {
 
  
 
-  const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = useTable({ columns, data})
+  const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data, getRowId: (row) => row.id})
 
+
+  const handleRowClick = (id) => {
+    setCurrRow(id);
+    setAcctRemoved(false);
+  }
   
 
+  const handleScrollCreate = () => {
+    createRef.current?.scrollIntoView({behavior: 'smooth'})
+  }
 
-
-
+  const handleDelete = (id) => {
+    axios
+      .delete(`${USER_URL}/${id}`)
+      .then((response) => {
+        setAcctRemoved(true);
+        setDeleteSuccessMessage(response.data.message);
+        console.log(response)
+      })
+      .catch((error) => {
+        setDeleteErrorMessage(error.response.data.message);
+        console.log(error);
+      });
+  }
 
   return (
 
     <>
     <AdminNavBar/>
+    {deleteSuccessMessage && <Snackbar type="success" message={deleteSuccessMessage}/>}
+    {deleteErrorMessage && <Snackbar type="failure" message={deleteErrorMessage}/>}
       <div className="tableContainer">
         <div className="titleAndButton">
-        <h1>Driven Auto Rental Accounts</h1>
-        <Link to="/register"><button>Create New User</button></Link>
+        <h1>Driven Auto Rental Accounts <FontAwesomeIcon icon={faPerson}/></h1>
+        <button onClick={handleScrollCreate}>Create New User</button>
         </div>
         <table {...getTableProps()}>
           <thead>
@@ -111,16 +151,19 @@ const AdminUsers = () => {
               prepareRow(row)
               return (
                 
-                <tr {...row.getRowProps()}>
+                <tr {...row.getRowProps()} id={row.id} >
                   {row.cells.map((cell) => (
                     <td {...cell.getCellProps()}>
                       {cell.render("Cell")}
                     </td>
                   ))}
+                    <td>
+                      <input className="tableCheckBox" type="checkbox" checked={currRow === row.id ? true : false} onChange={() => handleRowClick(row.id)}/>
+                    </td>
                   
                     <td className="buttonCell">
-                  <button id="detailsButton">Details</button>
-                <button id="deleteButton">Delete</button>
+                  <button disabled={currRow === row.id ? false : true} id="detailsButton">Details</button>
+                <button disabled={currRow === row.id ? false : true} id="deleteButton" onClick={() => handleDelete(row.id)}>Delete</button>
                 </td>
                 </tr>
                 
@@ -133,8 +176,9 @@ const AdminUsers = () => {
         </table>
 
       </div>
-
-
+            <div ref={createRef}>
+            <Register admin={true} added={acctAdded} addedFunc={setAcctAdded}/>
+            </div>
     
     {/* <article className="userList">
       Driven Auto Rental User Accounts

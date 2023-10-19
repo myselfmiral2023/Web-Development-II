@@ -145,3 +145,37 @@ export const findOne = (req, res) => {
       }
   });
 }
+
+export const remove = (req, res) => {
+
+  
+  const id = req.params.id
+
+  const {authorization} = req.headers;
+  if (!authorization) return res.status(401).json("Not authenticated!");
+    const token = authorization.replace("Bearer ", "");
+
+    if (!token) return res.status(401).json("Not authenticated!");
+
+    jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+      if (err) return res.status(403).json("Token is not valid!");
+
+      User.remove(id, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `No user was found with id ${id}.`
+                });
+            } else {
+                res.status(500).send({
+                    message: "Could not delete user with id " + id
+                });
+            }
+        } else {
+            res.status(200).send({ message: "user has been removed." });
+        }
+    });
+
+
+    });
+}

@@ -80,6 +80,12 @@ table {
     background-color:#009;
     color:#fff;
   }
+
+  .tableCheckBox {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+  }
   
   .titleAndButton {
         display: flex;

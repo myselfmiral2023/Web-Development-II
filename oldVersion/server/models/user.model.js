@@ -70,6 +70,26 @@ User.getAll = (result) => {
   });
 };
 
+User.remove = (id, result) => {
+
+  sql.query("DELETE FROM users WHERE id = ?", id, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    if (res.affectedRows == 0) {
+      // not found vehicle with the id
+      result({ kind: "not_found" }, null);
+      return;
+    }
+
+    console.log("deleted user with id: ", id);
+    result(null, res);
+  });
+}
+
 
 
 export default User;

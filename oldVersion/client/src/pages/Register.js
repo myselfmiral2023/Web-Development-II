@@ -16,9 +16,11 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{5,24}$/;
 
 const REGISTER_URL = '/user/register'
 
-const Register = () => {
+const Register = ({admin, added, addedFunc}) => {
   
   const navigate = useNavigate();
+
+  // const [submitWasClicked, setSubmitWasClicked] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,23 +29,25 @@ const Register = () => {
         email: e.target[1].value
       };
       const isValid = await userSchema.isValid(formData); //YUP VALIDATION of email
-      console.log(isValid);
+      
       if(isValid){
         console.log("valid credentials")
         try {
           const response = await axios.post('http://localhost:8080/api/user/register', {fullname: fullname, email: email, password: password})
-          console.log(response.data)
-          console.log(response.accessToken)
-          if (response.status === 201){
+          
+          if (response.status === 201 && !admin){
             setSuccess(true);
             setSuccessMsg(response.data.message)
             setTimeout(() => {
               navigate("/login");
             }, 2000)
+          }else {
+            setSuccess(true);
+            setSuccessMsg(response.data.message)
           }
           
         } catch (error) {
-          console.log(error);
+          
           if (!error?.response) {
             setErrMsg('No server response');
           } else {
@@ -58,12 +62,19 @@ const Register = () => {
     } catch (error) {
       
     }
-    
+    addedFunc(!added);
+    // setSubmitWasClicked(true);
+    setFullname("");
+    setEmail("");
+    setPassword("");
+    setMatchPwd("");
   };
 
  
   const nameRef = useRef();
   const errRef = useRef();
+
+  
 
   const [fullname, setFullname] = useState("");
   const [validName, setValidName] = useState(false);
@@ -96,16 +107,13 @@ const Register = () => {
 
   useEffect(() => {
     const result = USER_REGEX.test(fullname);
-    console.log(result);
-    console.log(fullname);
+    
     setValidName(result);
   }, [fullname]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(password);
-    console.log(result);
-    console.log(password);
-    console.log(matchPwd);
+   
     setValidPassword(result);
     setValidMatch(password === matchPwd)
   }, [password, matchPwd]);
@@ -124,7 +132,7 @@ const Register = () => {
       >
         {errMsg}
       </p> */}
-      <h1>Registration</h1>
+      <h1>{admin ? "Create a New Driven User" : "Registration"}</h1>
       <form onSubmit={handleSubmit} className="inputForm">
         <label htmlFor="regName">
           Full Name:
@@ -145,9 +153,10 @@ const Register = () => {
           onFocus={() => setNameFocus(true)}
           onBlur={() => setNameFocus(false)}
           placeholder="First and Last Name"
+          value={fullname}
         />
         <label htmlFor="regEmail">Email:</label>
-        <input id="regEmail" type="email" placeholder="example@mail.com" onChange={(e) => setEmail(e.target.value)}/>
+        <input id="regEmail" type="email" placeholder="example@mail.com" value={email} onChange={(e) => setEmail(e.target.value)}/>
         <label htmlFor="password">
           Password:
           <span className={validPassword ? "valid" : "hide"}>
@@ -165,6 +174,7 @@ const Register = () => {
           onFocus={() => setPasswordFocus(true)}
           onBlur={() => setPasswordFocus(false)}
           placeholder="Password"
+          value={password}
         />
         <p id="passwordNote" className={passwordFocus && !validPassword ? "instructions" : "hide"}>
           <FontAwesomeIcon icon={faInfoCircle}/>
@@ -188,8 +198,7 @@ const Register = () => {
       </form>
       {success && <Snackbar type="success" message={successMsg}/>}
       {error && <Snackbar type="failure" message={errMsg}/>}
-      <p>Already Registered?</p>
-      <Link to="/login">Sign in</Link>
+      {admin ? "" : <><p>Already Registered?</p> <Link to="/login">Sign in</Link> </>}
     </section>
   );
 };
