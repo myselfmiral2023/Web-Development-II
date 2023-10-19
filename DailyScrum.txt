@@ -138,3 +138,14 @@ DAILY SCRUMS
 2. solving this issue, adding extra queries to the controllers, contianer and apis for user profile uploads
 3. difficulty troubleshooting networking bugs
 
+2023/10/19 Lewis
+1. debugging table format on all front end crud
+2. finishing that part of the front end 
+3. debugging the responses from the back end to fit flash messages
+
+
+2023/10/19 Miral
+1. finish testing on all apis
+2. doing that testing, adding uuid, api adjustment
+3. uuid debugging
+
