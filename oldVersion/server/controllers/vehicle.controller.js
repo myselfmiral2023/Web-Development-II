@@ -65,11 +65,11 @@ const findAll = (req, res) => {
 };
 
 const findAllAvailable = (req, res) => {
-    const token = req.cookies.access_token;
-    if (!token) return res.status(401).json("Not authenticated!");
+    // const token = req.cookies.access_token;
+    // if (!token) return res.status(401).json("Not authenticated!");
 
-    jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
-        if (err) return res.status(403).json("Token is not valid!");
+    // jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+    //     if (err) return res.status(403).json("Token is not valid!");
 
         // Extract the vehicletype parameter from the request
         const startDate = req.params.startDate; // Access startDate from the route path
@@ -83,7 +83,7 @@ const findAllAvailable = (req, res) => {
                 res.json(data);
             }
         });
-    });
+    // });
 };
 
 const findOne = (req, res) => {
@@ -116,8 +116,7 @@ const findOne = (req, res) => {
 
 const update = (req, res) => {
 
-    console.log("update controller reacher!")
-    console.log(req.body)
+   
 
     const {authorization} = req.headers;
   if (!authorization) return res.status(401).json("Not authenticated!");

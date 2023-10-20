@@ -33,7 +33,7 @@ const AdminSingleUser = () => {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("submit selected")
+
     try {
         let formData = {
             fullname: e.target[0].value,
@@ -62,42 +62,44 @@ const AdminSingleUser = () => {
             setErrMsg(error.response.data);
           }
     }
+
+    setEditSelected(false);
   }
 
   useEffect(() => {
-    // axios
-    //   .get(`${USER_URL}/${id}`)
-    //   .then((response) => {
-    //     setUser(response.data);
-    //     setFullName(response.data.fullname)
-    //     setEmail(response.data.email)
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-
-      axios.get(`${USER_PHOTO_URL}/userimg01.jpg`).then((response) => { 
-        console.log(`${USER_PHOTO_URL}/userimg01.jpg`)
+  
+    axios
+      .get(`${USER_URL}/${id}`)
+      .then((response) => {
+        setUser(response.data);
+        setFullName(response.data.fullname);
+        setEmail(response.data.email);
         console.log(response);
+        return axios.get(`${USER_PHOTO_URL}/userimg01.jpg`);
+      })
+      .then((response) => {
+        console.log(`${USER_PHOTO_URL}/userimg01.jpg`);
         console.log(response);
         setUserPhoto(response.data);
-      }).catch((error)=> {
-        console.log(error)
       })
-  }, []);
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [editSelected]);
 
   return (
     <>
     {success && <Snackbar type="success" message={successMsg}/>}
     {error && <Snackbar type="failure" message={errMsg}/>}
-    <div className="singleUserPageContainer">
+    <div>
       {editSelected ? (
-        <section>
+        <section className="userEditFormContainer">
             <div>
             <h1>Edit User</h1>
             <button className="returnButton" onClick={() => setEditSelected(false)}>Cancel Edit</button>
             </div>
+            <div className="userEditFormAndPhoto">
+            <img className="userImageProfile" src={userPhoto} alt={`Profile photo for user ${user.id}`} />
             <form onSubmit={handleEditSubmit}>
           <label htmlFor="fullname">Full Name:</label>
           <input
@@ -131,18 +133,21 @@ const AdminSingleUser = () => {
           />
           <button className="editButton">Update User</button>
           </form>
+          
+          </div>
         </section>
       ) : (
-        <section>
+        <section className="userDetailDisplay">
             <Link to="/admin/users"><button className="returnButton">Return to Users Page</button></Link>
           <h1>Viewing User: {user.fullname}</h1>
 
           <ul>
-            <li><img src={userPhoto} alt={`Profile photo for user ${user.id}`} /></li>
-            <li>Email: {user.email}</li>
-            <li>Role: {user.role}</li>
+            <li><img className="userImageProfile" src={userPhoto} alt={`Profile photo for user ${user.id}`} /></li>
+            <li><span>Full Name:</span> {user.fullname}</li>
+            <li><span>Email:</span> {user.email}</li>
+            <li><span>Role:</span> {user.role}</li>
             <li>
-              Loyalty member:{" "}
+              <span>Loyalty member:</span>{" "}
               {user.role === "admin"
                 ? "admin"
                 : user.isLoyalty === 1
@@ -150,7 +155,7 @@ const AdminSingleUser = () => {
                 : "No"}
             </li>
             <li>
-              reward Points:{" "}
+              <span>reward Points:</span>{" "}
               {user.role === "admin"
                 ? "admin"
                 : user.isLoyalty === 1

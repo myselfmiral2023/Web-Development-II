@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 import axios from "../../api/axios";
 import {useTable} from 'react-table';
 import Snackbar from "../../components/Snackbar/Snackbar";
+import {format} from 'date-fns';
 import "./Admin.css";
 import useAuth from "../../hooks/useAuth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -86,7 +87,18 @@ const AdminVehicles = () => {
     },
     {
       Header: "Added to Fleet",
-      accessor: "createdAt"
+      accessor: "createdAt",
+      Cell: ({value}) => {
+        if (!value) {
+          return;
+        }
+        const date = new Date(value)
+        
+        const formattedDate = format(date, 'MM/dd/yyyy');
+        
+        return <span>{formattedDate}</span>;
+        
+      }
     },
   ], []);
 

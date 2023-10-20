@@ -5,6 +5,7 @@ import App from "./App";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthContextProvider } from "./contexts/AuthContext";
 import { ProvideAuthProvider } from "./contexts/ProvideAuth";
+import { SearchContextProvider } from "./contexts/SearchContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -12,9 +13,11 @@ root.render(
     <BrowserRouter>
     <ProvideAuthProvider>
       <AuthContextProvider>
+      <SearchContextProvider>
         <Routes>
           <Route path="/*" element={<App/>}/>
           </Routes>
+          </SearchContextProvider>
       </AuthContextProvider>
     </ProvideAuthProvider>
     </BrowserRouter>

@@ -2,11 +2,11 @@ import jwt from "jsonwebtoken";
 import { VehicleBooking } from "../models/vehiclebooking.model.js";
 
 const create = (req, res) => {
-    const token = req.cookies.access_token;
-    if (!token) return res.status(401).json("Not authenticated!");
+    // const token = req.cookies.access_token;
+    // if (!token) return res.status(401).json("Not authenticated!");
 
-    jwt.verify(token, process.env.JWT_KEY, (err) => {
-        if (err) return res.status(403).json("Token is not valid!");
+    // jwt.verify(token, process.env.JWT_KEY, (err) => {
+    //     if (err) return res.status(403).json("Token is not valid!");
 
         // Validate request
         if (!req.body) {
@@ -36,7 +36,7 @@ const create = (req, res) => {
                 res.status(201).json(data);
             }
         });
-    });
+    // });
 };
 
 const findAll = (req, res) => {

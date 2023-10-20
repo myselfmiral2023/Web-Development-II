@@ -60,7 +60,7 @@ VehicleType.getAll = (typename, year, result) => {
       return;
     }
 
-    console.log("vehicle types: ", res);
+    // console.log("vehicle types: ", res);
     result(null, res);
   });
 };
