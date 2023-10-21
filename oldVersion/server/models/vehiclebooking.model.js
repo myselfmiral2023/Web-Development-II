@@ -28,7 +28,7 @@ VehicleBooking.create = (newBooking, result) => {
 // Return one vehicle booking by id
 VehicleBooking.findById = (id, result) => {
   // FIXME: prevent SQL injection
-  sql.query(`SELECT * FROM vehiclebooking WHERE id = ${id}`, (err, res) => {
+  sql.query(`SELECT * FROM vehiclebooking WHERE id = ${id} WHERE`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);

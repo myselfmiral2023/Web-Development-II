@@ -13,7 +13,11 @@ const Profile = () => {
   useEffect(() => {
     axios
       .get(USER_URL + `/${userId}`)
-      .then((response) => setUser(response.data))
+      .then((response) => {
+        setUser(response.data)
+
+        
+      })
       .catch((error) => {
         console.log(error);
       });

@@ -42,7 +42,7 @@
 
 .radioTitle, .assistanceTitle, .insuranceTitle {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     gap: 2rem;
 }
 

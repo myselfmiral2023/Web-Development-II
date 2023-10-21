@@ -64,6 +64,30 @@ Review.getAll = (userid, bookingid, result) => {
     result(null, res);
   });
 };
+Review.getAllExpanded = (userid, bookingid, result) => {
+  let query = `SELECT reviews.id AS reviewid, reviews.comments, reviews.stars, users.id AS userid,  users.fullname,  vehicle.name, vehiclebooking.id AS bookingid, vehiclebooking.startdate AS bookingstart, vehiclebooking.enddate AS bookingend, vehiclebooking.uuid
+  FROM reviews
+  INNER JOIN users ON reviews.userid=users.id
+  INNER JOIN vehiclebooking ON reviews.bookingid=vehiclebooking.id
+  INNER JOIN vehicle ON vehiclebooking.vehicleid=vehicle.id`;
+
+  if (userid) {
+    query += ` WHERE users.id = '${userid}'`;
+  } else if (bookingid) {
+    query += ` WHERE bookingid = '${bookingid}'`;
+  }
+
+  sql.query(query, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    console.log("reviews: ", res);
+    result(null, res);
+  });
+};
 
 //reviews find with username
 Review.findAllWithName = (result) => {
