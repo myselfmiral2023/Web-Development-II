@@ -149,3 +149,14 @@ DAILY SCRUMS
 2. doing that testing, adding uuid, api adjustment
 3. uuid debugging
 
+2023/10/20 Lewis
+1. finishing confirmation wizard for booking
+2. getting confirmation wizard done, moving on to reviews
+3. managing state in the search context
+
+
+2023/10/20 Miral
+1. api updates for more specific queries 
+2. debugging back end, updating JWT verifications on controllers
+3. nothing for now
+
