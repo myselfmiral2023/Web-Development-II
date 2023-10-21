@@ -9,11 +9,12 @@ const User = function (user) {
     this.password = user.password;
     this.fullname = user.fullname;
     this.role = user.role;
+    this.createdAt = user.createdAt;
 };
 
   User.findByEmail = (email, result) => {
 
-    const q = "SELECT * FROM users WHERE email = ?";
+    const q = "SELECT * FROM users WHERE deletedAt IS NULL and email = ?";
     sql.query(q, [email], (err, data) => {
       if (err) return result(err);
       result(null, data[0] || null);
@@ -21,7 +22,7 @@ const User = function (user) {
   }
   User.findById = (id, result) => {
 
-    const q = "SELECT * FROM users WHERE id = ?";
+    const q = "SELECT * FROM users WHERE deletedAt IS NULL and id = ?";
     sql.query(q, [id], (err, data) => {
       if (err) return result(err);
       result(null, data[0] || null);
@@ -55,7 +56,7 @@ const User = function (user) {
 //   }
 
 User.getAll = (result) => {
-  let query = "SELECT * FROM users";
+  let query = "SELECT * FROM users WHERE deletedAt IS NULL";
 
  
   sql.query(query, (err, res) => {

@@ -6,6 +6,8 @@ const Review = function (review) {
   this.bookingid = review.bookingid;
   this.comments = review.comments;
   this.stars = review.stars;
+  this.createdAt = review.createdAt;
+  this.updatedAt = review.updatedAt;
 };
 
 // Create a review
@@ -25,7 +27,7 @@ Review.create = (newReview, result) => {
 // Return one review by id
 Review.findById = (id, result) => {
   // FIXME: prevent SQL injection
-  sql.query(`SELECT * FROM reviews WHERE id = ${id}`, (err, res) => {
+  sql.query(`SELECT * FROM reviews WHERE deletedAt IS NULL AND id = ${id}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -45,7 +47,7 @@ Review.findById = (id, result) => {
 
 // Return all reviews
 Review.getAll = (userid, bookingid, result) => {
-  let query = "SELECT * FROM reviews";
+  let query = "SELECT * FROM reviews WHERE deletedAt IS NULL";
 
   if (userid) {
     query += ` WHERE userid = '${userid}'`;
@@ -92,8 +94,9 @@ Review.getAllExpanded = (userid, bookingid, result) => {
 //reviews find with username
 Review.findAllWithName = (result) => {
   let query = `SELECT reviews.comments, reviews.stars, users.fullname
-  FROM reviews
-  INNER JOIN users ON reviews.userid=users.id`;
+  FROM reviews 
+  INNER JOIN users ON reviews.userid=users.id
+   WHERE reviews.deletedAt IS NULL`;
 
   sql.query(query, (err, res) => {
     if (err) {
@@ -109,9 +112,10 @@ Review.findAllWithName = (result) => {
 
 // Update a review
 Review.updateById = (id, review, result) => {
+  review.updatedAt = new Date();
   sql.query(
-    "UPDATE reviews SET userid = ?, bookingid = ?, comments = ?, stars = ? WHERE id = ?",
-    [review.userid, review.bookingid, review.comments, review.stars, id],
+    "UPDATE reviews SET userid = ?, bookingid = ?, comments = ?, stars = ?, updatedAt = ? WHERE id = ?",
+    [review.userid, review.bookingid, review.comments, review.stars, review.updatedAt, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -133,7 +137,11 @@ Review.updateById = (id, review, result) => {
 
 // Delete a review
 Review.remove = (id, result) => {
-  sql.query("DELETE FROM reviews WHERE id = ?", id, (err, res) => {
+  var query = `UPDATE reviews
+  SET deletedAt = ?
+  WHERE id = ?`
+  
+  sql.query(query, [new Date(), id], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

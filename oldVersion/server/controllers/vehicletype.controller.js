@@ -21,7 +21,8 @@ const create = (req, res) => {
             id: req.body.id, // Assuming you have an id field in your request
             typename: req.body.typename,
             year: req.body.year,
-            img: req.body.img
+            img: req.body.img,
+            createdAt: new Date()
         });
 
         // Save VehicleType in the database
