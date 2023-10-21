@@ -8,6 +8,7 @@ const VehicleBooking = function (booking) {
   this.enddate = booking.enddate;
   this.bookingdate = booking.bookingdate;
   this.cost = booking.cost;
+  this.uuid = booking.uuid;
 };
 
 // Create a vehicle booking

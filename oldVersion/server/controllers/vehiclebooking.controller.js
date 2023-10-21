@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { VehicleBooking } from "../models/vehiclebooking.model.js";
+import crypto from 'crypto';
 
 const create = (req, res) => {
     // const token = req.cookies.access_token;
@@ -16,6 +17,8 @@ const create = (req, res) => {
             return;
         }
 
+        const uuid = crypto.randomUUID();
+
         // Create a VehicleBooking
         const vehicleBooking = new VehicleBooking({
             userid: req.body.userid,
@@ -23,7 +26,8 @@ const create = (req, res) => {
             startdate: req.body.startdate,
             enddate: req.body.enddate,
             bookingdate: req.body.bookingdate,
-            cost: req.body.cost
+            cost: req.body.cost, 
+            uuid: uuid
         });
 
         // Save VehicleBooking in the database

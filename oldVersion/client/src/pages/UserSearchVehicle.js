@@ -75,6 +75,7 @@ const UserSearchVehicle = () => {
   }, []);
 
   const handleConfirm = () => {
+    setPrice(subtotal);
     setOpenModal(true);
   }
 
@@ -119,7 +120,7 @@ const UserSearchVehicle = () => {
         </ul>
       </div>
       <div className="rightSide"></div>
-      {openModal && <Checkout setOpen={setOpenModal} vehicleId={id} price={price} setPrice={setPrice} rentalDays={rentalDays} vehicleName={vehicle.name} subtotal={subtotal}/>}
+      {openModal && <Checkout setOpen={setOpenModal} user={user} vehicleId={id} price={price} setPrice={setPrice} rentalDays={rentalDays} vehicleName={vehicle.name} subtotal={subtotal}/>}
     </div>
   );
 };

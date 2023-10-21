@@ -23,6 +23,9 @@
     top: 0;
     right: 0;
     cursor: pointer;
+    font-size: 2rem;
+    margin-right: 5px;
+    color: red;
 }
 
 .extrasReturnButton {
@@ -119,4 +122,75 @@
 .agreementFooter button:disabled {
     background-color: gray;
     cursor: default;
+}
+
+.checkoutEndContainer {
+    line-height: 3rem;
+    padding: 15px;
+}
+
+.checkoutEndContainer ul {
+    list-style:circle;
+}
+
+.checkoutEndContainer p{
+    font-weight: bold;
+
+}
+
+.confirmBookingButton {
+    background-color: black;
+    color: aliceblue;
+    width: 80%;
+    margin: auto;
+    height: 48px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.confirmBookingButton:hover {
+    opacity: 80%;
+}
+
+.checkoutConfirm {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.checkoutConfirm p {
+    font-weight: bold;
+}
+
+.confirmationNumber {
+    border: 1px dashed gray;
+    padding: 8px;
+}
+
+.bookMoreRentalsButton {
+    background-color: black;
+    color: aliceblue;
+    width: 200px;
+    height: 48px;
+    font-size: 1rem;
+    cursor: pointer;    
+
+}
+
+.bookMoreRentalsButton:hover {
+    opacity: 80%;
+}
+
+.returnToProfileButton {
+    background-color: olivedrab;
+    color: black;
+    width: 200px;
+    height: 48px;
+    font-size: 1rem;
+    margin-bottom: 4rem;
+    cursor: pointer;
+}
+
+.returnToProfileButton:hover {
+    opacity: 80%;
 }

@@ -11,7 +11,7 @@ import axios from '../api/axios'
 import Snackbar from "../components/Snackbar/Snackbar";
 import "./Register.css"
 
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
+const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_\s]{3,28}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{5,24}$/;
 
 const REGISTER_URL = '/user/register'
@@ -37,9 +37,10 @@ const Register = ({admin, added, addedFunc}) => {
           
           if (response.status === 201 && !admin){
             setSuccess(true);
+            console.log(response);
             setSuccessMsg(response.data.message)
             setTimeout(() => {
-              navigate("/login");
+              // navigate("/login");
             }, 2000)
           }else {
             setSuccess(true);
@@ -62,7 +63,7 @@ const Register = ({admin, added, addedFunc}) => {
     } catch (error) {
       
     }
-    addedFunc(!added);
+    // addedFunc(!added);
     // setSubmitWasClicked(true);
     setFullname("");
     setEmail("");
