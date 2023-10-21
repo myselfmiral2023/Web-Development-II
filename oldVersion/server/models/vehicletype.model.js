@@ -6,6 +6,7 @@ const VehicleType = function (vehicletype) {
   this.typename = vehicletype.typename;
   this.year = vehicletype.year;
   this.img = vehicletype.img;
+  this.createdAt = vehicletype.createdAt;
 };
 
 // Create a vehicle type
@@ -25,7 +26,7 @@ VehicleType.create = (newVehicleType, result) => {
 // Return one vehicle type by id
 VehicleType.findById = (id, result) => {
   // FIXME: prevent SQL injection
-  sql.query(`SELECT * FROM vehicletype WHERE id = ${id}`, (err, res) => {
+  sql.query(`SELECT * FROM vehicletype WHERE deletedAt IS NULL and id = ${id}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -45,12 +46,12 @@ VehicleType.findById = (id, result) => {
 
 // Return all vehicle types
 VehicleType.getAll = (typename, year, result) => {
-    let query = "SELECT * FROM vehicletype ";
+    let query = "SELECT * FROM vehicletype WHERE deletedAt IS NULL";
 
   if (typename) {
-    query += ` WHERE typename = '${typename}'`;
+    query += ` and typename = '${typename}'`;
   } else if (year) {
-    query += `WHERE year = '${year}'`;
+    query += `and year = '${year}'`;
   }
 
   sql.query(query, (err, res) => {
@@ -67,9 +68,10 @@ VehicleType.getAll = (typename, year, result) => {
 
 // Update a vehicle type
 VehicleType.updateById = (id, vehicletype, result) => {
+  vehicletype.updatedAt = new Date();
   sql.query(
-    "UPDATE vehicletype SET typename = ?, year = ?, img = ? WHERE id = ?",
-    [vehicletype.typename, vehicletype.year, vehicletype.img, id],
+    "UPDATE vehicletype SET typename = ?, year = ?, img = ?, updatedAt = ? WHERE id = ?",
+    [vehicletype.typename, vehicletype.year, vehicletype.img, vehicletype.updatedAt, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -91,7 +93,10 @@ VehicleType.updateById = (id, vehicletype, result) => {
 
 // Delete a vehicle type
 VehicleType.remove = (id, result) => {
-  sql.query("DELETE FROM vehicletype WHERE id = ?", id, (err, res) => {
+  var query =  `UPDATE vehicletype
+  SET deletedAt = ?
+  WHERE id = ?`;
+  sql.query(query, [new Date(), id], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

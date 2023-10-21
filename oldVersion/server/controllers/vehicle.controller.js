@@ -24,7 +24,8 @@ const create = (req, res) => {
             name: req.body.name,
             company: req.body.company,           
             perdayrent: req.body.perdayrent,
-            vehicletypeid: req.body.vehicletypeid
+            vehicletypeid: req.body.vehicletypeid,
+            createdAt: new Date()
         });
 
         // Save Vehicle in the database

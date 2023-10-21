@@ -21,7 +21,8 @@ const create = (req, res) => {
             userid: req.body.userid,
             bookingid: req.body.bookingid,
             comments: req.body.comments,
-            stars: req.body.stars
+            stars: req.body.stars,
+            createdAt:  new Date()
         });
 
         // Save Review in the database

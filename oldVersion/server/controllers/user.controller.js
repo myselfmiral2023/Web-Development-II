@@ -49,7 +49,8 @@ export const register = (req, res) => {
       email: req.body.email,
       fullname:req.body.fullname,
       password: req.body.password,
-      role: 'user'
+      role: 'user',
+      createdAt: new Date()
   });
 
     // Create a new user
@@ -65,7 +66,7 @@ export const register = (req, res) => {
 export const login = (req, res) => {
   // Check user
   User.findByEmail(req.body.email, (err, user) => {
-    if (err) return res.status(500).json(err);
+    if (err) return res.status(500).json("From here" + err);
     if (!user) return res.status(404).json("User not found!");
 
     // Check password
