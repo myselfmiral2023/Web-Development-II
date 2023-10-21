@@ -1,6 +1,8 @@
 import { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { SearchContext } from '../contexts/SearchContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import axios from "../api/axios";
 import "./UserSingleVehicle.css";
 import {DateRange} from 'react-date-range';
@@ -23,6 +25,8 @@ const VEHICLE_TYPE_DICT = {
 };
 
 const UserSingleVehicle = () => {
+
+  const navigate = useNavigate();
 
   const {dispatch} = useContext(SearchContext);
   
@@ -93,6 +97,11 @@ const UserSingleVehicle = () => {
 
       </div>
       <div className="calendarContainer">
+      <div className='searchBackButtonContainer'>
+
+<button className='returnButton' onClick={() => navigate(-1)}><FontAwesomeIcon icon={faCircleArrowLeft}/> Go back</button>
+
+</div>
         <h2>Select Rental Period</h2>
       {<DateRange
               editableDateInputs={true}

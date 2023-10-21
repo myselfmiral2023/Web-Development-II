@@ -12,6 +12,7 @@ import Layout from "./components/Layout";
 import Confirm from './pages/Confirm'
 import Missing from './pages/Missing'
 import Search from "./pages/Search";
+import UserSearchVehicle from "./pages/UserSearchVehicle";
 import Unauthorized from './pages/Unauthorized'
 import AdminBookings from './pages/Admin/AdminBookings'
 import AdminData from './pages/Admin/AdminData'
@@ -46,6 +47,7 @@ function App() {
           </Route>
           <Route element={<RequireAuth allowedRole={"user"}/>}>
           <Route path="/search" element={<Search />} />
+          <Route path="/search/:id" element={<UserSearchVehicle />} />
           </Route>
           <Route element={<RequireAuth allowedRole={"user"}/>}>
           <Route path="/confirm" element={<Confirm />} />

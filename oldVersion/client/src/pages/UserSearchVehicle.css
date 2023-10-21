@@ -1,0 +1,99 @@
+.userSearchVehicleContainer {
+    display: flex;
+}
+
+.returnButton {
+    background-color: olivedrab;
+    color: black;
+    width: 200px;
+    height: 48px;
+    font-size: 1rem;
+    margin-bottom: 4rem;
+    cursor: pointer;
+}
+
+.returnButton:hover {
+    opacity: 80%;
+}
+
+@media only screen and (max-width: 600px) {
+    .userSearchVehicleContainer {
+      flex-direction: column;
+    }
+  }
+
+  @media only screen and (min-width: 601px) {
+    .userSearchVehicleContainer {
+      flex-direction: row;
+    }
+  }
+
+.leftSide, .calendarContainer, .vehicleInfoContainer, .rightSide {
+    
+    flex: 1;
+}
+
+.dateSingle {
+    margin-top: 40px;
+}
+
+.calendarContainer {
+    font-size: 1.7rem;
+    text-align: center;
+    padding: 3px;
+    margin: auto;
+}
+
+.rentalInfoContainer{
+    font-size: 1.7rem;
+    text-align: center;
+    padding: 3px;
+    margin: auto;
+    border: solid 2px black;
+}
+
+.continueToCheckoutButton{
+background-color: black;
+    color: aliceblue;
+    width: 100px;
+    height: 48px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.continueToCheckoutButton:hover {
+    opacity: 80%;
+    cursor: pointer;
+
+}
+
+.calendarContainer h2{
+    text-decoration: underline;
+}
+
+
+.vehicleInfoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.1rem;
+    text-align: left;
+    gap: 15px;
+    
+}
+
+
+
+img {
+    width: 100%;
+  height: auto;
+}
+
+.availabilityButton{
+    display: block;
+}
+
+.perdayPrice{
+    text-decoration: underline;
+    font-weight: bold;
+}

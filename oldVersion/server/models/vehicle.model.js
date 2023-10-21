@@ -93,7 +93,7 @@ Vehicle.getAllAvailable = (startDate, endDate, result) => {
       return;
     }
 
-    console.log("vehicles: ", res);
+    // console.log("vehicles: ", res);
     result(null, res);
   });
 };

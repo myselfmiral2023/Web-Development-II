@@ -10,24 +10,28 @@ const VEHICLE_AVAILABILITY_URL = "/vehicle/available";
 
 const Search = () => {
 
+   
     const navigate = useNavigate();
 
     const {dates} = useContext(SearchContext);
 
-    console.log("start date and end date");
-    console.log(dates[0]?.startDate);
-    console.log(dates[0]?.endDate);
 
     const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24
     
     const dayDifference = (date1, date2) => {
+
+      try {
         const timeDiff = Math.abs(date2.getTime() - date1.getTime());
         const dayDelta = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
         return dayDelta;
+      } catch (error) {
+        console.log(error);
+      }
+        
       
     }
 
-    const rentalDays = dayDifference(dates[0].endDate, dates[0].startDate) + 1;
+    const rentalDays = dayDifference(dates[0]?.endDate, dates[0]?.startDate) + 1;
 
 
     const [vehicleUnits, setVehicleUnits] = useState([]);
@@ -49,8 +53,8 @@ const Search = () => {
       })
     }, [])
 
-    const handleLearnMore = () => {
-      
+    const handleLearnMore = (id) => {
+      navigate(`/search/${id}`);
     }
 
   return (
