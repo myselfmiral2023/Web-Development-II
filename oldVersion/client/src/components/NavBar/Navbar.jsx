@@ -55,7 +55,7 @@ function Navbar() {
   return (
     <div className="navbar">
       <div className="navContainer">
-        <span className="brandLogo"><span style={{fontSize: "5rem", textDecoration: "none"}}>&#x2145;</span><span style={{textDecoration: "underline"}}>riven Auto Rental</span></span>
+        <span className="brandLogo" onClick={() => navigate("/")}><span style={{fontSize: "5rem", textDecoration: "none"}}>&#x2145;</span><span style={{textDecoration: "underline"}}>riven Auto Rental</span></span>
         {user ? (
           <>
             <div>

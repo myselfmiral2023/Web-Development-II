@@ -3,8 +3,8 @@ import { useReducer, createContext } from "react";
 const INITIAL_STATE = {
     dates: [],
     options: {
-        satellite: undefined,
-        roadside: undefined,
+        satelliteRadio: undefined,
+        roadsideAssistance: undefined,
         insurance: undefined
     }
 }

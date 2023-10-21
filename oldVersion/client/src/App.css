@@ -6,14 +6,10 @@
   box-sizing: border-box;
 }
 
-/* .App {
-  font-size: 1.2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.App {
+  min-height: 70vh;
   
-} */
+}
 
 /* main {
   display: flex;

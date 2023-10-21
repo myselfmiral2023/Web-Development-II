@@ -85,6 +85,29 @@ const findAllAvailable = (req, res) => {
         });
     // });
 };
+export const findOneAvailable = (req, res) => {
+    console.log("find one available reached")
+    // const token = req.cookies.access_token;
+    // if (!token) return res.status(401).json("Not authenticated!");
+
+    // jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+    //     if (err) return res.status(403).json("Token is not valid!");
+
+        // Extract the vehicletype parameter from the request
+        const startDate = req.params.startDate; // Access startDate from the route path
+        const endDate = req.params.endDate; 
+        const id = req.params.id
+        Vehicle.findOneAvailable(startDate, endDate, id, (err, data) => {
+            if (err) {
+                res.status(500).send({
+                    message: err.error || "Some error occurred while retrieving vehicle availability."
+                });
+            } else {
+                res.json(data);
+            }
+        });
+    // });
+};
 
 const findOne = (req, res) => {
     const {authorization} = req.headers;

@@ -1,5 +1,6 @@
 import "./App.css";
 import NavBar from "./components/NavBar/Navbar";
+import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import SearchDate from "./components/Calendar/SearchDate";
@@ -20,6 +21,7 @@ import AdminVehicles from './pages/Admin/AdminVehicles'
 import RequireAuth from "./components/RequireAuth";
 import AdminSingleUser from "./pages/Admin/AdminSingleUser";
 import AdminSingleVehicle from "./pages/Admin/AdminSingleVehicle"
+import UserSingleVehicle from "./pages/UserSingleVehicle";
 import { Routes, Link, Route } from "react-router-dom";
 
 
@@ -35,6 +37,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/types" element={<Types />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/vehicle/:id" element={<UserSingleVehicle />} />
           
           <Route path="/" element={<Home />} />
           {/* Private routes */}
@@ -61,6 +64,7 @@ function App() {
             <Route path="*" element={<Missing/>} />
         </Route>
       </Routes>
+      <Footer />
     </div>
   );
 }

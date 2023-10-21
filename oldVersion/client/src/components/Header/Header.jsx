@@ -1,5 +1,5 @@
 import {useState, useContext} from 'react'
-import { Link} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCar, faTruck, faDollarSign, faCarSide, faCalendarDays, faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import "./Header.css"
@@ -12,14 +12,15 @@ import { SearchContext } from '../../contexts/SearchContext';
 
 const Header = () => {
 
+  const navigate = useNavigate();
+
   const {dispatch} = useContext(SearchContext)
 
-  const handleSearch = () => {
-    // dispatch({type: "NEW_SEARCH", payload})
+  const today = new Date();
 
-  }
+    
 
-    const [date, setDate] = useState([
+    const [dates, setDates] = useState([
       {
         startDate: new Date(),
         endDate: new Date(),
@@ -28,6 +29,12 @@ const Header = () => {
     ])
 
     const [openDate, setOpenDate] = useState(false);
+
+    const handleSearch = () => {
+      dispatch({type: "NEW_SEARCH", payload: {dates}})
+      navigate("/search", { state: {dates}})
+  
+    }
 
   return (
       <div className="headerContainer">
@@ -56,19 +63,20 @@ const Header = () => {
           </div>
           <div className="headerSearchItem">
             <span><FontAwesomeIcon icon={faArrowRight}/></span>
-            <span onClick={() => openDate ? setOpenDate(false) : setOpenDate(true)}>{`${format(date[0].startDate, "yyyy/MM/dd")} to ${format(date[0].endDate, "yyyy/MM/dd")}`}</span>
+            <span onClick={() => openDate ? setOpenDate(false) : setOpenDate(true)}>{`${format(dates[0].startDate, "yyyy-MM-dd")} to ${format(dates[0].endDate, "yyyy-MM-dd")}`}</span>
             {openDate && <DateRange
               editableDateInputs={true}
-              onChange={(item) => setDate([item.selection])}
-              ranges={date}
+              onChange={(item) => setDates([item.selection])}
+              ranges={dates}
               className='date'
+              minDate={today}
             />}
           </div>
           <div className="headerSearchItem">
             <span className="searchCalendarIcon" onClick={() => openDate ? setOpenDate(false) : setOpenDate(true)}><FontAwesomeIcon icon={faCalendarDays}/></span>
           </div>
           <div className="headerSearchItem">
-            <button className="headerSearchButton">Search</button>
+            <Link to="/search"><button className="headerSearchButton" onClick={handleSearch}>Search</button></Link>
           </div>
         </div>
       </div>

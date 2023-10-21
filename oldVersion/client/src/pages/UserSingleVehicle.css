@@ -1,0 +1,43 @@
+.userSingleVehicleContainer {
+    display: flex;
+}
+
+@media only screen and (max-width: 600px) {
+    .userSingleVehicleContainer {
+      flex-direction: column;
+    }
+  }
+
+  @media only screen and (min-width: 601px) {
+    .userSingleVehicleContainer {
+      flex-direction: row;
+    }
+  }
+
+.leftSide, .calendarContainer, .vehicleInfoContainer, .rightSide {
+    
+    flex: 1;
+}
+
+.dateSingle {
+    margin-top: 40px;
+}
+
+
+
+
+.vehicleInfoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+img {
+    width: 100%;
+  height: auto;
+}
+
+.availabilityButton{
+    display: block;
+}

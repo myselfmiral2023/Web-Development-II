@@ -124,7 +124,9 @@ const Login = () => {
           <label htmlFor="password">Password:</label>
           <input id="password" type="password" required onChange={(e) => setLogPass(e.target.value)} onBlur={handleBlur} value={logPass}/>
           <button disabled={loading} onClick={login} className='regLogButton'>Login</button>
-          
+          <br />
+          <p>Don't have an account yet? Register Today:</p>
+          <Link to="/register">Register</Link>
           
 
           {loginStatus && (

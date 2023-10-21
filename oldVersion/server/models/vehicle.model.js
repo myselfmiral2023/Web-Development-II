@@ -102,6 +102,45 @@ function isValidDate(dateString) {
   return /^\d{4}-\d{2}-\d{2}$/.test(dateString);
 }
 
+
+Vehicle.findOneAvailable = (startDate, endDate, id, result) => {
+  if (!startDate || !endDate || !isValidDate(startDate) || !isValidDate(endDate)) {
+    return result({ error: 'Invalid date parameters' });
+  }
+  if (!id) {
+    return result ({ error: 'No id provided' })
+  }
+  // Check if endDate is after startDate
+  if (new Date(endDate) < new Date(startDate)) {
+    return result({ error: 'End date must be after start date' });
+  }
+  let query = `SELECT *
+  FROM (
+      SELECT *
+      FROM Vehicle
+      WHERE id NOT IN (
+          SELECT DISTINCT V.id
+          FROM Vehicle V
+          LEFT JOIN VehicleBooking VB ON V.id = VB.vehicleid
+          WHERE (VB.startdate BETWEEN ? AND ?)
+          OR (VB.enddate BETWEEN ? AND ?)
+      )
+  ) AS AvailableVehicles
+  WHERE id = ?;`;
+
+  sql.query(query, [startDate, endDate, startDate, endDate, id], (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    console.log("vehicle searched for: ", res);
+    result(null, res);
+  });
+};
+
+
 // Update a vehicle
 Vehicle.updateById = (id, vehicle, result) => {
   sql.query(

@@ -1,10 +1,11 @@
 import express from "express";
-import { create, findAll, findOne, update, remove, findAllAvailable } from "../controllers/vehicle.controller.js";
+import { create, findAll, findOne, update, remove, findAllAvailable, findOneAvailable } from "../controllers/vehicle.controller.js";
 
 const router = express.Router();
 
 router.get("/", findAll);
 router.get("/available/:startDate/:endDate", findAllAvailable);
+router.get("/available/:startDate/:endDate/:id", findOneAvailable);
 router.get("/:id([0-9]+)", findOne);
 router.get("/vehicletype/:vehicletype([0-9]+)", findAll);
 router.post("/", create);

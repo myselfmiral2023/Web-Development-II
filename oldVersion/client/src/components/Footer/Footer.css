@@ -1,0 +1,37 @@
+.footerContainer {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 40px;
+    padding: 20px;
+}
+
+.footerContent {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.footerContent ul {
+    display: flex;
+    justify-content: space-around;
+    gap: 40px;
+    font-size: 1.3rem;
+    color: white;
+    padding: 4px;
+    list-style: none;
+}
+
+.footerContent ul li {
+    cursor: pointer;
+}
+.footerContent ul li:hover {
+    text-decoration: underline;
+    opacity: 80%;
+}
+
+.copyright {
+    font-size: 1.1rem;
+    color: white;
+}

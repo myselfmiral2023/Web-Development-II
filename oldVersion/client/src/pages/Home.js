@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./Home.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/NavBar/Navbar";
 import Header from "../components/Header/Header";
 import Types from "./Types";
@@ -15,11 +15,16 @@ import AdminReviews from "./Admin/AdminReviews";
 import AdminUsers from "./Admin/AdminUsers";
 import AdminVehicles from "./Admin/AdminVehicles";
 import axios from "../api/axios";
-
+import { SearchContext } from '../contexts/SearchContext';
 const VEHICLE_UNIT_URL = "/vehicle";
 
 const Home = () => {
+
+  const navigate = useNavigate();
+
   const [vehicleUnits, setVehicleUnits] = useState([]);
+
+  const {dispatch, dates} = useContext(SearchContext)
 
   const getCarUnits = () => {
     
@@ -43,6 +48,11 @@ const Home = () => {
   useEffect(() => {
     getCarUnits();
   }, []);
+
+  const handleLearnMore = (id) => {
+    dispatch({type: "NEW_SEARCH", payload: {dates}})
+    navigate(`/vehicle/${id}`, { state: {dates}})
+  }
 
   return (
     <>
@@ -73,7 +83,9 @@ const Home = () => {
                       />
                     </div>
                     <div className="typeListItemButtons">
-                      <p>Starting at <span id="perdayPrice">${vehicleUnit.perdayrent}</span> per day</p><button>Learn More</button>
+                      <p>Starting at <span id="perdayPrice">${vehicleUnit.perdayrent}</span> per day</p>
+
+                      <button onClick={() => handleLearnMore(vehicleUnit.id)}>Learn More</button>
                     </div>
                   </li>
                 ))}
