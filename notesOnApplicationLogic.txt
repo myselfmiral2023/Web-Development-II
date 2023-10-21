@@ -1,3 +1,11 @@
+browsing from home page shows single vehicle page with calendar - you can enter dates and page will tell you if vehicle available or not. If available, you can begin checkout process, checkout process ends at profile page.
+
+browsing from search page shows single vehicle page with dates already set, if user wants to change dates, a button links them back to the home page. if they want to change vehicles a button takes them back to the previous search page with the date range they originally entered preserved. if they dont navigate back from the single vehicle page, they can begin checkout process.
+
+checkout process ->
+date context passes down date range and extra options, props from single vehicle page pass down vehicle. when checkout is complete, a new booking is posted to the booking api.
+
+
 for bookings / reviews/ users on the ADMIN SIDE
 we need joined queries
 
