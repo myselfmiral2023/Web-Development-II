@@ -50,9 +50,9 @@ Review.getAll = (userid, bookingid, result) => {
   let query = "SELECT * FROM reviews WHERE deletedAt IS NULL";
 
   if (userid) {
-    query += ` WHERE userid = '${userid}'`;
+    query = `SELECT * FROM reviews WHERE deletedAt IS NULL AND userid = '${userid}'`;
   } else if (bookingid) {
-    query += ` WHERE bookingid = '${bookingid}'`;
+    query = `SELECT * FROM reviews WHERE deletedAt IS NULL AND bookingid = '${bookingid}'`;
   }
 
   sql.query(query, (err, res) => {

@@ -30,7 +30,8 @@ const create = (req, res) => {
             enddate: req.body.enddate,
             bookingdate: req.body.bookingdate,
             cost: req.body.cost, 
-            uuid: uuid
+            uuid: uuid,
+            createdAt: new Date()
         });
 
         // Save VehicleBooking in the database

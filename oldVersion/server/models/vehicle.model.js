@@ -5,7 +5,8 @@ const Vehicle = function (vehicle) {
   this.name = vehicle.name,
     this.company = vehicle.company,
     this.perdayrent = vehicle.perdayrent,
-    this.vehicletypeid = vehicle.vehicletypeid
+    this.vehicletypeid = vehicle.vehicletypeid,
+    this.createdAt = vehicle.createdAt
 };
 
 // Create a vehicle
@@ -25,7 +26,7 @@ Vehicle.create = (newVehicle, result) => {
 // Return one vehicle by id
 Vehicle.findById = (id, result) => {
   // FIXME: prevent SQL injection
-  sql.query(`SELECT * FROM vehicle WHERE id = ${id}`, (err, res) => {
+  sql.query(`SELECT * FROM vehicle WHERE deletedAt IS NULL AND id = ${id}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -51,7 +52,9 @@ Vehicle.getAll = (vehicletype, result) => {
 
   // Check if vehicletype is provided in the request body
   if (vehicletype) {
-    query += ` WHERE vehicletype.typename = '${vehicletype}'`; // Assuming 'vehicletype' is the column name in your database
+    query += ` WHERE vehicletype.typename = '${vehicletype}' AND deletedAt IS NULL`; // Assuming 'vehicletype' is the column name in your database
+  } else {
+    query += ` WHERE deletedAt IS NULL`;
   }
 
   sql.query(query, (err, res) => {
@@ -79,7 +82,7 @@ Vehicle.getAllAvailable = (startDate, endDate, result) => {
   }
   let query = `SELECT *
   FROM Vehicle
-  WHERE id NOT IN (
+  WHERE  deletedAt IS NULL AND id NOT IN (
       SELECT DISTINCT V.id
       FROM Vehicle V
       LEFT JOIN VehicleBooking VB ON V.id = VB.vehicleid
@@ -126,7 +129,8 @@ Vehicle.findOneAvailable = (startDate, endDate, id, result) => {
           OR (VB.enddate BETWEEN ? AND ?)
       )
   ) AS AvailableVehicles
-  WHERE id = ?;`;
+  WHERE id = ?
+  AND deletedAt IS NULL;`;
 
   sql.query(query, [startDate, endDate, startDate, endDate, id], (err, res) => {
     if (err) {
@@ -143,9 +147,10 @@ Vehicle.findOneAvailable = (startDate, endDate, id, result) => {
 
 // Update a vehicle
 Vehicle.updateById = (id, vehicle, result) => {
+  var updatedAt = new Date();
   sql.query(
-    "UPDATE vehicle SET name = ?, company = ?, perdayrent = ?, vehicletypeid = ? WHERE id = ?",
-    [vehicle.name, vehicle.company, vehicle.perdayrent, vehicle.vehicletypeid, id],
+    "UPDATE vehicle SET name = ?, company = ?, perdayrent = ?, vehicletypeid = ?, updatedAt = ? WHERE id = ?",
+    [vehicle.name, vehicle.company, vehicle.perdayrent, vehicle.vehicletypeid, updatedAt, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -167,7 +172,10 @@ Vehicle.updateById = (id, vehicle, result) => {
 
 // Delete a vehicle
 Vehicle.remove = (id, result) => {
-  sql.query("DELETE FROM vehicle WHERE id = ?", id, (err, res) => {
+  var query = `UPDATE vehicle
+  SET deletedAt = ?
+  WHERE id = ?`;
+  sql.query(query, [new Date(),id], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

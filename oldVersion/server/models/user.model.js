@@ -4,45 +4,45 @@ import bcrypt from "bcryptjs";
 
 // constructor
 const User = function (user) {
-    this.id = user.id;
-    this.email = user.email;
-    this.password = user.password;
-    this.fullname = user.fullname;
-    this.role = user.role;
-    this.createdAt = user.createdAt;
+  this.id = user.id;
+  this.email = user.email;
+  this.password = user.password;
+  this.fullname = user.fullname;
+  this.role = user.role;
+  this.createdAt = user.createdAt;
 };
 
-  User.findByEmail = (email, result) => {
+User.findByEmail = (email, result) => {
 
-    const q = "SELECT * FROM users WHERE deletedAt IS NULL and email = ?";
-    sql.query(q, [email], (err, data) => {
-      if (err) return result(err);
-      result(null, data[0] || null);
-    });
-  }
-  User.findById = (id, result) => {
+  const q = "SELECT * FROM users WHERE deletedAt IS NULL and email = ?";
+  sql.query(q, [email], (err, data) => {
+    if (err) return result(err);
+    result(null, data[0] || null);
+  });
+}
+User.findById = (id, result) => {
 
-    const q = "SELECT * FROM users WHERE deletedAt IS NULL and id = ?";
-    sql.query(q, [id], (err, data) => {
-      if (err) return result(err);
-      result(null, data[0] || null);
-    });
-  }
+  const q = "SELECT * FROM users WHERE deletedAt IS NULL and id = ?";
+  sql.query(q, [id], (err, data) => {
+    if (err) return result(err);
+    result(null, data[0] || null);
+  });
+}
 
- User.createUser = (user, result) => {
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(user.password, salt);
+User.createUser = (user, result) => {
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(user.password, salt);
 
-    //const q = "INSERT INTO users (`email`, `password`) VALUES (?)";
-    const q = "INSERT INTO users SET ?";
-    //const values = [user.email, hash];
-    user.password = hash;
+  //const q = "INSERT INTO users (`email`, `password`) VALUES (?)";
+  const q = "INSERT INTO users SET ?";
+  //const values = [user.email, hash];
+  user.password = hash;
 
-    sql.query(q, user, (err) => {
-      if (err) return result(err);
-      result(null);
-    });
-  }
+  sql.query(q, user, (err) => {
+    if (err) return result(err);
+    result(null);
+  });
+}
 
 //   User.getAll = (users, result) => {
 //     try {
@@ -51,14 +51,14 @@ const User = function (user) {
 //         if(err) return result(err)
 //       })
 //     } catch (error) {
-      
+
 //     }
 //   }
 
 User.getAll = (result) => {
   let query = "SELECT * FROM users WHERE deletedAt IS NULL";
 
- 
+
   sql.query(query, (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -76,10 +76,10 @@ User.updateById = (id, user, result) => {
   const hash = bcrypt.hashSync(user.password, salt);
 
   user.password = hash;
-  
+  var updatedAt = new Date();
   sql.query(
-    "UPDATE users SET fullname = ?, email = ?, password = ? WHERE id = ?",
-    [user.fullname, user.email, user.password, id],
+    "UPDATE users SET fullname = ?, email = ?, password = ?, updatedAt = ? WHERE id = ?",
+    [user.fullname, user.email, user.password, updatedAt, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -102,8 +102,10 @@ User.updateById = (id, user, result) => {
 
 
 User.remove = (id, result) => {
-
-  sql.query("DELETE FROM users WHERE id = ?", id, (err, res) => {
+  var query = `UPDATE users
+SET deletedAt = ?
+WHERE id = ?`;
+  sql.query(query, [new Date(), id], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

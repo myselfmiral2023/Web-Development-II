@@ -9,6 +9,7 @@ const VehicleBooking = function (booking) {
   this.bookingdate = booking.bookingdate;
   this.cost = booking.cost;
   this.uuid = booking.uuid;
+  this.createdAt = booking.createdAt;
 };
 
 // Create a vehicle booking
@@ -32,7 +33,7 @@ VehicleBooking.findById = (id, result) => {
   sql.query(`SELECT vehiclebooking.id AS bookingid, vehiclebooking.userid, vehicle.name, vehiclebooking.startdate, vehiclebooking.enddate, vehiclebooking.bookingdate, vehiclebooking.cost, vehiclebooking.uuid
   FROM vehiclebooking
   INNER JOIN vehicle ON vehiclebooking.vehicleid=vehicle.id
-  WHERE vehiclebooking.id = ?`, [id], (err, res) => {
+  WHERE vehiclebooking.id = ? AND deletedAt is NULL`, [id], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -59,9 +60,9 @@ VehicleBooking.getAll = (userid, vehicleid, result) => {
 
    // FIXME: prevent SQL injection
   if (userid) {
-    query += ` WHERE userid = '${userid}'`;
+    query += ` WHERE userid = '${userid}' AND deletedAt is NULL`;
   } else if (vehicleid) {
-    query += ` WHERE vehicleid = '${vehicleid}'`;
+    query += ` WHERE vehicleid = '${vehicleid}' AND deletedAt is NULL`;
   }
 
   query += ` ORDER BY bookingdate DESC`;
@@ -80,9 +81,10 @@ VehicleBooking.getAll = (userid, vehicleid, result) => {
 
 // Update a vehicle booking
 VehicleBooking.updateById = (id, booking, result) => {
+  var updatedAt = new Date();
   sql.query(
-    "UPDATE vehiclebooking SET userid = ?, vehicleid = ?, startdate = ?, enddate = ?, bookingdate = ?, cost = ? WHERE id = ?",
-    [booking.userid, booking.vehicleid, booking.startdate, booking.enddate, booking.bookingdate, booking.cost, id],
+    "UPDATE vehiclebooking SET userid = ?, vehicleid = ?, startdate = ?, enddate = ?, bookingdate = ?, cost = ?, updatedAt = ? WHERE id = ?",
+    [booking.userid, booking.vehicleid, booking.startdate, booking.enddate, booking.bookingdate, booking.cost, updatedAt, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -104,7 +106,11 @@ VehicleBooking.updateById = (id, booking, result) => {
 
 // Delete a vehicle booking
 VehicleBooking.remove = (id, result) => {
-  sql.query("DELETE FROM vehiclebooking WHERE id = ?", [id], (err, res) => {
+  var query =    `UPDATE vehiclebooking
+  SET deletedAt = ?
+  WHERE id = ?`;
+  var deletedAt = new Date();
+  sql.query(query, [deletedAt, id], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
