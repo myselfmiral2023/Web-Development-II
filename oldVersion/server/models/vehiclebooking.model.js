@@ -33,7 +33,7 @@ VehicleBooking.findById = (id, result) => {
   sql.query(`SELECT vehiclebooking.id AS bookingid, vehiclebooking.userid, vehicle.name, vehiclebooking.startdate, vehiclebooking.enddate, vehiclebooking.bookingdate, vehiclebooking.cost, vehiclebooking.uuid
   FROM vehiclebooking
   INNER JOIN vehicle ON vehiclebooking.vehicleid=vehicle.id
-  WHERE vehiclebooking.id = ? AND deletedAt is NULL`, [id], (err, res) => {
+  WHERE vehiclebooking.id = ? AND vehiclebooking.deletedAt is NULL`, [id], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -60,9 +60,9 @@ VehicleBooking.getAll = (userid, vehicleid, result) => {
 
    // FIXME: prevent SQL injection
   if (userid) {
-    query += ` WHERE userid = '${userid}' AND deletedAt is NULL`;
+    query += ` WHERE userid = '${userid}' AND vehiclebooking.deletedAt is NULL`;
   } else if (vehicleid) {
-    query += ` WHERE vehicleid = '${vehicleid}' AND deletedAt is NULL`;
+    query += ` WHERE vehicleid = '${vehicleid}' AND vehiclebooking.deletedAt is NULL`;
   }
 
   query += ` ORDER BY bookingdate DESC`;

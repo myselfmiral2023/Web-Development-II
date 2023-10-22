@@ -11,6 +11,10 @@
     gap: 4rem;
 }
 
+.profilePicture {
+    width: 10%;
+}
+
 .profileReviewContainer {
     display: flex;
     flex-direction: column;

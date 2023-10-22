@@ -52,9 +52,9 @@ Vehicle.getAll = (vehicletype, result) => {
 
   // Check if vehicletype is provided in the request body
   if (vehicletype) {
-    query += ` WHERE vehicletype.typename = '${vehicletype}' AND deletedAt IS NULL`; // Assuming 'vehicletype' is the column name in your database
+    query += ` WHERE vehicletype.typename = '${vehicletype}' AND vehicle.deletedAt IS NULL`; // Assuming 'vehicletype' is the column name in your database
   } else {
-    query += ` WHERE deletedAt IS NULL`;
+    query += ` WHERE vehicle.deletedAt IS NULL`;
   }
 
   sql.query(query, (err, res) => {

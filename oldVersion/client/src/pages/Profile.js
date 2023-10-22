@@ -12,11 +12,16 @@ const REVIEW_URL = "/review"
 const BOOKING_URL = "/vehiclebooking/user"
 const ALL_REVIEW_URL = "/review/userexp";
 
+const USER_PHOTO_UPLOAD_URL = "/user/upload"
+const USER_PHOTO_URL = "/user/files"
+
 const Profile = () => {
 
   const navigate = useNavigate();
 
   const [user, setUser] = useState({});
+
+  const [userPhoto, setUserPhoto] = useState("");
 
   const [reviews, setReviews] = useState([]);
 
@@ -62,6 +67,14 @@ const Profile = () => {
       })
       .then((thirdResponse) => {
         setBookings(thirdResponse.data)
+
+        
+        return axios.get(`${USER_PHOTO_URL}/${user.email}.jpg`)
+      })
+      .then((fourthResponse) => {
+        console.log(`${USER_PHOTO_URL}/${user.email}.jpg`)
+
+        setUserPhoto(fourthResponse.data)
       })
       .catch((error) => {
         console.log(error);
@@ -118,6 +131,15 @@ const Profile = () => {
         })
   }
 
+  const handleUpdatePhoto = () => {
+      axios
+          .delete()
+  }
+
+  const handleDeletePhoto = () => {
+    
+  }
+
   return (
     <article className="profileMain">
       {editSuccess && <Snackbar type="success" message={editSuccessMsg} />}
@@ -126,7 +148,13 @@ const Profile = () => {
       {deleteError && <Snackbar type="failure" message={deleteErrorMsg} />}
       <div className="profileTop">
         <h1>User Profile</h1>
+        <img
+                className="profilePicture"
+                src={userPhoto}
+                alt={`Profile photo for user ${user.id}`}
+              />
         <h2>Profile for {user.fullname}</h2>
+        <p>Email: {user.email}</p>
       </div>
       <div className="profileContainer">
         <div className="profileReviewContainer">

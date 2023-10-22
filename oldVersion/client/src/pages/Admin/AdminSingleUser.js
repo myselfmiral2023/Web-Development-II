@@ -85,10 +85,10 @@ const AdminSingleUser = () => {
         console.log(response);
         return axios.get(`${USER_PHOTO_URL}/${response.data.email}.jpg`);
       })
-      .then((secondReponse) => {
+      .then((secondResponse) => {
         console.log(`${USER_PHOTO_URL}/userimg01.jpg`);
-        console.log(secondReponse);
-        setUserPhoto(secondReponse.data);
+        console.log(secondResponse);
+        setUserPhoto(secondResponse.data);
 
         return axios.get(`${ALL_REVIEW_URL}/${id}`);
       })
