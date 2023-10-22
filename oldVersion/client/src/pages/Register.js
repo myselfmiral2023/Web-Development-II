@@ -22,18 +22,49 @@ const Register = ({admin, added, addedFunc}) => {
 
   // const [submitWasClicked, setSubmitWasClicked] = useState(false);
 
+  const upload = async () => {
+    try {
+      const formData = new FormData();
+      const newFileName = email + ".jpg";
+  
+      // Create a Blob with the desired name
+      const blob = new Blob([file], { type: file.type });
+      blob.name = newFileName;
+  
+      // Create a new File object from the Blob
+      const renamedFile = new File([blob], newFileName, { type: file.type });
+  
+      formData.append("file", renamedFile);
+      const res = await axios.post("/user/upload", formData);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
   const handleSubmit = async (e) => {
+    console.log("Inside register handle");
     e.preventDefault();
     try {
-      let formData = {
-        email: e.target[1].value
-      };
-      const isValid = await userSchema.isValid(formData); //YUP VALIDATION of email
-      
+
+      // let formData = {
+      //   email: e.target[1].value
+      // };
+      // const isValid = await userSchema.isValid(formData); //YUP VALIDATION of email
+
+      const isValid = true;
       if(isValid){
-        console.log("valid credentials")
+        console.log({fullname: fullname, email: email, password: password});
+        var userToRegister = {fullname: fullname, email: email, password: password};
         try {
-          const response = await axios.post('http://localhost:8080/api/user/register', {fullname: fullname, email: email, password: password})
+          //const response = await axios.post('http://localhost:8080/api/user/register', {fullname: fullname, email: email, password: password})
+          const response = await axios.post(REGISTER_URL, userToRegister);
+
+          //upload image when user created successfully
+          if (response.status == 201){
+            const imgUrl = await upload();
+          }
           
           if (response.status === 201 && !admin){
             setSuccess(true);
@@ -48,7 +79,8 @@ const Register = ({admin, added, addedFunc}) => {
           }
           
         } catch (error) {
-          
+          console.log("Error-------------");
+          console.log(error);
           if (!error?.response) {
             setErrMsg('No server response');
           } else {
@@ -58,6 +90,7 @@ const Register = ({admin, added, addedFunc}) => {
         }
 
       }else {
+        console.log("In the ELse part");
         return;
       }
     } catch (error) {
@@ -95,6 +128,12 @@ const Register = ({admin, added, addedFunc}) => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
+
+  //File code starts
+  const [file, setFile] = useState(null);
+  
+
+  //file code ends
 
   useEffect(() => {
     nameRef.current.focus();
@@ -193,7 +232,18 @@ const Register = ({admin, added, addedFunc}) => {
           <FontAwesomeIcon icon={faInfoCircle}/>
           Password and password confirms fields do not match. 
         </p>
-        <button disabled={!validName || !validPassword || !validMatch ? true : false} className="regLogButton"> 
+        <label className="file" htmlFor="file">
+            Upload Image
+        </label>
+        <input
+            type="file"
+            id="file"
+            name=""
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+          
+        {/* <button disabled={!validName || !validPassword || !validMatch ? true : false} onClick={handleSubmit} className="regLogButton">  */}
+        <button onClick={handleSubmit} className="regLogButton"> 
         Register
         </button>
       </form>

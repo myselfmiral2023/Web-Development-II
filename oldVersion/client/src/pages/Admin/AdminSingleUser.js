@@ -83,7 +83,7 @@ const AdminSingleUser = () => {
         setFullName(response.data.fullname);
         setEmail(response.data.email);
         console.log(response);
-        return axios.get(`${USER_PHOTO_URL}/userimg01.jpg`);
+        return axios.get(`${USER_PHOTO_URL}/${response.data.email}.jpg`);
       })
       .then((secondReponse) => {
         console.log(`${USER_PHOTO_URL}/userimg01.jpg`);
