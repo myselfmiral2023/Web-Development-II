@@ -3,10 +3,11 @@ import axios from "../../api/axios";
 import AdminNavBar from "../../components/NavBar/AdminNavBar";
 import {format} from 'date-fns';
 import {Link} from 'react-router-dom'
-import {faPerson} from '@fortawesome/free-solid-svg-icons';
+import {faPerson, faAngleDoubleUp, faAngleDoubleDown} from '@fortawesome/free-solid-svg-icons';
 import fakeData from "../../MOCK_DATA.json";
 import "./Admin.css";
-import {useTable} from 'react-table';
+import GlobalFilter from "../../components/Filter/GlobalFilter";
+import {useTable, useSortBy, useGlobalFilter} from 'react-table';
 import Snackbar from "../../components/Snackbar/Snackbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Register from '../Register';
@@ -66,8 +67,9 @@ const AdminUsers = () => {
 
  
 
-  const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data, getRowId: (row) => row.id})
+  const {getTableProps, getTableBodyProps, headerGroups, rows, state, setGlobalFilter, prepareRow } = useTable({ columns, data, getRowId: (row) => row.id}, useGlobalFilter, useSortBy)
 
+  const {globalFilter} = state;
 
   const handleRowClick = (id) => {
     setCurrRow(id);
@@ -105,13 +107,17 @@ const AdminUsers = () => {
         <h1>Driven Auto Rental Accounts<FontAwesomeIcon icon={faPerson}/></h1>
         <button onClick={handleScrollCreate}>Create New User</button>
         </div>
+        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
         <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) =>(
-                    <th {...column.getHeaderProps()}>
+                    <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                         {column.render("Header")}
+                        <span>
+                          {column.isSorted ? (column.isSortedDesc ? <FontAwesomeIcon icon={faAngleDoubleDown}/> : <FontAwesomeIcon icon={faAngleDoubleUp}/> ) : ""}
+                        </span>
                     </th>
                   ))}
               </tr>

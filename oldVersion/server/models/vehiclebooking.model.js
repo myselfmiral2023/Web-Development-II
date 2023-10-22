@@ -52,7 +52,10 @@ VehicleBooking.findById = (id, result) => {
 
 // Return all vehicle bookings
 VehicleBooking.getAll = (userid, vehicleid, result) => {
-  let query = "SELECT * FROM vehiclebooking ";
+  let query = `SELECT vehiclebooking.id, vehiclebooking.userid, users.fullname, vehicle.id AS vehicleid, vehicle.name, vehiclebooking.startdate, vehiclebooking.enddate, vehiclebooking.bookingdate, vehiclebooking.cost, vehiclebooking.uuid
+  FROM vehiclebooking
+  INNER JOIN vehicle ON vehiclebooking.vehicleid=vehicle.id
+  INNER JOIN users ON vehiclebooking.userid=users.id`;
 
    // FIXME: prevent SQL injection
   if (userid) {
@@ -61,7 +64,7 @@ VehicleBooking.getAll = (userid, vehicleid, result) => {
     query += ` WHERE vehicleid = '${vehicleid}'`;
   }
 
-  query += `ORDER BY bookingdate DESC`;
+  query += ` ORDER BY bookingdate DESC`;
 
   sql.query(query, (err, res) => {
     if (err) {
@@ -70,7 +73,7 @@ VehicleBooking.getAll = (userid, vehicleid, result) => {
       return;
     }
 
-    console.log("vehicle bookings: ", res);
+    // console.log("vehicle bookings: ", res);
     result(null, res);
   });
 };

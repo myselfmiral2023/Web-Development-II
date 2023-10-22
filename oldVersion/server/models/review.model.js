@@ -67,7 +67,7 @@ Review.getAll = (userid, bookingid, result) => {
   });
 };
 Review.getAllExpanded = (userid, bookingid, vehicleid, result) => {
-  let query = `SELECT reviews.id AS reviewid, reviews.comments, reviews.stars, users.id AS userid,  users.fullname, vehicle.id AS vehicleid,  vehicle.name, vehiclebooking.id AS bookingid, vehiclebooking.startdate AS bookingstart, vehiclebooking.enddate AS bookingend, vehiclebooking.uuid
+  let query = `SELECT reviews.id, reviews.createdAt, reviews.comments, reviews.stars, users.id AS userid,  users.fullname, vehicle.id AS vehicleid,  vehicle.name, vehiclebooking.id AS bookingid, vehiclebooking.startdate AS bookingstart, vehiclebooking.enddate AS bookingend, vehiclebooking.uuid
   FROM reviews
   INNER JOIN users ON reviews.userid=users.id
   INNER JOIN vehiclebooking ON reviews.bookingid=vehiclebooking.id
@@ -88,6 +88,8 @@ Review.getAllExpanded = (userid, bookingid, vehicleid, result) => {
     query += ` AND reviews.deletedAt IS NULL`;
   }
 
+  query += ` ORDER BY reviews.createdAt DESC`
+
   sql.query(query, (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -95,7 +97,7 @@ Review.getAllExpanded = (userid, bookingid, vehicleid, result) => {
       return;
     }
 
-    console.log("reviews: ", res);
+    // console.log("reviews: ", res);
     result(null, res);
   });
 };

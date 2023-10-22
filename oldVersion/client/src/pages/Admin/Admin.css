@@ -291,3 +291,53 @@ li span {
   margin-bottom: 3rem;
   margin-top: 3rem;
 }
+
+.reviewAndBookingContainer {
+  display: flex;
+  justify-content: space-around;
+}
+.reviewAndBookingContainer h3 {
+  text-align: center;
+}
+
+
+.adminSingleUserReviewContainer h3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.adminSingleUserBookingContainer ul {
+  list-style: none;
+}
+
+.reviewAndBookingContainer button{
+  background-color: lightcoral;
+  padding: 3px;
+}
+
+.adminDeleteReviewButton, .adminDeleteBookingButton {
+  height: 48px;
+  cursor: pointer;
+}
+.adminDeleteReviewButton:hover, .adminDeleteBookingButton:hover {
+  opacity: 80%;
+}
+
+.pageConfiguationContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 6rem;
+}
+
+.previousPageButton, .nextPageButton {
+  background-color:#009;
+  padding: 12px;
+  color: white;
+  cursor: pointer;
+
+}
+
+.previousPageButton:hover, .nextPageButton:hover{
+  opacity: 80%;
+}

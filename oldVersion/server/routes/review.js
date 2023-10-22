@@ -3,7 +3,7 @@ import { create, findAll, findOne, update, remove, findAllWithName, findAllExpan
 
 const router = express.Router();
 
-router.get("/", findAll); // need for admin table
+router.get("/", findAllExpanded); // need for admin table
 router.get("/user/:userid([0-9]+)", findAll); // get all reviews written by a user, but review content only, no booking or vehicle details
 router.get("/booking/:bookingid([0-9]+)", findAll); // // get all reviews for a booking, but review content only, no user or vehicle details
 router.get("/userexp/:userid([0-9]+)", findAllExpanded); // get all reviews written by a single user, with booking and vehicle details

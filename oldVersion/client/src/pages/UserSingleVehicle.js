@@ -102,7 +102,7 @@ const UserSingleVehicle = () => {
         `${VEHICLE_AVAILABILITY_URL}/${format(
           dates[0].startDate,
           "yyyy-MM-dd"
-        )}/${format(dates[0].startDate, "yyyy-MM-dd")}/12`
+        )}/${format(dates[0].endDate, "yyyy-MM-dd")}/${id}`
       )
       .then((response) => {
         setAvailabilitySearchMade(true);

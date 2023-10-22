@@ -3,11 +3,14 @@ import { VehicleBooking } from "../models/vehiclebooking.model.js";
 import crypto from 'crypto';
 
 const create = (req, res) => {
-    // const token = req.cookies.access_token;
-    // if (!token) return res.status(401).json("Not authenticated!");
-
-    // jwt.verify(token, process.env.JWT_KEY, (err) => {
-    //     if (err) return res.status(403).json("Token is not valid!");
+    const {authorization} = req.headers;
+    if (!authorization) return res.status(401).json("Not authenticated!");
+      const token = authorization.replace("Bearer ", "");
+      
+      if (!token) return res.status(401).json("Not authenticated!");
+  
+      jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+        if (err) return res.status(403).json("Token is not valid!");
 
         // Validate request
         if (!req.body) {
@@ -40,15 +43,18 @@ const create = (req, res) => {
                 res.status(201).json(data);
             }
         });
-    // });
+    });
 };
 
 const findAll = (req, res) => {
-    // const token = req.cookies.access_token;
-    // if (!token) return res.status(401).json("Not authenticated!");
-
-    // jwt.verify(token, process.env.JWT_KEY, (err) => {
-    //     if (err) return res.status(403).json("Token is not valid!");
+    const {authorization} = req.headers;
+    if (!authorization) return res.status(401).json("Not authenticated!");
+      const token = authorization.replace("Bearer ", "");
+      
+      if (!token) return res.status(401).json("Not authenticated!");
+  
+      jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+        if (err) return res.status(403).json("Token is not valid!");
 
         // Extract the userid and bookingid parameters from the request
         const userid = req.params.userid || "";
@@ -63,15 +69,18 @@ const findAll = (req, res) => {
                 res.json(data);
             }
         });
-    // });
+    });
 };
 
 const findOne = (req, res) => {
-    // const token = req.cookies.access_token;
-    // if (!token) return res.status(401).json("Not authenticated!");
-
-    // jwt.verify(token, process.env.JWT_KEY, (err) => {
-    //     if (err) return res.status(403).json("Token is not valid!");
+    const {authorization} = req.headers;
+    if (!authorization) return res.status(401).json("Not authenticated!");
+      const token = authorization.replace("Bearer ", "");
+      
+      if (!token) return res.status(401).json("Not authenticated!");
+  
+      jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+        if (err) return res.status(403).json("Token is not valid!");
 
         VehicleBooking.findById(req.params.id, (err, data) => {
             if (err) {
@@ -88,14 +97,17 @@ const findOne = (req, res) => {
                 res.status(200).json(data);
             }
         });
-    // });
+    });
 };
 
 const update = (req, res) => {
-    const token = req.cookies.access_token;
-    if (!token) return res.status(401).json("Not authenticated!");
-
-    jwt.verify(token, process.env.JWT_KEY, (err) => {
+    const {authorization} = req.headers;
+    if (!authorization) return res.status(401).json("Not authenticated!");
+      const token = authorization.replace("Bearer ", "");
+      
+      if (!token) return res.status(401).json("Not authenticated!");
+  
+      jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
         if (err) return res.status(403).json("Token is not valid!");
 
         // Validate Request

@@ -2,11 +2,14 @@ import jwt from "jsonwebtoken";
 import { Review } from "../models/review.model.js";
 
 const create = (req, res) => {
-    // const token = req.cookies.access_token;
-    // if (!token) return res.status(401).json("Not authenticated!");
+    const {authorization} = req.headers;
+  if (!authorization) return res.status(401).json("Not authenticated!");
+    const token = authorization.replace("Bearer ", "");
+    
+    if (!token) return res.status(401).json("Not authenticated!");
 
-    // jwt.verify(token, process.env.JWT_KEY, (err) => {
-    //     if (err) return res.status(403).json("Token is not valid!");
+    jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+      if (err) return res.status(403).json("Token is not valid!");
 
         // Validate request
         if (!req.body) {
@@ -35,20 +38,20 @@ const create = (req, res) => {
                 res.status(201).json(data);
             }
         });
-    // });
+    });
 };
 
 const findAll = (req, res) => {
     // const token = req.cookies.access_token;
     const {authorization} = req.headers;
-    const token = authorization.replace("Bearer ", "");
-    
-    
-    if (!authorization || !token) return res.status(401).json("Not authenticated!");
-
-    jwt.verify(token, process.env.JWT_KEY, (err) => {
-        if (err) return res.status(403).json("Token is not valid!"+ err);
-
+    if (!authorization) return res.status(401).json("Not authenticated!");
+      const token = authorization.replace("Bearer ", "");
+      
+      if (!token) return res.status(401).json("Not authenticated!");
+  
+      jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+        if (err) return res.status(403).json("Token is not valid!");
+        
         //Fetching by foreign key
     // Extract the vehicletype parameter from the request
     const userid = req.params.userid || "";
@@ -69,14 +72,16 @@ const findAll = (req, res) => {
 const findAllExpanded = (req, res) => {
     console.log("find all expanded reached!!!")
     // const token = req.cookies.access_token;
-    // const {authorization} = req.headers;
-    // if (!authorization) return res.status(401).json("Not authenticated!");
-    //   const token = authorization.replace("Bearer ", "");
+    const {authorization} = req.headers;
+    if (!authorization) return res.status(401).json("Not authenticated!");
+      const token = authorization.replace("Bearer ", "");
       
-    //   if (!token) return res.status(401).json("Not authenticated!");
+      if (!token) return res.status(401).json("Not authenticated!");
   
-    //   jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
-    //     if (err) return res.status(403).json("Token is not valid!");
+      jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+        if (err) return res.status(403).json("Token is not valid!");
+
+        
 
         //Fetching by foreign key
     // Extract the vehicletype parameter from the request
@@ -92,15 +97,18 @@ const findAllExpanded = (req, res) => {
                 res.json(data);
             }
         });
-    //   }
-    // );
+      }
+    );
 };
 
 const findOne = (req, res) => {
-    const token = req.cookies.access_token;
-    if (!token) return res.status(401).json("Not authenticated!");
-
-    jwt.verify(token, process.env.JWT_KEY, (err) => {
+    const {authorization} = req.headers;
+    if (!authorization) return res.status(401).json("Not authenticated!");
+      const token = authorization.replace("Bearer ", "");
+      
+      if (!token) return res.status(401).json("Not authenticated!");
+  
+      jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
         if (err) return res.status(403).json("Token is not valid!");
 
         Review.findById(req.params.id, (err, data) => {
@@ -125,11 +133,14 @@ const update = (req, res) => {
 
     console.log("review update controller reached!")
 
-    // const token = req.cookies.access_token;
-    // if (!token) return res.status(401).json("Not authenticated!");
-
-    // jwt.verify(token, process.env.JWT_KEY, (err) => {
-    //     if (err) return res.status(403).json("Token is not valid!");
+    const {authorization} = req.headers;
+    if (!authorization) return res.status(401).json("Not authenticated!");
+      const token = authorization.replace("Bearer ", "");
+      
+      if (!token) return res.status(401).json("Not authenticated!");
+  
+      jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+        if (err) return res.status(403).json("Token is not valid!");
 
         // Validate Request
         if (!req.body) {
@@ -158,7 +169,7 @@ const update = (req, res) => {
                 }
             }
         );
-    // });
+    });
 };
 
 const remove = (req, res) => {
@@ -192,11 +203,14 @@ const remove = (req, res) => {
 
 
 const findAllWithName = (req, res) => {
-    // const token = req.cookies.access_token;
-    // if (!token) return res.status(401).json("Not authenticated!");
-
-    // jwt.verify(token, process.env.JWT_KEY, (err) => {
-    //     if (err) return res.status(403).json("Token is not valid!"+ err);
+    const {authorization} = req.headers;
+    if (!authorization) return res.status(401).json("Not authenticated!");
+      const token = authorization.replace("Bearer ", "");
+      
+      if (!token) return res.status(401).json("Not authenticated!");
+  
+      jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+        if (err) return res.status(403).json("Token is not valid!");
 
         //Fetching by foreign key
     // Extract the vehicletype parameter from the request
@@ -211,8 +225,8 @@ const findAllWithName = (req, res) => {
             }
         });
     }
-//     );
-// };
+    );
+};
 
 
 export { create, findAll, findAllExpanded, findOne, update, remove, findAllWithName };

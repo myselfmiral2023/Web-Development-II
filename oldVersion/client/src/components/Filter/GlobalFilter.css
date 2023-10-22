@@ -1,0 +1,9 @@
+.filterInput {
+    height: 48px;
+    font-size: 1.5rem;
+    border-radius: 15px;
+}
+
+span {
+    font-weight: bold;
+}

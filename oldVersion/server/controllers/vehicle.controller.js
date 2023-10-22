@@ -42,14 +42,15 @@ const create = (req, res) => {
 };
 
 const findAll = (req, res) => {
-    const {authorization} = req.headers;
-//   if (!authorization) return res.status(401).json("Not authenticated!");
-//     const token = authorization.replace("Bearer ", "");
     
-//     if (!token) return res.status(401).json("Not authenticated!");
+const {authorization} = req.headers;
+if (!authorization) return res.status(401).json("Not authenticated!");
+const token = authorization.replace("Bearer ", "");
 
-//     jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
-//       if (err) return res.status(403).json("Token is not valid!");
+if (!token) return res.status(401).json("Not authenticated!");
+
+jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+  if (err) return res.status(403).json("Token is not valid!");
 
         // Extract the vehicletype parameter from the request
         const vehicletype = req.params.vehicletype || "";
@@ -62,15 +63,18 @@ const findAll = (req, res) => {
                 res.json(data);
             }
         });
-    // });
+    });
 };
 
 const findAllAvailable = (req, res) => {
-    // const token = req.cookies.access_token;
-    // if (!token) return res.status(401).json("Not authenticated!");
-
-    // jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
-    //     if (err) return res.status(403).json("Token is not valid!");
+    const {authorization} = req.headers;
+    if (!authorization) return res.status(401).json("Not authenticated!");
+      const token = authorization.replace("Bearer ", "");
+      
+      if (!token) return res.status(401).json("Not authenticated!");
+  
+      jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+        if (err) return res.status(403).json("Token is not valid!");
 
         // Extract the vehicletype parameter from the request
         const startDate = req.params.startDate; // Access startDate from the route path
@@ -84,15 +88,18 @@ const findAllAvailable = (req, res) => {
                 res.json(data);
             }
         });
-    // });
+    });
 };
 export const findOneAvailable = (req, res) => {
     console.log("find one available reached")
-    // const token = req.cookies.access_token;
-    // if (!token) return res.status(401).json("Not authenticated!");
-
-    // jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
-    //     if (err) return res.status(403).json("Token is not valid!");
+    const {authorization} = req.headers;
+    if (!authorization) return res.status(401).json("Not authenticated!");
+      const token = authorization.replace("Bearer ", "");
+      
+      if (!token) return res.status(401).json("Not authenticated!");
+  
+      jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+        if (err) return res.status(403).json("Token is not valid!");
 
         // Extract the vehicletype parameter from the request
         const startDate = req.params.startDate; // Access startDate from the route path
@@ -107,7 +114,7 @@ export const findOneAvailable = (req, res) => {
                 res.json(data);
             }
         });
-    // });
+    });
 };
 
 const findOne = (req, res) => {

@@ -101,11 +101,14 @@ export const logout = (req, res) => {
 };
 
 export const findAll = (req, res) => {
-  // const token = req.cookies.access_token;
-  // if (!token) return res.status(401).json("Not authenticated!");
-
-  // jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
-  //     if (err) return res.status(403).json("Token is not valid!");
+  const {authorization} = req.headers;
+    if (!authorization) return res.status(401).json("Not authenticated!");
+      const token = authorization.replace("Bearer ", "");
+      
+      if (!token) return res.status(401).json("Not authenticated!");
+  
+      jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
+        if (err) return res.status(403).json("Token is not valid!");
 
       
       User.getAll((err, data) => {
@@ -118,8 +121,8 @@ export const findAll = (req, res) => {
           }
       });
   }
-//   );
-// };
+  );
+};
 
 export const findOne = (req, res) => {
   const id = req.params.id

@@ -42,6 +42,10 @@ const Booking = () => {
             //FIXME
             //NOT DRY code here, but date-fns library throws errors when formatting is done in JSX for some reason
                 setBooking(response.data)
+
+                if(response.data.userid !== user.id){
+                  navigate("/unauthorized");
+                }
                 const orderDate = new Date(response.data.bookingdate)
                 const startDate = new Date(response.data.startdate)
                 const endDate = new Date(response.data.enddate)
