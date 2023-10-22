@@ -1,8 +1,12 @@
 import React from 'react'
+import "./Missing.css"
 
 const Missing = () => {
   return (
-    <div>Missing</div>
+    <div className='missingContainer'>
+    <h1>Not Found</h1>
+    <p>The requested resource could not be found.</p>
+    </div>
   )
 }
 

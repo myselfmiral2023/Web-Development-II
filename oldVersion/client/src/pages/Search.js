@@ -40,7 +40,7 @@ const Search = () => {
 
     useEffect(() => {
       axios
-      .get(`${VEHICLE_AVAILABILITY_URL}/${format(dates[0].startDate, "yyyy-MM-dd")}/${format(dates[0].startDate, "yyyy-MM-dd")}`)
+      .get(`${VEHICLE_AVAILABILITY_URL}/${format(dates[0].startDate, "yyyy-MM-dd")}/${format(dates[0].endDate, "yyyy-MM-dd")}`)
       .then((response) => {
         if (response.data.length < 1){
           setNoAvailable(true);

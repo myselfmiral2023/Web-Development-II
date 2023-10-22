@@ -27,8 +27,12 @@ VehicleBooking.create = (newBooking, result) => {
 
 // Return one vehicle booking by id
 VehicleBooking.findById = (id, result) => {
-  // FIXME: prevent SQL injection
-  sql.query(`SELECT * FROM vehiclebooking WHERE id = ${id} WHERE`, (err, res) => {
+ 
+
+  sql.query(`SELECT vehiclebooking.id AS bookingid, vehiclebooking.userid, vehicle.name, vehiclebooking.startdate, vehiclebooking.enddate, vehiclebooking.bookingdate, vehiclebooking.cost, vehiclebooking.uuid
+  FROM vehiclebooking
+  INNER JOIN vehicle ON vehiclebooking.vehicleid=vehicle.id
+  WHERE vehiclebooking.id = ?`, [id], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -50,11 +54,14 @@ VehicleBooking.findById = (id, result) => {
 VehicleBooking.getAll = (userid, vehicleid, result) => {
   let query = "SELECT * FROM vehiclebooking ";
 
+   // FIXME: prevent SQL injection
   if (userid) {
     query += ` WHERE userid = '${userid}'`;
   } else if (vehicleid) {
-    query += `WHERE vehicleid = '${vehicleid}'`;
+    query += ` WHERE vehicleid = '${vehicleid}'`;
   }
+
+  query += `ORDER BY bookingdate DESC`;
 
   sql.query(query, (err, res) => {
     if (err) {

@@ -66,8 +66,8 @@ Review.getAll = (userid, bookingid, result) => {
     result(null, res);
   });
 };
-Review.getAllExpanded = (userid, bookingid, result) => {
-  let query = `SELECT reviews.id AS reviewid, reviews.comments, reviews.stars, users.id AS userid,  users.fullname,  vehicle.name, vehiclebooking.id AS bookingid, vehiclebooking.startdate AS bookingstart, vehiclebooking.enddate AS bookingend, vehiclebooking.uuid
+Review.getAllExpanded = (userid, bookingid, vehicleid, result) => {
+  let query = `SELECT reviews.id AS reviewid, reviews.comments, reviews.stars, users.id AS userid,  users.fullname, vehicle.id AS vehicleid,  vehicle.name, vehiclebooking.id AS bookingid, vehiclebooking.startdate AS bookingstart, vehiclebooking.enddate AS bookingend, vehiclebooking.uuid
   FROM reviews
   INNER JOIN users ON reviews.userid=users.id
   INNER JOIN vehiclebooking ON reviews.bookingid=vehiclebooking.id
@@ -76,7 +76,16 @@ Review.getAllExpanded = (userid, bookingid, result) => {
   if (userid) {
     query += ` WHERE users.id = '${userid}'`;
   } else if (bookingid) {
-    query += ` WHERE bookingid = '${bookingid}'`;
+    query += ` WHERE vehiclebooking.id = '${bookingid}'`;
+  }
+   else if (vehicleid) {
+    query += ` WHERE vehicle.id = '${vehicleid}'`;
+  }
+
+  if (!userid && !bookingid && !vehicleid){
+    query += ` WHERE reviews.deletedAt IS NULL`;
+  }else {
+    query += ` AND reviews.deletedAt IS NULL`;
   }
 
   sql.query(query, (err, res) => {

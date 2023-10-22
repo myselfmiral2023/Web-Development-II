@@ -10,3 +10,109 @@
     align-items: center;
     gap: 4rem;
 }
+
+.profileReviewContainer {
+    display: flex;
+    flex-direction: column;
+    width:25%;
+}
+
+.reviewCheckBox {
+    transform: scale(1.8);
+    cursor: pointer;
+}
+
+.profileReviewContainer h3 {
+    text-align: center;
+}
+
+.reviewListItem {
+    background-color: white;
+    line-height: 1.9rem;
+}
+
+.reviewEditButton {
+    background-color: lime;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.reviewEditButton:hover {
+    opacity: 80%;
+}
+
+.reviewDeleteButton {
+    background-color: lightcoral;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.reviewDeleteButton:hover {
+    opacity: 80%;
+}
+
+.closeEditButtonContainer {
+    text-align: right;
+    color: red;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+.profileBookingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width:25%;
+}
+
+.bookingCheckBox {
+    transform: scale(1.8);
+    cursor: pointer;
+}
+
+.bookingPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.profileBookingContainer ul{
+    list-style: none;
+}
+
+
+.bookingListItem {
+    background-color: white;
+    line-height: 1.9rem;
+    border: 2px solid black;
+    padding: 5px;
+}
+
+.bookingButtonContainer {
+    display: flex;
+    justify-content: center;
+}
+.bookingMoreOptionsButton {
+    background-color: black;
+    padding: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.bookingMoreOptionsButton:hover {
+    opacity: 80%;
+}
+
+.makeANewBookingButton {
+    background-color: yellow;
+    padding: 15px;
+    color: black;
+    cursor: pointer;
+    border-radius: 15px;
+
+}
+
+.makeANewBookingButton:hover {
+    opacity: 80%;
+    text-decoration: underline;
+}

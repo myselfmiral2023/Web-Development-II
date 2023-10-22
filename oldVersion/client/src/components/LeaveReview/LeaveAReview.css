@@ -1,0 +1,64 @@
+.leaveAReview {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.418);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.leaveAReviewContainer {
+    height: 65%;
+    background-color: white;
+    padding: 20px;
+    position: relative;
+    
+}
+
+.leaveAReviewContainer form {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+
+.reviewClose{
+    
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+        font-size: 2rem;
+        margin-right: 5px;
+        color: red;
+
+    
+}
+
+.submitReviewButton {
+    background-color: black;
+    padding: 15px;
+    color: white;
+    cursor: pointer;
+    
+}
+
+.submitReviewButton:hover {
+    opacity: 80%;
+}
+
+.successReturnToProfileButton {
+    background-color: olivedrab;
+    padding: 15px;
+    color: white;
+    cursor: pointer;
+}
+
+.successReturnToProfileButton:hover {
+    opacity: 80%;
+}

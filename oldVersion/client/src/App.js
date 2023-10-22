@@ -15,6 +15,7 @@ import Search from "./pages/Search";
 import UserSearchVehicle from "./pages/UserSearchVehicle";
 import Unauthorized from './pages/Unauthorized'
 import AdminBookings from './pages/Admin/AdminBookings'
+import Booking from "./pages/Booking";
 import AdminData from './pages/Admin/AdminData'
 import AdminReviews from './pages/Admin/AdminReviews'
 import AdminUsers from './pages/Admin/AdminUsers'
@@ -44,6 +45,8 @@ function App() {
           {/* Private routes */}
           <Route element={<RequireAuth allowedRole={"user" || "admin"}/>}>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/booking/:id" element={<Booking />} />
+
           </Route>
           <Route element={<RequireAuth allowedRole={"user"}/>}>
           <Route path="/search" element={<Search />} />
