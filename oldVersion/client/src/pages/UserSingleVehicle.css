@@ -55,3 +55,38 @@ img {
 .availabilityButton{
     display: block;
 }
+
+.leftSide{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.rightSide{
+  display: flex;
+  flex-direction: column;
+}
+
+.availabilityButton{
+  background-color: rgb(195, 202, 92);
+    padding: 15px;
+    color: black;
+    cursor: pointer;
+    border-radius: 15px;
+    margin-left: 60px;
+}
+
+.subTotalContainer p{
+
+  background-color: white;
+  padding: 3rem;
+  font-size: 1.8rem;
+  
+}
+
+.continueToCheckoutButton{
+  background-color: black;
+  color: aliceblue;
+  width: 100px;
+  height: 48px;
+  font-size: 1rem;
+}

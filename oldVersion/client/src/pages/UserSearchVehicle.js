@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { SearchContext } from "../contexts/SearchContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faCircleArrowLeft, faStar } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../contexts/AuthContext";
 import Checkout from "../components/Checkout/Checkout";
 import axios from "../api/axios";
@@ -11,6 +11,7 @@ import "./UserSingleVehicle.css";
 import { format } from "date-fns";
 const VEHICLE_URL = "/vehicle";
 const VEHICLE_PHOTO_URL = "/vehicletype/files";
+const VEHICLE_REVIEW_URL = "/review/vehicleexp";
 
 const VEHICLE_TYPE_DICT = {
   1: "SUV",
@@ -54,6 +55,10 @@ const UserSearchVehicle = () => {
 
   const [vehiclePhoto, setVehiclePhoto] = useState("");
 
+  const [reviews, setReviews] = useState([]);
+
+  const [noReviewsMessage, setNoReviewsMessage] = useState("");
+
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
@@ -68,6 +73,15 @@ const UserSearchVehicle = () => {
         setVehicle(secondResponse.data);
         setPrice((secondResponse.data.perdayrent * rentalDays))
         setSubtotal((secondResponse.data.perdayrent * rentalDays))
+
+        return axios.get(`${VEHICLE_REVIEW_URL}/${id}`);
+      })
+      .then((thirdResponse) => {
+        if (thirdResponse.data.length > 0) {
+          setReviews(thirdResponse.data);
+        } else {
+          setNoReviewsMessage("No reviews to display at this time");
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -119,8 +133,31 @@ const UserSearchVehicle = () => {
         <li>Vehicle Class: {VEHICLE_TYPE_DICT[vehicle.vehicletypeid]}</li>
         </ul>
       </div>
-      <div className="rightSide"></div>
+      <div className="rightSide">
+      <div className="reviewsContainer">
+          <h3>Reviews of this Vehicle:</h3>
+          {noReviewsMessage && <p>{noReviewsMessage}</p>}
+          <ul>
+            {reviews.map((review, key) => (
+              <li key={review.reviewid} className="reviewListItem">
+                <ul className="reviewInfoHeading">
+                  <li>
+                    {[...Array(parseInt(review?.stars))].map((item) => (
+                      <FontAwesomeIcon icon={faStar} />
+                    ))}{" "}
+                    Stars
+                  </li>
+                  <li>
+                    <strong>Comments:</strong> {review?.comments}
+                  </li>
+                </ul>
+                <p>Written by {review.fullname}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       {openModal && <Checkout setOpen={setOpenModal} user={user} vehicleId={id} price={price} setPrice={setPrice} rentalDays={rentalDays} vehicleName={vehicle.name} subtotal={subtotal}/>}
+      </div>
     </div>
   );
 };
