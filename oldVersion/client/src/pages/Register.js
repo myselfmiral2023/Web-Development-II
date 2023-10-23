@@ -23,6 +23,7 @@ const Register = ({admin, added, addedFunc}) => {
 
   // const [submitWasClicked, setSubmitWasClicked] = useState(false);
 
+  
   const upload = async () => {
     try {
       const formData = new FormData();
@@ -85,8 +86,10 @@ const Register = ({admin, added, addedFunc}) => {
           if (!error?.response) {
             setErrMsg('No server response');
           } else {
+            
+            console.log(error.response.data)
+            setErrMsg(error.response.data)
             setError(true);
-            setErrMsg(error.response.data);
           }
         }
 
@@ -126,7 +129,7 @@ const Register = ({admin, added, addedFunc}) => {
   const [matchFocus, setMatchFocus] = useState(false);
 
   const [error, setError] = useState(false);
-  const [errMsg, setErrMsg] = useState("");
+  const [errMsg, setErrMsg] = useState("bongo bongo");
   const [success, setSuccess] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
 
@@ -161,8 +164,8 @@ const Register = ({admin, added, addedFunc}) => {
 
 
   useEffect(() => {
-    setErrMsg("");
-  }, [fullname, password]);
+    setError(false);
+  }, [nameFocus]);
 
   return (
     <section className="registrationContainer">

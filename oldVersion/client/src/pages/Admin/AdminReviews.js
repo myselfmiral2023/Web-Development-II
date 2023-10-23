@@ -213,7 +213,7 @@ const AdminReviews = () => {
         <div className='pageConfiguationContainer'>
           <select value={pageSize} onChange={(e) =>setPageSize(Number(e.target.value))}>
               {
-                [2, 3, 4].map(pageSize => (
+                [5, 8, 10].map(pageSize => (
                   <option key={pageSize} value={pageSize}>
                     Show {pageSize}
                   </option>

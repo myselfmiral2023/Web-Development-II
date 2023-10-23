@@ -89,6 +89,9 @@ Vehicle.getAllAvailable = (startDate, endDate, result) => {
       WHERE (VB.startdate BETWEEN ? AND ?)
      OR (VB.enddate BETWEEN ? AND ?))`;
 
+
+     console.log(query);
+
   sql.query(query, [startDate, endDate, startDate, endDate], (err, res) => {
     if (err) {
       console.log("error: ", err);

@@ -69,7 +69,7 @@ const Header = () => {
               onChange={(item) => setDates([item.selection])}
               ranges={dates}
               className='date'
-              
+              minDate={today}
             />}
           </div>
           <div className="headerSearchItem">

@@ -196,7 +196,7 @@ table {
 }
 
 .vehicleImage, .userImageProfile {
-  width: 25%;
+  width: 400px;
   height: 25%;
 }
 

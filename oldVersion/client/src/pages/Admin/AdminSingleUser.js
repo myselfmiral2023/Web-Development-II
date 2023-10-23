@@ -13,12 +13,20 @@ const USER_PHOTO_URL = "/user/files";
 const ALL_REVIEW_URL = "/review/userexp";
 const BOOKING_URL = "/vehiclebooking/user"
 
+const BOOKING_DELETE_URL = "/vehiclebooking";
+
+const REVIEW_DELETE_URL = "/review";
+
 const AdminSingleUser = () => {
   const [user, setUser] = useState({});
 
   const [userPhoto, setUserPhoto] = useState("");
 
   const [editSelected, setEditSelected] = useState(false);
+
+  const [bookingRemoved, setBookingRemoved] = useState(false);
+
+  const [reviewRemoved, setReviewRemoved] = useState(false);
 
   const [reviews, setReviews] = useState([]);
 
@@ -36,6 +44,10 @@ const AdminSingleUser = () => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
+
+  const [deleteSuccessMessage, setDeleteSuccessMessage] = useState('');
+
+  const [deleteErrorMessage, setDeleteErrorMessage] = useState('');
 
   const handleEditSubmit = async (e) => {
     e.preventDefault();
@@ -86,15 +98,22 @@ const AdminSingleUser = () => {
         return axios.get(`${USER_PHOTO_URL}/${response.data.email}.jpg`);
       })
       .then((secondResponse) => {
-        console.log(`${USER_PHOTO_URL}/userimg01.jpg`);
+        
         console.log(secondResponse);
+        if(secondResponse.status === 404){
+          setUserPhoto(null);
+        } else{
+          console.log("printing because status was not 404")
         setUserPhoto(secondResponse.data);
-
+      }
         return axios.get(`${ALL_REVIEW_URL}/${id}`);
       })
       .then((thirdResponse) => {
         if(thirdResponse.data.length > 0){
         setReviews(thirdResponse.data)
+
+        console.log("User photo")
+        console.log(userPhoto)
       }
       return axios.get(`${BOOKING_URL}/${id}`)
       })
@@ -104,18 +123,43 @@ const AdminSingleUser = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [editSelected]);
+  }, [editSelected, reviewRemoved, bookingRemoved]);
 
-  const handleDeleteReview = () => {
+  const handleDeleteReview = (id) => {
+    
+      axios
+        .delete(`${REVIEW_DELETE_URL}/${id}`)
+        .then((response) => {
+          setReviewRemoved(true);
+          setDeleteSuccessMessage(response.data.message);
+          console.log(response)
+        })
+        .catch((error) => {
+          setDeleteErrorMessage(error.response.data);
+          console.log(error);
+        });
+    
     
   }
 
-  const handleDeleteBooking = () => {
-    
+  const handleDeleteBooking = (id) => {
+    axios
+      .delete(`${BOOKING_DELETE_URL}/${id}`)
+      .then((response) => {
+        setBookingRemoved(true);
+        setDeleteSuccessMessage(response.data.message);
+        console.log(response)
+      })
+      .catch((error) => {
+        setDeleteErrorMessage(error.response.data);
+        console.log(error);
+      });
   }
 
   return (
     <div className="adminSingleUserContainer">
+      {deleteSuccessMessage && <Snackbar type="success" message={deleteSuccessMessage}/>}
+      {deleteErrorMessage && <Snackbar type="failure" message={deleteErrorMessage}/>}
       {success && <Snackbar type="success" message={successMsg} />}
       {error && <Snackbar type="failure" message={errMsg} />}
       <div>
@@ -131,11 +175,13 @@ const AdminSingleUser = () => {
               </button>
             </div>
             <div className="userEditFormAndPhoto">
-              <img
+              {console.log("user photo details")}
+              {console.log(userPhoto)}
+              {userPhoto && <img
                 className="userImageProfile"
                 src={userPhoto}
                 alt={`Profile photo for user ${user.id}`}
-              />
+              />}
               <form onSubmit={handleEditSubmit}>
                 <label htmlFor="fullname">Full Name:</label>
                 <input
@@ -226,7 +272,7 @@ const AdminSingleUser = () => {
         <h3>User's reviews</h3>
         <ul>
           {reviews.map((review, key) => (
-            <li key={review.reviewid} className="reviewListItem">
+            <li key={review.id} className="reviewListItem">
               <ul className="reviewInfoHeading">
                 <li>
                   Associated Order Number: {review.uuid}
@@ -245,7 +291,7 @@ const AdminSingleUser = () => {
                 </li>
                 <li>Review: {review?.comments}</li>
               </ul>
-              <button className="adminDeleteReviewButton" onClick={handleDeleteReview(review.reviewid)}>Delete Review</button>
+              <button className="adminDeleteReviewButton" onClick={() => handleDeleteReview(review.id)}>Delete Review</button>
             </li>
           ))}
         </ul>
@@ -268,7 +314,7 @@ const AdminSingleUser = () => {
                   </li>
                   <li>Order number: {booking.uuid}</li>
                 </ul>
-                <button className="adminDeleteBookingButton" onClick={handleDeleteBooking(booking.id)}>Delete Booking</button>
+                <button className="adminDeleteBookingButton" onClick={() => handleDeleteBooking(booking.id)}>Delete Booking</button>
               </li>
             ))}
           </ul>

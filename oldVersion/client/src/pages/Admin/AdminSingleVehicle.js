@@ -19,6 +19,17 @@ const VEHICLE_TYPE_DICT = {
   8: "Minivan",
 };
 
+const VEHICLE_TYPE_DICT_URL = {
+  1: "suvred",
+  2: "van",
+  3: "economy",
+  4: "sportscar",
+  5: "sedanblack",
+  6: "compact",
+  7: "pickuptruck",
+  8: "minivan",
+};
+
 const AdminSingleVehicle = () => {
   const [vehicle, setVehicle] = useState({});
 
@@ -99,7 +110,7 @@ const AdminSingleVehicle = () => {
 
         // const photoUrlPath = VEHICLE_TYPE_DICT[vehicleType].toLowerCase();
         
-        return axios.get(`${VEHICLE_PHOTO_URL}/kia-carnival.jpg`);
+        return axios.get(`${VEHICLE_PHOTO_URL}/${VEHICLE_TYPE_DICT_URL[response.data.vehicletypeid]}.jpg`);
       })
       .then((secondResponse) => {
             setVehiclePhoto(secondResponse.data)

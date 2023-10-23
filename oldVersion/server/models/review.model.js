@@ -90,6 +90,10 @@ Review.getAllExpanded = (userid, bookingid, vehicleid, result) => {
 
   query += ` ORDER BY reviews.createdAt DESC`
 
+  // console.log("==================================================")
+  // console.log("review get all query:")
+  // console.log(query);
+
   sql.query(query, (err, res) => {
     if (err) {
       console.log("error: ", err);

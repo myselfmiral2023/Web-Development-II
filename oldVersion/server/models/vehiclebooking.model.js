@@ -58,11 +58,17 @@ VehicleBooking.getAll = (userid, vehicleid, result) => {
   INNER JOIN vehicle ON vehiclebooking.vehicleid=vehicle.id
   INNER JOIN users ON vehiclebooking.userid=users.id`;
 
+  // console.log("==================================================")
+  // console.log("booking get all query:")
+  // console.log(query);
+
    // FIXME: prevent SQL injection
   if (userid) {
     query += ` WHERE userid = '${userid}' AND vehiclebooking.deletedAt is NULL`;
   } else if (vehicleid) {
     query += ` WHERE vehicleid = '${vehicleid}' AND vehiclebooking.deletedAt is NULL`;
+  } else {
+    query += ` WHERE vehiclebooking.deletedAt IS NULL`
   }
 
   query += ` ORDER BY bookingdate DESC`;

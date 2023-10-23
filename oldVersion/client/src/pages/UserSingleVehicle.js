@@ -177,7 +177,7 @@ const UserSingleVehicle = () => {
               onChange={(item) => setDates([item.selection])}
               ranges={dates}
               className="dateSingle"
-              
+              minDate={today}
             />
           }
           <button

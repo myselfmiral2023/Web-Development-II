@@ -90,14 +90,21 @@ const Profile = () => {
   }, [editSuccess, editError, deleteSuccess, deleteError, updatePhotoSuccess]);
 
   const handleSelectReview = (id, bookingid) => {
+    setUpdatedComments("")
+    setEditSuccess(false)
     setCurrReview(id)
     setBookingId(bookingid)
+
+    console.log("Current Review");
+    console.log(currReview);
   }
 
   
 
   const handleEditSelected = () => {
     setEditSelected(true);
+    console.log("Current Review after edit selected");
+    console.log(currReview);
   };
 
   const handleCloseEdit = () => {
@@ -255,10 +262,12 @@ const Profile = () => {
           <ul>
             
             {reviews.map((review, key) => (
-              <li key={review.reviewid} className="reviewListItem">
-                
+              <li key={review.id} className="reviewListItem">
+                {console.log(review)}
+                {console.log("review id's printing:")}
+                {console.log(review.id)}
                 <ul className="reviewInfoHeading">
-                  <li ><input className="reviewCheckBox" type="checkbox" checked={currReview === review.reviewid ? true : false} onChange={() => handleSelectReview(review.reviewid, review.bookingid)}/></li>
+                  <li ><input className="reviewCheckBox" type="checkbox" checked={currReview === review.id ? true : false} onChange={() => handleSelectReview(review.id, review.bookingid)}/></li>
                   <li>Vehicle : {review.name}</li>
                   <li>
                     Rental session:{" "}
@@ -274,7 +283,7 @@ const Profile = () => {
                   <li>Review: {review?.comments}</li>
                 </ul>
                 
-                {editSelected && currReview === review.reviewid && (
+                {editSelected && currReview === review.id && (
                   <div className="editForm" onSubmit={handleEditSubmit}>
                     <div className="closeEditButtonContainer">
                     <FontAwesomeIcon icon={faCircleXmark} className="closeEditButton" onClick={handleCloseEdit}/>
@@ -310,8 +319,8 @@ const Profile = () => {
 
                 {!editSelected && (
                   <div className="reviewListItemButtons">
-                    <button className="reviewEditButton" onClick={handleEditSelected} disabled={currReview !== review.reviewid? true : false}>Edit</button>
-                    <button className="reviewDeleteButton" onClick={handleDelete} disabled={currReview !== review.reviewid? true : false}>Delete</button>
+                    <button className="reviewEditButton" onClick={handleEditSelected} disabled={currReview !== review.id? true : false}>Edit</button>
+                    <button className="reviewDeleteButton" onClick={handleDelete} disabled={currReview !== review.id? true : false}>Delete</button>
                   </div>
                 )}
               </li>

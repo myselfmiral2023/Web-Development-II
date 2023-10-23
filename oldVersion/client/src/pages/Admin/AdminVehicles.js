@@ -38,7 +38,7 @@ const AdminVehicles = () => {
   const [newVehicleName, setNewVehicleName] = useState('');
   const [newVehicleCompany, setNewVehicleCompany] = useState('');
   const [newVehiclePrice, setNewVehiclePrice] = useState(0);
-  const [newVehicleType, setNewVehicleType] = useState('');
+  const [newVehicleType, setNewVehicleType] = useState(1);
  
 
 
