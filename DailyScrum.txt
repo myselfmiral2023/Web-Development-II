@@ -160,3 +160,26 @@ DAILY SCRUMS
 2. debugging back end, updating JWT verifications on controllers
 3. nothing for now
 
+
+2023/10/21 Lewis
+1. implementing file upload for user and admin
+2. file upload apis and frontend
+3. azure blob updates seem inconsistent in load times
+
+
+2023/10/21 Miral
+1. registration page adjustments for file upload
+2. hosting issues and some backend authentication bugs
+3. nothing for now
+
+2023/10/23 Lewis
+1. finish practicing demo and presentation
+2. practicing demo a few times before class
+3. make sure presentation is within time limit
+
+
+2023/10/23 Miral
+1. practicing presentation slides
+2. making sure i touch on all points without taking too long
+3. nothing for now
+
