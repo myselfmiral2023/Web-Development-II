@@ -40,11 +40,19 @@ export const getUserProfileImage = async (req, res) => {
 
   // Delete user profile
 export const deleteUserProfileImage = async (req, res) => {
+
+  try {
     const fileName = req.params.fileName;
     const blockBlobClient = containerClient.getBlockBlobClient(fileName);
   
     await blockBlobClient.delete();
     res.status(200).send("User profile deleted from Azure Blob storage");
+    
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("The requested resource does not exist to be deleted.")
+  }
+   
   };
   
   // Get all user profile images

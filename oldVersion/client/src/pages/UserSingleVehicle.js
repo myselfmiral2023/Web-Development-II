@@ -15,7 +15,7 @@ const VEHICLE_PHOTO_URL = "/vehicletype/files";
 const VEHICLE_AVAILABILITY_URL = "/vehicle/available";
 const VEHICLE_REVIEW_URL = "/review/vehicleexp";
 
-const VEHICLE_TYPE_DICT = {
+const VEHICLE_TYPE_DICT_HTML = {
   1: "SUV",
   2: "Van",
   3: "Economy",
@@ -24,6 +24,17 @@ const VEHICLE_TYPE_DICT = {
   6: "Compact",
   7: "Pickup Truck",
   8: "Minivan",
+};
+
+const VEHICLE_TYPE_DICT_URL = {
+  1: "suvred",
+  2: "van",
+  3: "economy",
+  4: "sportscar",
+  5: "sedanblack",
+  6: "compact",
+  7: "pickuptruck",
+  8: "minivan",
 };
 
 const UserSingleVehicle = () => {
@@ -120,14 +131,16 @@ const UserSingleVehicle = () => {
 
   useEffect(() => {
     axios
-      .get(`${VEHICLE_PHOTO_URL}/sedan.jpg`)
+      .get(`${VEHICLE_URL}/${id}`)
       .then((response) => {
-        setVehiclePhoto(response.data);
+        setVehicle(response.data);
+        console.log("photo url:")
+        console.log(`${VEHICLE_PHOTO_URL}/${VEHICLE_TYPE_DICT_URL[response.data.vehicletypeid]}.jpg`)
 
-        return axios.get(`${VEHICLE_URL}/${id}`);
+        return axios.get(`${VEHICLE_PHOTO_URL}/${VEHICLE_TYPE_DICT_URL[response.data.vehicletypeid]}.jpg`);
       })
       .then((secondResponse) => {
-        setVehicle(secondResponse.data);
+        setVehiclePhoto(secondResponse.data);
 
         return axios.get(`${VEHICLE_REVIEW_URL}/${id}`);
       })
@@ -189,7 +202,7 @@ const UserSingleVehicle = () => {
 
         <p><strong>Manufacturer:</strong> {vehicle.company}</p>
         <p><strong>Cost per diem (base):</strong> {vehicle.perdayrent}</p>
-        <p><strong>Vehicle Class :</strong> {VEHICLE_TYPE_DICT[vehicle.vehicletypeid]}</p>
+        <p><strong>Vehicle Class :</strong> {VEHICLE_TYPE_DICT_HTML[vehicle.vehicletypeid]}</p>
         <p>{vehicle.year}</p>
         <br />
         <div className="subTotalContainer">

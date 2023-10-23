@@ -51,11 +51,18 @@ export const getFile = async (req, res) => {
 
 // Delete file
 export const deleteFile = async (req, res) => {
-  const fileName = req.params.fileName;
+  try {
+    const fileName = req.params.fileName;
   const blockBlobClient = containerClient.getBlockBlobClient(fileName);
 
   await blockBlobClient.delete();
   res.status(200).send("File deleted from Azure Blob storage");
+    
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("The requested resource does not exist to be deleted.")
+  }
+  
 };
 
 // Get all file names

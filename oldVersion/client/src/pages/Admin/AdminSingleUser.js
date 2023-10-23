@@ -179,7 +179,7 @@ const AdminSingleUser = () => {
             <h1>Viewing User: {user.fullname}</h1>
 
             <ul>
-              <li>
+              <li className="userImageAdminListItem">
                 <img
                   className="userImageProfile"
                   src={userPhoto}

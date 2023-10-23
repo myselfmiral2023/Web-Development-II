@@ -13,7 +13,7 @@ const VEHICLE_URL = "/vehicle";
 const VEHICLE_PHOTO_URL = "/vehicletype/files";
 const VEHICLE_REVIEW_URL = "/review/vehicleexp";
 
-const VEHICLE_TYPE_DICT = {
+const VEHICLE_TYPE_DICT_HTML = {
   1: "SUV",
   2: "Van",
   3: "Economy",
@@ -22,6 +22,17 @@ const VEHICLE_TYPE_DICT = {
   6: "Compact",
   7: "Pickup Truck",
   8: "Minivan",
+};
+
+const VEHICLE_TYPE_DICT_URL = {
+  1: "suvred",
+  2: "van",
+  3: "economy",
+  4: "sportscar",
+  5: "sedanblack",
+  6: "compact",
+  7: "pickuptruck",
+  8: "minivan",
 };
 
 const UserSearchVehicle = () => {
@@ -63,16 +74,19 @@ const UserSearchVehicle = () => {
 
   useEffect(() => {
     axios
-      .get(`${VEHICLE_PHOTO_URL}/sedan.jpg`)
+      .get(`${VEHICLE_URL}/${id}`)
       .then((response) => {
-        setVehiclePhoto(response.data);
-
-        return axios.get(`${VEHICLE_URL}/${id}`);
+        console.log(response);
+        setVehicle(response.data);
+        setPrice((response.data.perdayrent * rentalDays))
+        setSubtotal((response.data.perdayrent * rentalDays))
+        console.log("photo url:")
+        console.log(`${VEHICLE_PHOTO_URL}/${VEHICLE_TYPE_DICT_URL[response.data.vehicletypeid]}.jpg`)
+        return axios.get(`${VEHICLE_PHOTO_URL}/${VEHICLE_TYPE_DICT_URL[response.data.vehicletypeid]}.jpg`);
       })
       .then((secondResponse) => {
-        setVehicle(secondResponse.data);
-        setPrice((secondResponse.data.perdayrent * rentalDays))
-        setSubtotal((secondResponse.data.perdayrent * rentalDays))
+        setVehiclePhoto(secondResponse.data);
+        
 
         return axios.get(`${VEHICLE_REVIEW_URL}/${id}`);
       })
@@ -130,7 +144,7 @@ const UserSearchVehicle = () => {
         <ul>
         <li>Vehicle Manufacturer: {vehicle.company}</li>
         <li>Cost per diem(base): {vehicle.perdayrent}</li>
-        <li>Vehicle Class: {VEHICLE_TYPE_DICT[vehicle.vehicletypeid]}</li>
+        <li>Vehicle Class: {VEHICLE_TYPE_DICT_HTML[vehicle.vehicletypeid]}</li>
         </ul>
       </div>
       <div className="rightSide">

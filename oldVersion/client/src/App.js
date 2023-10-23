@@ -20,6 +20,7 @@ import AdminData from './pages/Admin/AdminData'
 import AdminReviews from './pages/Admin/AdminReviews'
 import AdminUsers from './pages/Admin/AdminUsers'
 import AdminVehicles from './pages/Admin/AdminVehicles'
+import AdminUpdateTypePhoto from "./pages/Admin/AdminUpdateTypePhoto";
 import RequireAuth from "./components/RequireAuth";
 import AdminSingleUser from "./pages/Admin/AdminSingleUser";
 import AdminSingleVehicle from "./pages/Admin/AdminSingleVehicle"
@@ -63,6 +64,7 @@ function App() {
           <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/admin/users/:id" element={<AdminSingleUser />} />
           <Route path="/admin/vehicles" element={<AdminVehicles />} />
+          <Route path="/admin/vehiclephoto" element={<AdminUpdateTypePhoto />} />
           <Route path="/admin/vehicles/:id" element={<AdminSingleVehicle />} />
           </Route>
             {/* Catch all */}

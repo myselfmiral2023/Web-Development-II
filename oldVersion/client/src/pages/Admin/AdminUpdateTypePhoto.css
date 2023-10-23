@@ -1,0 +1,51 @@
+
+.adminCarTypePhotoImage {
+    width: 15%;
+    border-radius: 15px;
+    margin: 3rem;
+}
+
+.adminUpdateTypePhotoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.adminCarTypePhotoList {
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+}
+
+.adminCarTypePhotoList p {
+    font-weight: bold;
+}
+
+.adminCarTypePhotoList li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.adminCarTypePhotoList li label {
+    display: block;
+}
+
+.updateCarTypePhotoButton {
+    background-color: green;
+    color: white;
+    padding: 3px;
+    border-radius: 4px;
+}
+
+.updateCarTypePhotoButton:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
+.updateCarTypePhotoButton:disabled {
+    cursor: default;
+    background-color: gray;
+}

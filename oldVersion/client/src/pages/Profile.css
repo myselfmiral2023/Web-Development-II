@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
 }
+
 .profileContainer {
     display: flex;
     flex-direction: row;
@@ -14,6 +15,48 @@
 .profilePicture {
     width: 10%;
 }
+
+.updatePhotoForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.updatePhotobutton{
+    background-color: green;
+    color: white;
+    padding: 3px;
+    border-radius: 4px;
+}
+.updatePhotobutton:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
+.updatePhotobutton:disabled {
+    cursor: default;
+    background-color: gray;
+}
+
+.userProfileAddPhotoButton {
+    background-color: yellow;
+    color: black;
+    padding: 3px;
+    border-radius: 4px;
+
+}
+
+.userProfileAddPhotoButton:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
+.userProfileAddPhotoButton:disabled {
+    cursor: default;
+    background-color: gray;
+}
+
 
 .profileReviewContainer {
     display: flex;

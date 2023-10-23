@@ -23,6 +23,10 @@ const Profile = () => {
 
   const [userPhoto, setUserPhoto] = useState("");
 
+  const [file, setFile] = useState(null);
+
+  // const [imageUrl, setImageUrl] = useState(null);
+
   const [reviews, setReviews] = useState([]);
 
   const [userid, setUserId] = useState(0);
@@ -35,6 +39,8 @@ const Profile = () => {
   const [editSelected, setEditSelected] = useState(false);
 
   const [updatedComments, setUpdatedComments] = useState("");
+
+  const [updatePhotoSuccess, setUpdatePhotoSuccess] = useState(false);
 
   const [editSuccess, setEditSuccess] = useState(false);
   const [editSuccessMsg, setEditSuccessMsg] = useState("");
@@ -51,6 +57,8 @@ const Profile = () => {
   const [bookings, setBookings] = useState([]);
 
   const userId = JSON.parse(localStorage.getItem("user")).id;
+
+  const userEmail = JSON.parse(localStorage.getItem("user")).email;
 
   useEffect(() => {
     axios
@@ -69,17 +77,17 @@ const Profile = () => {
         setBookings(thirdResponse.data)
 
         
-        return axios.get(`${USER_PHOTO_URL}/${user.email}.jpg`)
+        return axios.get(`${USER_PHOTO_URL}/${userEmail}.jpg`)
       })
       .then((fourthResponse) => {
-        console.log(`${USER_PHOTO_URL}/${user.email}.jpg`)
-
+        console.log(`${USER_PHOTO_URL}/${userEmail}.jpg`)
+        console.log(fourthResponse)
         setUserPhoto(fourthResponse.data)
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [editSuccess, editError, deleteSuccess, deleteError]);
+  }, [editSuccess, editError, deleteSuccess, deleteError, updatePhotoSuccess]);
 
   const handleSelectReview = (id, bookingid) => {
     setCurrReview(id)
@@ -131,13 +139,84 @@ const Profile = () => {
         })
   }
 
-  const handleUpdatePhoto = () => {
+  const handleUpdatePhoto = (e) => {
+    e.preventDefault();
       axios
-          .delete()
-  }
+          .delete(`${USER_PHOTO_URL}/${user.email}.jpg`)
+          .then((response) => {
 
-  const handleDeletePhoto = () => {
-    
+            console.log(response);
+            const formData = new FormData();
+
+            const newFileName = user.email + ".jpg";
+            const blob = new Blob([file], { type: file.type });
+            blob.name = newFileName;
+
+            const renamedFile = new File([blob], newFileName, { type: file.type });
+
+            formData.append("file", renamedFile);
+
+            return axios.post(USER_PHOTO_UPLOAD_URL, formData);
+          })
+          .then((secondResponse) => {
+            console.log(secondResponse.data)
+
+            return axios.get(`${USER_PHOTO_URL}/${user.email}.jpg`)
+          })
+       .then((thirdResponse) => {
+          console.log(file);
+
+          // const reader = new FileReader();
+
+          // reader.onloadend = () => {
+          //   reader.readAsDataURL(file);
+          //   setImageUrl(reader.result);
+          // }
+
+
+
+          setUserPhoto(thirdResponse.data);
+          setUpdatePhotoSuccess(true);
+          setEditSuccess(true);
+          setEditSuccessMsg("Your Photo has been updated");
+       })
+       .catch((error) => {
+        console.log(error);
+        setEditError(true);
+        setEditErrorMsg(error.response.data)
+       })
+      }  
+
+
+  const handleAddPhoto = () => {
+            const formData = new FormData();
+
+            const newFileName = user.email + ".jpg";
+            const blob = new Blob([file], { type: file.type });
+            blob.name = newFileName;
+
+            const renamedFile = new File([blob], newFileName, { type: file.type });
+
+            formData.append("file", renamedFile);
+
+            axios
+            .post(USER_PHOTO_UPLOAD_URL, formData)
+            .then((response) => {
+
+              setEditSuccessMsg("Your Photo has been added");
+              setEditSuccess(true);
+
+              return axios.get(`${USER_PHOTO_URL}/${user.email}.jpg`)
+            })
+            .then((secondResponse) => {
+              setUpdatePhotoSuccess(true);
+              setUserPhoto(secondResponse.data);
+            })
+            .catch((error) => {
+              console.log(error);
+              setEditError(true);
+              setEditErrorMsg(error.response.data)
+             })
   }
 
   return (
@@ -153,6 +232,19 @@ const Profile = () => {
                 src={userPhoto}
                 alt={`Profile photo for user ${user.id}`}
               />
+              <form onSubmit={handleUpdatePhoto} className="updatePhotoForm">
+               <label className="file" htmlFor="file">
+            Update Profile Photo (please wait a minute for changes to take effect)
+        </label>
+        <input
+            type="file"
+            id="file"
+            name=""
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+          <button disabled={!file ? true : false} className="updatePhotobutton" >Update</button>
+          </form>
+          <button disabled={!file ? true : false} className="userProfileAddPhotoButton" onClick={handleAddPhoto}>Add Photo</button>
         <h2>Profile for {user.fullname}</h2>
         <p>Email: {user.email}</p>
       </div>

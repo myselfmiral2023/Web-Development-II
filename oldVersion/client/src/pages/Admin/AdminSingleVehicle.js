@@ -99,7 +99,7 @@ const AdminSingleVehicle = () => {
 
         // const photoUrlPath = VEHICLE_TYPE_DICT[vehicleType].toLowerCase();
         
-        return axios.get(`${VEHICLE_PHOTO_URL}/sedan.jpg`);
+        return axios.get(`${VEHICLE_PHOTO_URL}/kia-carnival.jpg`);
       })
       .then((secondResponse) => {
             setVehiclePhoto(secondResponse.data)

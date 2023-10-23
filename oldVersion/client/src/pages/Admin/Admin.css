@@ -93,6 +93,13 @@ table {
         justify-content: space-around;
         width: 100%;
   }
+
+  .titleAddAndPhotoButtons{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
   .titleAndButton button {
     font-size: 1.7rem;
     padding: 10px;
@@ -268,6 +275,11 @@ li span {
     width: 200px;
     height: 48px;
     border-radius: 15px;
+}
+
+.userImageAdminListItem {
+  display: flex;
+  justify-content: center;
 }
 
 .userEditFormAndPhoto {

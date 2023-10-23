@@ -1,7 +1,7 @@
 import React from 'react'
 import AdminNavBar from '../../components/NavBar/AdminNavBar'
-import { useState, useEffect, useRef } from "react";
-import {Link} from 'react-router-dom'
+import { useState, useEffect, useRef} from "react";
+import {Link, useNavigate } from 'react-router-dom'
 import axios from "../../api/axios";
 import {useTable, useSortBy, useGlobalFilter} from 'react-table';
 import GlobalFilter from "../../components/Filter/GlobalFilter";
@@ -14,6 +14,9 @@ import { faCar, faAngleDoubleDown, faAngleDoubleUp} from "@fortawesome/free-soli
 const VEHICLE_URL = "/vehicle";
 
 const AdminVehicles = () => {
+
+  const navigate = useNavigate();
+
   const createRef = useRef();
 
   const [vehicles, setVehicles] = useState([]);
@@ -186,7 +189,10 @@ const AdminVehicles = () => {
         <div className="titleAndButton">
           
         <h1>Driven Auto Rental Vehicle Units<FontAwesomeIcon icon={faCar}/></h1>
+        <div className='titleAddAndPhotoButtons'>
         <button onClick={handleScrollCreate}>Add A New Unit to Fleet</button>
+        <button onClick={() => navigate("/admin/vehiclephoto")}>Vehicle Photos</button>
+        </div>
         </div>
         <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
         <table {...getTableProps()}>

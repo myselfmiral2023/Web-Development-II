@@ -10,6 +10,7 @@ import {Link , useNavigate} from 'react-router-dom';
 import axios from '../api/axios'
 import Snackbar from "../components/Snackbar/Snackbar";
 import "./Register.css"
+const USER_PHOTO_UPLOAD_URL = "/user/upload"
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_\s]{3,28}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{5,24}$/;
@@ -35,7 +36,7 @@ const Register = ({admin, added, addedFunc}) => {
       const renamedFile = new File([blob], newFileName, { type: file.type });
   
       formData.append("file", renamedFile);
-      const res = await axios.post("/user/upload", formData);
+      const res = await axios.post(USER_PHOTO_UPLOAD_URL, formData);
       return res.data;
     } catch (err) {
       console.log(err);
@@ -94,7 +95,7 @@ const Register = ({admin, added, addedFunc}) => {
         return;
       }
     } catch (error) {
-      
+      console.log(error)
     }
     // addedFunc(!added);
     // setSubmitWasClicked(true);
@@ -242,8 +243,8 @@ const Register = ({admin, added, addedFunc}) => {
             onChange={(e) => setFile(e.target.files[0])}
           />
           
-        {/* <button disabled={!validName || !validPassword || !validMatch ? true : false} onClick={handleSubmit} className="regLogButton">  */}
-        <button onClick={handleSubmit} className="regLogButton"> 
+        <button disabled={!validName || !validPassword || !validMatch ? true : false} onClick={handleSubmit} className="regLogButton"> 
+        {/* <button onClick={handleSubmit} className="regLogButton">  */}
         Register
         </button>
       </form>

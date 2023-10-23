@@ -18,6 +18,17 @@ import axios from "../api/axios";
 import { SearchContext } from '../contexts/SearchContext';
 const VEHICLE_UNIT_URL = "/vehicle";
 
+const VEHICLE_TYPE_DICT = {
+  1: "SUV",
+  2: "Van",
+  3: "Economy",
+  4: "Sports Car",
+  5: "Sedan",
+  6: "Compact",
+  7: "Pickup Truck",
+  8: "Minivan",
+};
+
 const Home = () => {
 
   const navigate = useNavigate();
